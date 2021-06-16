@@ -18,11 +18,43 @@
     {% assign stacked = false %}
     {% if section.settings.media_layout == "stacked" %}{% assign stacked = true %}{% endif %}
     {%- assign first_media = true -%}
-
     <div class="grid product-single">
-      <div class="grid__item large--seven-twelfths medium--seven-twelfths text-center">
+      <div class="grid__item large--two-twelfths medium--two-twelfths text-center">{% unless stacked %}
+        <ul class="product-single__thumbnails small--hide grid-uniform" style="display: grid; padding-top: 100px;" data-product-thumbnails>
+          {% for media in product.media %}
+            {% if product.media.size > 1 %}
+              <li class="grid__item medium--one-third large--one-quarter product-single__media-wrapper">
+                {%- capture thumbnail_alt -%}
+                  {%- if media.media_type == 'video' or media.media_type == 'external_video' -%}
+                    {{ 'products.product.video_thumbnail_alt' | t: imageAlt: media.alt | escape }}
+                  {%- elsif media.media_type == 'model' -%}
+                    {{ 'products.product.model_thumbnail_alt' | t: imageAlt: media.alt | escape }}
+                  {%- else -%}
+                    {{ 'products.product.gallery_thumbnail_alt' | t: imageAlt: media.alt | escape }}
+                  {%- endif -%}
+                {%- endcapture -%}
+
+                <a href="{{ media | img_url: 'grande' }}" class="product-single__thumbnail{% if media == featured_media %} active-thumb{% endif %}" data-media-id="{{ section.id }}-{{ media.id }}" data-product-thumbnail>
+                  <img class="product-single__thumb" src="{{ media | img_url: '150x' }}" alt="{{ thumbnail_alt }}">
+                  {%- if media.media_type == 'video' or media.media_type == 'external_video' or media.media_type == 'model' -%}
+                    <div class="product-single__thumbnail-badge">
+                      {% include 'svg-definitions' with media.media_type %}
+                    </div>
+                  {%- endif -%}
+                </a>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      {% endunless %}</div>
+      <div class="grid__item large--five-twelfths medium--five-twelfths text-center">
+        {%- if product.compare_at_price > product.price -%}
+          <div class="save">
+            <p>Save</p>
+          </div>
+        {%- endif -%}
         <div id="ProductMediaGroup-{{ section.id }}" class="product-single__media-group-wrapper" data-product-single-media-group-wrapper>
-          <div class="product-single__media-group{% unless stacked %} product-single__media-group--single-xr{% endunless %}" data-product-single-media-group>
+          <div class="product-single__media-group{% unless stacked %} product-single__media-group--single-xr{% endunless %} }" data-product-single-media-group>
             {%- assign enable_image_zoom = section.settings.enable_image_zoom -%}
             {% assign height = 850 %}
             {% assign width = 575 %}
@@ -80,35 +112,6 @@
           {%- if first_3d_model -%}
            {%- include 'xr-button' with model_id: first_3d_model.id, multi: false -%}
           {%- endif -%}
-
-          {% unless stacked %}
-            <ul class="product-single__thumbnails small--hide grid-uniform" data-product-thumbnails>
-              {% for media in product.media %}
-                {% if product.media.size > 1 %}
-                  <li class="grid__item medium--one-third large--one-quarter product-single__media-wrapper">
-                    {%- capture thumbnail_alt -%}
-                      {%- if media.media_type == 'video' or media.media_type == 'external_video' -%}
-                        {{ 'products.product.video_thumbnail_alt' | t: imageAlt: media.alt | escape }}
-                      {%- elsif media.media_type == 'model' -%}
-                        {{ 'products.product.model_thumbnail_alt' | t: imageAlt: media.alt | escape }}
-                      {%- else -%}
-                        {{ 'products.product.gallery_thumbnail_alt' | t: imageAlt: media.alt | escape }}
-                      {%- endif -%}
-                    {%- endcapture -%}
-
-                    <a href="{{ media | img_url: 'grande' }}" class="product-single__thumbnail{% if media == featured_media %} active-thumb{% endif %}" data-media-id="{{ section.id }}-{{ media.id }}" data-product-thumbnail>
-                      <img class="product-single__thumb" src="{{ media | img_url: '150x' }}" alt="{{ thumbnail_alt }}">
-                      {%- if media.media_type == 'video' or media.media_type == 'external_video' or media.media_type == 'model' -%}
-                        <div class="product-single__thumbnail-badge">
-                          {% include 'svg-definitions' with media.media_type %}
-                        </div>
-                      {%- endif -%}
-                    </a>
-                  </li>
-                {% endif %}
-              {% endfor %}
-            </ul>
-          {% endunless %}
           <div class="slick__controls slick-slider">
             <button class="slick__arrow slick__arrow--previous" aria-label="{{ 'home_page.slideshow.previous_slide' | t }}" data-slick-previous>
               <span class="icon icon-slide-prev" aria-hidden="true"></span>
@@ -122,7 +125,7 @@
         </div>
       </div>
 
-      <div class="grid__item product-single__meta--wrapper medium--five-twelfths large--five-twelfths">
+      <div class="grid__item product-single__meta--wrapper medium--five-twelfths large--five-twelfths last-section">
         <div class="product-single__meta">
           {% if section.settings.product_vendor_enable %}
             <h2 class="product-single__vendor" itemprop="brand">{{ product.vendor }}</h2>
@@ -130,7 +133,7 @@
 
           <h1 class="product-single__title" itemprop="name">{{ product.title }}</h1>
 
-          <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+          <div class="price-box" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
             {% comment %}
               Optionally show the 'compare at' or original price of the product.
             {% endcomment %}
@@ -218,9 +221,13 @@
               </select>
 
               {% if section.settings.quantity_enabled %}
-              <div class="product-single__quantity">
-                <label for="Quantity" class="product-single__quantity-label js-quantity-selector">{{ 'products.product.quantity' | t }}</label>
-                <input type="number" hidden="hidden" id="Quantity" name="quantity" value="1" min="1" class="js-quantity-selector">
+              <div class="qtydiv">
+                <label for="Quantity" class="quantity-selector">Quantity</label>
+                <div class="qtybox">
+                  <span class="btnqty qtyminus icon icon-minus"></span>
+                  <input type="text" id="quantity" name="quantity" value="1" min="1" class="quantity-selector quantity-input" readonly="">
+                  <span class="btnqty qtyplus icon icon-plus"></span>
+                </div>
               </div>
               {% endif %}
 
@@ -241,9 +248,34 @@
             {% endform %}
 
           </div>
-
-          <div class="product-single__description rte" itemprop="description">
+          <button type = "button" class = "collapsible active"><strong>DESCRIPTION</strong></button>
+          <div class="content product-single__description rte" itemprop="description" style="display: block;">
             {{ product.description }}
+          </div>
+
+          <button type = "button" class = "collapsible"><strong>RESTA PLEX®</strong></button>
+          <div class="content product-single__description rte" itemprop="description">
+            {% include 'resta-plex' %}
+          </div>
+
+          <button type = "button" class = "collapsible"><strong>INGREDIENTS</strong></button>
+          <div class="content product-single__description rte" itemprop="description">
+            {% include 'ingredients' %}
+          </div>
+
+          <button type = "button" class = "collapsible"><strong>STORAGE</strong></button>
+          <div class="content product-single__description rte" itemprop="description">
+            {% include 'storage' %}
+          </div>
+
+          <button type = "button" class = "collapsible"><strong>ALLERGEN-FREE</strong></button>
+          <div class="content product-single__description rte" itemprop="description">
+            {% include 'allergen-free' %}
+          </div>
+
+          <button type = "button" class = "collapsible"><strong>USAGE</strong></button>
+          <div class="content product-single__description rte" itemprop="description">
+            {% include 'usage' %}
           </div>
 
           {% if section.settings.social_sharing_products %}
@@ -261,7 +293,39 @@
     {{ product.media | where: 'media_type', 'model' | json }}
   </script>
 {% endunless %}
+<script>
+  var coll = document.getElementsByClassName("collapsible");
+  var i;
+  
+  for (i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function() {
+      this.classList.toggle("active");
+      var content = this.nextElementSibling;
+      //var content2 = this.nextSibling;
+      if (content.style.display === "block") {
+        content.style.display = "none";
+      /*} else if (content2.classList.length >= 2) {
+        content2.classList.toggle("active");*/
+      } else {
+        content.style.display = "block";
+      }
+    });
+  }
+  </script>
 
+<script>
+
+  var col2 = document.querySelectorAll('.collapsible'),
+
+  col2.forEach(function(item){
+
+    item.addEventListener('click', function(){
+    document.querySelector('.active').classList.remove('active');
+    item.classList.add('active');
+} , false)
+
+})
+  </script>
 
 
 {% schema %}
