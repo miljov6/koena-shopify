@@ -1,0 +1,100 @@
+{% if section.settings.button__checkbox == false %}
+  <div class="page-width">  
+    <div class="gb__tile slider">
+      <div data-animation="slide" data-duration="500" data-infinite="1" class="partner__slider w-slider">
+        <div class="w-slider-mask">
+          
+
+
+{% for block in section.blocks %}
+  
+{% assign img_url =  block.settings.slide__image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+
+      
+          <div class="slider__wrapper w-clearfix w-slide">
+            <div class="slider__image">
+              
+              <img alt="" class="gb__img lazyload"
+                 src="{{ block.settings.slide__image | img_url: '300x' }}"
+                  data-src="{{ img_url }}"
+                  data-widths="[540, 720, 900, 1080, 1296, 1512, 1728, 1944, 2048]"
+                  data-sizes="auto"
+                  data-parent-fit="cover"
+>
+            </div>
+            <div class="slider__text">
+              <h2 class="gb__tile-h">{{ block.settings.slide__h }}</h2>
+              <div class="gb__line"></div>
+              <p class="gb__p">{{ block.settings.slide__text }}</p>
+            </div>
+          </div>
+          
+          
+{% endfor %}              
+
+        </div>
+        <div class="w-slider-arrow-left">
+          <div class="w-icon-slider-left"></div>
+        </div>
+        <div class="right-arrow w-slider-arrow-right">
+          <div class="w-icon-slider-right"></div>
+        </div>
+        <div class="slide-nav w-slider-nav w-round"></div>
+      </div>
+    </div>
+</div>
+{% endif %}
+{% schema %}
+  {
+  	"name": "Slider",
+  	"class": "partner-page",
+  	"settings": [
+	{
+		"type": "checkbox",
+		"id": "button__checkbox",
+		"label": "Hide Section"
+
+  	}
+],
+	"blocks": [
+	{
+  		"type": "slide",
+  		"name": "Slide",
+  		"settings": [
+		{
+			"type": "text",
+			"id": "slide__h",
+			"label": "Heading"
+
+  		},
+		{
+			"type": "image_picker",
+			"id": "slide__image",
+			"label": "Image"
+
+  		},
+		{
+			"type": "textarea",
+			"id": "slide__text",
+			"label": "Text"
+
+  		}
+	]
+
+}
+],
+  "presets": [
+    {
+      "name": "Partner Slider",
+      "category": "Slider"
+    }
+  ]
+  }
+
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

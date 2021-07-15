@@ -1,0 +1,518 @@
+{{ 'slider.css' | asset_url | stylesheet_tag }}
+<style>
+  .page-width {
+    zoom: 1;
+    max-width: 1200px;
+    padding: 0 20px;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 1px){
+    
+     .gb__tile.slider {
+      margin-bottom: 0;
+  }
+  }  
+
+    @media (min-width: 767px){
+    .gb__tiles .gb__tile:first-child {
+      margin-top: 0;
+  }
+  }
+  
+
+  
+    @media (min-width: 992px){
+    .gb__tiles .gb__tile:first-child  {
+      margin-top: 60px;
+  }
+    
+     .gb__tile.slider {
+      margin-bottom: 0;
+  }
+  }
+.partner__sub--wrapper {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  background-color: #0f72ea;
+  color: #fff;
+}
+.gb__tile.slider {
+  padding-bottom: 0px;
+}
+.div-block {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.gb__h1 {
+  margin-bottom: 15px;
+  color: white;
+  font-size: 48px;
+  font-style: normal;
+  font-family: "News Gothic No 2",sans-serif!important;
+  font-style: normal;
+  font-weight: 400;
+  color: #fff !important;
+}
+
+.gb__tiles {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-align: start;
+  -webkit-align-items: flex-start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+}
+
+.gb__tile {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  overflow: hidden;
+  height: 100%;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: stretch;
+  -webkit-align-items: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 100%;
+  -ms-flex: 0 100%;
+  flex: 0 100%;
+}
+
+.gb__tile.flipped {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+  -webkit-flex-direction: row-reverse;
+  -ms-flex-direction: row-reverse;
+  flex-direction: row-reverse;
+}
+
+.gb__image {
+  width: 100%;
+  height: 450px;
+  min-height: 450px;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 50%;
+  -ms-flex: 0 0 50%;
+  flex: 0 0 50%;
+}
+
+.gb__img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
+.gb__tile-h {
+  margin-top: 0px;
+  margin-bottom: 1.5rem;
+  font-style: normal;
+  color: #0f72ea!important;
+  font-family: "News Gothic No 2",sans-serif!important;
+}
+
+.gb__p {
+  max-width: 30em;
+  margin-bottom: 30px;
+  font-size: 16px;
+  line-height: 1.6;
+  opacity: 0.8;
+}
+
+.gb__button {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  padding: 15px 30px;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: #0f72ea;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.gb__button:hover{
+  color: #fff!important;
+}
+
+.gb__sub-h {
+  margin-top: 1rem;
+  margin-bottom: 0px;
+  font-weight: 400;
+      font-style: normal;
+}
+
+.gb__text {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: auto;
+  padding: 45px 45px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: start;
+  -webkit-align-items: flex-start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 50%;
+  -ms-flex: 0 0 50%;
+  flex: 0 0 50%;
+  text-align: left;
+}
+
+.gb__line {
+  width: 45px;
+  height: 3px;
+  background-color: #0f72ea;
+  margin-bottom: 20px;
+}
+
+.partner__header {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  min-height: 60%;
+  padding-top: 90px;
+  padding-bottom: 90px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 60%;
+  -ms-flex: 0 0 60%;
+  flex: 0 0 60%;
+  background-image: linear-gradient(359deg, rgba(0, 0, 0, 0.6), transparent), url('https://cdn.shopify.com/s/files/1/0015/2843/0661/files/perry-grone-lbLgFFlADrY-unsplash2.jpg?v=1584447360');
+  background-position: 0px 0px, 0px 0px;
+  background-size: auto, cover;
+  background-repeat: repeat, no-repeat;
+  color: #fff;
+  text-align: center;
+}
+
+.partner__sub {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  max-width: 30em;
+  margin: 0px auto;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  text-align: center;
+  padding: 30px;
+  font-size: 32px;
+  line-height: 1.33;
+  color: white;
+  background-color: #0f72ea;
+  font-family: "News Gothic No 2",sans-serif!important;
+
+}
+
+.partner__sub-1{
+  color: white!important;
+}
+
+.partner__header-wrap {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 95vh;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  
+}
+
+.partner__slider {
+  width: 100%;
+  height: auto;
+}
+
+.slider__image {
+  width: 50%;
+  height: 100%;
+  float: left;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 50%;
+  -ms-flex: 0 0 50%;
+  flex: 0 0 50%;
+}
+
+.slider__text {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 50%;
+  height: 100%;
+  padding: 45px 45px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: start;
+  -webkit-align-items: flex-start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 50%;
+  -ms-flex: 0 0 50%;
+  flex: 0 0 50%;
+  text-align: left;
+}
+
+.right-arrow {
+  right: 50%;
+}
+
+.slide-nav {
+  left: 0%;
+  top: auto;
+  right: auto;
+  bottom: 0%;
+  width: 50%;
+}
+
+@media screen and (max-width: 991px) {
+  .slider__image {
+    height: 100%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .gb__tiles {
+    margin-right: 0px;
+    margin-left: 0px;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+        margin-top: 20px;
+  }
+  .gb__tile {
+    margin-right: 0px;
+    margin-bottom: 0rem;
+    margin-left: 0px;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 600px;
+    -ms-flex: 0 600px;
+    flex: 0 600px;
+    padding-bottom: 30px;
+  }
+  .gb__tile.flipped {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
+  .gb__text {
+    padding-right: 0px;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    padding-left: 0px;
+  }
+  .partner__slider {
+    height: auto;
+  }
+  .slider__image {
+    width: 100%;
+    height: 300px;
+    min-height: auto;
+    float: none;
+    background-image: linear-gradient(359deg, rgba(0, 0, 0, 0.6), transparent),
+  }
+  .slider__text {
+    width: 100%;
+    padding-right: 30px;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    padding-left: 30px;
+  }
+  .right-arrow {
+    right: 0px;
+  }
+  .slide-nav {
+    width: 100%;
+  }
+  .gb__h1 {
+  font-size: 40px;
+}
+  .partner__sub, .gb__tile-h {
+  font-size: 24px;
+}
+  .gb__image {
+  height: 350px;
+    min-height: auto;
+}
+}  
+@media screen and (max-width: 479px) {
+  
+    .slider__text {
+    width: 100%;
+    padding-right: 0px;
+    padding-left: 0px;
+    padding-bottom: 0px;
+  }
+  
+  .gb__h1 {
+  font-size: 32px;
+} 
+  .gb__image {
+  height: 95vw;
+    min-height: auto;
+}
+}  
+  
+.content-for-layout {
+  padding-bottom: 0px;
+}
+  
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+    margin-bottom: 0px;
+}  
+  
+.w-slider {
+  background-color: #fff;
+}  
+.w-icon-slider-left:before, .w-icon-slider-right:before {
+    color: #fff;
+}  
+
+  @media (max-width: 767px) {
+.w-icon-slider-left, .w-icon-slider-right {
+
+    margin-top: 280px;
+}
+.w-slider-arrow-left {   
+  left: -20px;
+}
+.w-slider-arrow-right {   
+  right: -20px;
+}
+}
+  .gb__img-lander {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit:cover;
+    z-index: 1;
+  }
+  .partner-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    background-image: linear-gradient(359deg, rgba(0, 0, 0, 0.6), transparent)
+    
+  }
+  
+  .gb__h1 {
+    z-index: 3;
+  }  
+</style>
+
+
+{% section 'partner-tiles-1' %}
+{% section 'partner-slider-1' %}
+{% section 'partner-cta-1' %}
+</div>
+
+<script src="{{ 'partner-slider.js' | asset_url }}" defer></script>

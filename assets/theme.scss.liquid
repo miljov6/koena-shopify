@@ -210,6 +210,44 @@
   }
 }
 
+/*================ Separator ================*/
+@mixin separator($position: null) {
+  &::before {
+    content: '';
+    display: block;
+    width: 0;
+    height: 6px;
+    margin-bottom: $gutter;
+    background-color: $color-primary;
+    transition: width 0.5s ease-out;
+
+    @if ($position == "center") {
+      margin: 0 auto $gutter;
+    } @else {
+      margin: 0 0 $gutter;
+    }
+  }
+
+  &.has-animated::before,
+  .supports-no-js &::before,
+  .animations--disabled &::before {
+    width: 80px;
+  }
+}
+
+@include keyframes(fadeInUp) {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    @include transform(translateY(0));
+    opacity: 1;
+  }
+}
+
+
+
 /*============================================================================
   Dependency-free breakpoint mixin
     - http://blog.grayghostvisuals.com/sass/sass-media-query-mixin/
@@ -286,10 +324,10 @@ $max: max-width;
 }
 
 $viewportIncrement: 1px;
-$siteWidth: 1050px;
+$siteWidth: 1440px;
 $small: 590px;
 $medium: 768px;
-$large: 769px;
+$large: 1223px;
 $xlarge: $siteWidth + $viewportIncrement;
 
 $postSmall: $small + $viewportIncrement;
@@ -479,7 +517,7 @@ $socialIconFontStack: 'icons';
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 11%;
   z-index: 1042;
   overflow: hidden;
   position: fixed;
@@ -860,6 +898,8 @@ hr {
 .hr--small {
   @extend hr;
   margin: 20px auto;
+  display: none;
+
 }
 
 .hr--medium {
@@ -984,23 +1024,23 @@ h1 {
 }
 
 h2 {
-  font-size: em(floor($headerBaseFontSize * 0.93));
+  font-size: em(floor($headerBaseFontSize * 0.87));
 }
 
 h3 {
-  font-size: em(floor($headerBaseFontSize * 0.77));
+  font-size: em(floor($headerBaseFontSize * 0.76));
 }
 
 h4 {
-  font-size: em(floor($headerBaseFontSize * 0.65));
+  font-size: em(floor($headerBaseFontSize * 0.55));
 }
 
 h5 {
-  font-size: em(floor($headerBaseFontSize * 0.56));
+  font-size: em(floor($headerBaseFontSize * 0.36));
 }
 
 h6 {
-  font-size: em(floor($headerBaseFontSize * 0.51));
+  font-size: em(floor($headerBaseFontSize * 0.30));
 }
 
 {% if settings.type_accent_subheadings %}
@@ -1289,7 +1329,7 @@ input[type="image"] {
 
     @include at-query($min, $postSmall) {
       margin-top: -50px;
-      margin-bottom: 50px;
+      margin-bottom: 0px;
     }
   }
 
@@ -1300,11 +1340,12 @@ input[type="image"] {
   }
 
   form {
-    margin: 0 auto;
+    margin: 0 0;
     max-width: 520px;
 
     .newsletter--form {
-      padding: $gutter / 3;
+      padding: $gutter / 3 0;
+      margin: 0 auto;
     }
     .note,
     .errors {
@@ -1366,12 +1407,12 @@ input[type="image"] {
 @include at-query($max, $small) {
   .newsletter__submit-text--large,
   .password-page__login-form__submit-text--large {
-    display: none;
+    display: block;
   }
 
   .newsletter__submit-text--small,
   .password-page__login-form__submit-text--small {
-    display: block;
+    display: none;
   }
 }
 
@@ -1389,6 +1430,11 @@ input[type="image"] {
 
 .newsletter__label {
   padding-left: 10px;
+  font-family: "Poppins";
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 24px;
 }
 
 /*================ Modules | Theme product collage grid ================*/
@@ -1522,7 +1568,8 @@ a {
   color: $colorLink;
 
   &:hover {
-    color: $colorLinkHover;
+    /*color: $colorLinkHover;*/
+    color: #0054CC;
   }
 }
 
@@ -1536,7 +1583,9 @@ a {
 .btn--secondary {
   @include accentFontStack;
   padding: 12px 20px;
-  font-size: em(13px);
+  font-size: em(14px);
+  font-weight: 700;
+  line-height: em(20px);
 }
 
 .input-group .btn,
@@ -1901,7 +1950,7 @@ $shareCountBg: $colorBody;
   }
 
   .shopify-section {
-    margin-top: $gutter * 3;
+    margin-top: $gutter * 2;
 
     @include at-query($max, $medium) {
       margin-top: $gutter * 1.5;
@@ -2318,7 +2367,7 @@ $slideshow-indicator-size: 1.25rem;
     {% else %}
       @include headerFontStack;
     {% endif %}
-    margin-bottom: 0.94rem;
+    margin-bottom: 40px;
   }
 
   a.hero__cta {
@@ -2977,7 +3026,6 @@ $slick-dot-character: '\2022';
 }
 
 .site-nav__dropdown-link {
-  @include bodyFontItalic;
   display: block;
   white-space: nowrap;
   padding: 5px 15px;
@@ -3368,7 +3416,7 @@ button.mfp-arrow {
 }
 
 .grid-product__title {
-  @include bodyFontItalic;
+  //@include bodyFontItalic;
   font-size: em(floor($baseFontSize * 1.25));  //20px based on 16px base font size
 }
 
@@ -3711,7 +3759,7 @@ button.mfp-arrow {
 .featured-blog__post,
 .featured-blog__meta,
 .title--one-post {
-  margin-bottom: $gridGutter * 1.75;
+  margin-bottom: $gridGutter * 0.15;
 
   @include at-query($max, $small) {
     margin-bottom: $gridGutterMobile * 1.75;
@@ -3720,7 +3768,7 @@ button.mfp-arrow {
 
 .featured-blog__author {
   display: inline-block;
-  font-style: italic;
+  font-style: normal;
   line-height: 1.7;
 
   &:after {
@@ -3731,10 +3779,13 @@ button.mfp-arrow {
 
 .featured-blog__date {
   display: inline-block;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
 }
 
 .article__heading-link {
   color: $colorHeadings;
+  font-family: Times New Roman;
 }
 
 .map-section {
@@ -4795,3 +4846,1595 @@ $disclosure-list-large: 1100px;
   }
 }
 
+.featured-row-title {
+  font-size: 48px;
+  padding: 0 150px;
+  line-height: 55.2px;
+  text-align: -webkit-center;
+}
+
+.featured-row-subtitle {
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  text-align: -webkit-center;
+  line-height: 24px;
+  color: #fff;
+}
+
+.featured-row-text {
+  font-family: "News Gothic Std", "News Gothic No 2",sans-serif;
+  font-size: 16px;
+  text-align: -webkit-center;
+  line-height: 28px;
+  color: #fff;
+}
+
+.see-our-blog {
+  font-family: "News Gothic Std", "News Gothic No 2",sans-serif;
+  font-size: 14px; 
+  line-height: 16.8px;
+  weight: 700;
+  background-color: #fff;
+  color: #1272EA;
+  border: 1px solid #1272EA;
+
+}
+
+.see-our-blog-1{
+  padding-top: 40px;
+  border: 0;
+}
+
+.partners {
+  padding-top: 30px;
+}
+
+.see-our-partners {
+  font-family: "News Gothic Std", "News Gothic No 2",sans-serif;
+  font-size: 14px; 
+  line-height: 16.8px;
+  weight: 700;
+  background-color: #fff0;
+  color: #1272EA;
+  border: 1px solid #1272EA;
+}
+
+.feature-offer__row {
+  @include flex(0 1 70%);
+
+  @include at-query($max, $medium) {
+    @include flex(1 1 100%);
+    max-width: 100%;
+  }
+}
+
+.featured-offer-text {
+  font-family: "News Gothic Std", "News Gothic No 2",sans-serif;
+  font-size: 16px;
+  //padding: 0 120px;
+  line-height: 28px;
+  color: #fff;
+}
+
+.featured-offer-text-1 {
+  font-family: "News Gothic Std", "News Gothic No 2",sans-serif;
+  font-size: 16px;
+  //padding: 0 120px;
+  line-height: 28px;
+  font-weight: 500;
+  color: #4D4D4D;
+}
+
+
+.featured-offer-text a {
+  font-weight: 700;
+  color: #fff;
+  padding-left: 10px;
+}
+
+.featured-offer-text a:hover {
+  font-weight: 700;
+  color: #fff;
+  padding-left: 10px;
+}
+
+
+div#shopify-section-162270506624ca0517 {
+  margin-top:0px;
+  height: 100%;
+  padding: 15px 15%;
+}
+
+.feature-offer__row {
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+.featured-offer-text p {
+  margin: 0;
+}
+
+.header-bottom {
+  border-bottom: 1px solid #ffffff40;
+}
+
+.search-expand {
+  max-width: 300px;
+  margin: 20% auto 0;
+}
+
+.search-expand:focus {
+  width: 100%
+}
+
+.btn-bg {
+  background-color: #ffffff;
+  border-right: 1px solid #4D4D4D;
+}
+
+.icon-search-1 {
+  color: #4D4D4D;
+  font-size: 22px;
+}
+
+.social-icons {
+	display: inline-block;
+	font-size: 20px;
+}
+
+.social-icons a{
+	font-size: 20px;
+}
+
+.footer-links {
+  font-size: 14px!important;
+  font-family: "News Gothic Std", "News Gotchi No. 2", sans-serif;
+  text-transform: uppercase;
+  font-weight: 500;
+  padding-right: 80px;
+}
+
+.footer-links a{
+  font-size: 14px;
+  font-family: "News Gothic Std", "News Gotchi No. 2", sans-serif;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.footer-menu-li {
+  margin-bottom: 1.25em;
+}
+
+div#shopify-section-162270506624ca0517 {
+  background-color: #1272ea;
+}
+
+div#shopify-section-1623014001f08aaf2e {
+  background-color: #F2F2F2;
+  padding: 60px 120px;
+}
+
+div#shopify-section-162305680164b9ef8f {
+  background-color: #F2F2F2;
+  padding: 60px 0px;
+}
+
+div#shopify-section-1623952215c9c6a760 {
+  margin-top: 0px;
+  padding: 15px 15%;
+  border-bottom: 1px solid #EBF1FC;
+}
+
+
+div#shopify-section-newsletter {
+  margin-top: 0px;
+  background-color: #fff;
+}
+
+.feature-icon__image {
+  display: block;
+  margin: 0 auto;
+  width: 70px!important;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+}
+
+.feature-brand__image {
+  display: block;
+  margin: 0 auto;
+  width: 150px!important;
+  position: relative;
+}
+
+.feature-brand {
+  margin: 15px 0;
+  text-align: center;
+}
+
+.koena-row {
+  padding-top: 60px;
+}
+
+.url {
+  padding-bottom: 30px;
+}
+
+@media only screen and (max-width: 480px)
+{
+  .icon-search {
+    display: none!important;
+  }
+}
+
+.qtydiv label{display: block;margin-bottom: 12px;letter-spacing: 2.8px;color: #747a7b;}
+.qtydiv .btnqty{display: inline-block;cursor: pointer;user-select: none;font-size: 13px;padding: 5px;}
+.qtydiv .btnqty.qtyminus{margin-right: 2px;}
+.qtydiv .btnqty.qtyplus{margin-left: 2px;}
+.qtydiv .quantity-input{border: none;border: none;padding: 8px;text-align: center;width: 50px;outline: none;display: inline-block; background-color: transparent;}
+.qtydiv {display: inline-block;padding-right: 15px;padding-top: 10px;}
+
+.qtybox {
+  border: 1px solid #EBF1FC;
+  box-sizing: border-box;
+}
+
+
+.content {
+  padding: 0;
+  display: none;
+  overflow: hidden;
+  background-color: #fff;
+  font-family: "News Gothic Std", "News Gothic No.2", sans-serif;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 28px;
+  color: #4D4D4D;
+}
+
+.active:after {
+  content: "\2796";
+}
+
+.product-single {
+  padding-bottom: 50px;
+  padding-top: 50px;
+  border-bottom: 1px solid #EBF1FC;
+}
+
+.save {
+  background: #F78D2B;
+  border-radius: 16px;
+  width: 65px;
+  height: 32px;
+  float: right;
+  margin-right: 30px;
+  margin-top: 20px;
+}
+
+.save p{
+  font-family: 'News Gothic No 2';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 24px;
+  text-transform: uppercase;
+  color: #fff;
+  padding-top: 4px;
+}
+
+.price-box {
+  padding-bottom: 32px;
+}
+
+.main-content {
+  border-top: 1px solid #EBF1FC;
+}
+
+.last-section {
+  border-left: 1px solid #EBF1FC;
+  padding-bottom: 50px;
+}
+
+.grid-product__title {
+  font-family: Times New Roman;
+  text-align: left;
+}
+
+.grid-product__meta {
+  text-align: left;
+}
+
+.remove {
+  font-family: "News Gothic Std", "News Gothic No. 2", sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 14px;
+  color: #1272EA;
+}
+
+.cart-item {
+  border-bottom: 1px solid #EBF1FC;
+}
+
+.blog-placeholder {
+  width: 360px;
+  height: 240px;
+  margin-bottom: 31px;
+}
+
+.cart__subtotal {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 36px;
+  color: #4D4D4D;
+  text-transform: none;
+}
+
+.cart__subtotal-1 {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 36px;
+  color: #4D4D4D;
+  text-transform: none;
+  text-align: right;
+}
+
+.subtotal {
+  border-bottom: 1px solid #EBF1FC;
+  margin-bottom: 30px;
+  padding-bottom: 5px;
+}
+
+.cart__row {
+  margin-bottom: 10px;
+  padding-bottom: 15px;
+}
+
+.section-header {
+font-family: Times New Roman;
+font-style: normal;
+font-weight: normal;
+font-size: 48px;
+line-height: 55px;
+color: #4D4D4D;
+}
+
+.section-header h1 {
+  font-family: Times New Roman;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 48px;
+  line-height: 55px;
+  color: #4D4D4D;
+}
+
+.section-header h2 {
+  font-family: Times New Roman;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 36px;
+  line-height: 41px;
+  color: #4D4D4D;
+}
+
+.cart-info {
+  padding: 14px 24px;
+  background: #F2F2F2;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.cart-info p {
+  font-family: "News Gothic Std","News Gothic No.2", sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 28px;
+  color: #4D4D4D;
+  margin: 0;
+}
+
+.cart-info a {
+  font-family: "News Gothic Std","News Gothic No.2", sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 28px;
+  color: #1272EA;
+}
+
+.update-cart {
+  display: none;
+}
+
+.btn--login {
+  border: 1px solid #1272EA;
+  font-family: "News Gothic Std", "News Gotchic No. 2", sans-serif;
+font-style: normal;
+font-weight: bold;
+font-size: 14px;
+line-height: 17px;
+display: flex;
+align-items: center;
+text-align: center;
+text-transform: uppercase;
+color: #1272EA;
+place-content: center;
+}
+
+.btn--login-2 {
+  border: 1px solid #fff;
+  font-family: "News Gothic Std", "News Gotchic No. 2", sans-serif;
+font-style: normal;
+font-weight: bold;
+font-size: 14px;
+line-height: 17px;
+display: flex;
+align-items: center;
+text-align: center;
+text-transform: uppercase;
+color: #FFFFFF;
+place-content: center;
+}
+
+
+.btn--login:hover{
+  background: #0054CC;
+  color: white;
+}
+
+
+.btn-login {
+font-family: "News Gothic Std", "News Gotchic No. 2", sans-serif;
+font-style: normal;
+font-weight: bold;
+font-size: 14px;
+line-height: 17px;
+text-align: center;
+text-transform: uppercase;
+color: #1272EA;
+}
+
+.btn-login:hover{
+  color: white;
+}
+
+.btn-login-2 {
+  font-family: "News Gothic Std", "News Gotchic No. 2", sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #FFF;
+  }
+
+.site-nav-2 {
+  margin: 0 15px;
+}
+
+.site-nav__link {
+  font-size: 16px;
+  font-family: "News Gothic Std";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 28px;
+  color: #4D4D4D;
+
+}
+
+.div-box {
+display: flex;
+flex-direction: column;
+padding-right:40px;
+padding-top: 20px;
+padding-bottom: 20px;
+}
+
+.div-box--1 {
+  display: flex;
+  flex-direction: column;
+  padding-left:40px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.div-box-1 {
+  order: 1;
+}
+
+.div-box-2 {
+  order: 2;
+}
+
+.div-box-3 {
+  order: 3;
+}
+
+.div-box-4 {
+  order: 4;
+}
+
+div#shopify-section-16225630309c9843cc {
+  padding: 0;
+  margin: 0;
+  max-width: 100%; 
+  background-color: #4d4d4d;
+}
+
+.article__featured-image-wrapper img{
+  width: 360px;
+  height: 240px;
+}
+
+/*@font-face {
+  font-family: "News Gothic Std";
+  src: url("News-Gothic-Std.woff2") format("woff2"),
+       url("News-Gothic-Std.woff") format("woff");
+} */ 
+
+@media only screen and (max-width: 900px) {
+	.site-nav-2 {
+    display: none!important;
+  }
+}
+
+.why-koena {
+  font-family: Times New Roman;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 36px;
+  line-height: 41px;
+}
+
+.mob-link {
+  display:none;
+}
+
+@media only screen and (max-width: 720px) {
+	.product-single-1 {
+		padding: 0;
+	}
+
+  .mob-link {
+    display:block!important;
+  }
+
+  .featured-offer-text a {
+    display: none
+  }
+
+  .section-header__title {
+    font-size: 24px;
+    line-height: 36px;
+    color: #4D4D4D;
+  }
+
+  div#shopify-section-162270506624ca0517 {
+    margin-top: 0;
+    height: 100%;
+    padding: 15px 2%;
+  }
+
+  .div-box-m {
+    display: flex;
+    flex-direction: column;
+    padding-right:0;
+    padding-left: 0px;
+    }
+
+  .div-box {
+    display: flex;
+    flex-direction: column;
+    padding-right:0;
+    padding-left: 0px;
+    }
+
+    .div-box--1 {
+      display: flex;
+      flex-direction: column;
+      padding-left:0;
+      }  
+
+  .div-box-1 {
+    order: 2;
+  }
+  
+  .div-box-2 {
+    order: 3;
+    padding-bottom: 10px;
+  }
+  
+  .div-box-3 {
+    order: 4;
+  }
+  
+  .div-box-4 {
+    order: 1;
+  }
+
+  .section-header {
+    margin-bottom: 0px;
+  }
+
+  div#shopify-section-1623014001f08aaf2e {
+    padding: 40px 0 45px 0px;
+  }
+
+  .featured-row-text {
+    padding: 0 10px;
+  }	
+
+.featured-row-title {
+  padding: 0 10px;
+}	
+
+.ft-img {
+  display: none;
+}
+
+.ft {
+  margin:0;
+}
+
+.ft2 {
+  padding: 45px 15px;
+}
+
+.featured-offer-text {
+  padding: 10px 10px;
+}
+
+.mob-1 {
+  display: none;
+}
+
+.mob-2 {
+  text-align: -webkit-center;
+  padding-top: 20px;
+  padding-bottom: 0px;
+}
+
+.mob-3 {
+  text-align: -webkit-center;
+}
+
+.foot-log {
+  text-align: -webkit-center;
+}
+
+.coll-2 {
+  padding-bottom: 50px;
+}
+
+.div-box-m {
+  display: flex;
+  flex-direction: column;
+  padding-right:40px
+}  
+
+.newsletter__submit {
+  width: 100%
+}
+
+.section-header h1 {
+  font-family: Times New Roman;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 28px;
+  line-height: 38px;
+}
+
+.artc {
+  padding: 0 9%;
+}
+
+.social-sharing {
+  padding: 14px 11px 0px 13px!important;
+}
+
+
+}
+
+.newsletter__input {
+  font-family: "Poppins"!important;
+  font-style: normal!important;
+  font-weight: 300!important;
+  font-size: 16px!important;
+  line-height: 24px!important;
+  color: #B3B3B3!important;
+}
+
+.save-1 {
+  background: #F78D2B;
+  border-radius: 16px;
+  width: 65px;
+  height: 32px;
+  float: right;
+  margin-right: 34px;
+  margin-top: -33px;
+}
+
+.save-1 p{
+  font-family: 'News Gothic No 2';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 24px;
+  text-transform: uppercase;
+  color: #fff;
+  padding-top: 4px;
+}
+
+div#shopify-section-footer {
+  border-top: 1px solid #EBF1FC;
+  padding-top: 50px;
+}
+
+@media only screen and (max-width: 420px) {
+.div-box-m {
+  display: flex;
+  flex-direction: column;
+  padding-right:0px
+}  
+
+.product-single__add-to-cart {
+  width: 100%;
+}
+
+.ft-offer {
+  margin-left: 0;
+}
+
+div#shopify-section-1623952215c9c6a760 {
+  margin-top: 0;
+  padding: 15px 16px;
+}
+
+.article__featured-image-wrapper img{
+  width: 295px;
+  height: 220px;
+}
+
+.blog-placeholder {
+  width: 295px;
+  height: 220px;
+  margin-bottom: 31px;
+}
+
+}
+
+.more-less {
+  float: right;
+  color: #212121;
+  cursor: pointer;
+}
+
+.card {
+  border: white!important;
+}
+
+.card-header {
+  background-color: white!important;
+  font-family: "News Gothic Std", "News Gothic No.2", sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 28px;
+  text-transform: uppercase;
+  color: #4D4D4D;
+  padding: 20px 0;
+  border-bottom: 1px solid #EBF1FC;
+  cursor: pointer;
+}
+
+.accordion {
+  border-top: 1px solid #EBF1FC;
+  border-bottom: 1px solid #EBF1FC;
+}
+
+.atcrt {
+  float: right;
+  font-family: "News Gothic Std", "News Gothic No.2", sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 24px;
+  text-transform: uppercase;
+  color: #1272EA;
+  border: 1px solid #1272ea;
+}
+
+.grid-product__price {
+  float: left;
+  font-family: "News Gothic Std", "News Gothic No.2", sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 28px;
+  color: #f78d2b;
+}
+
+.grd {
+  padding-top: 55px;
+}
+
+.blog-title {
+  color: #0f72ea!important;
+  font-family: "News Gothic No 2",sans-serif!important;
+  font-style: normal!important;
+  font-size: 40px!important;
+  line-height: 1.125!important;
+  margin-top: 20px!important;
+}
+
+.date {
+  color: #979797;
+  font-size: 12px;
+  letter-spacing: 1.7px;
+  line-height: 1.66667;
+  text-transform: uppercase;
+  font-style: normal;
+  margin-bottom: 0px!important;
+}
+
+.article__header:before {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 6px;
+  margin-bottom: 20px;
+  background-color: #0f72ea;
+  transition: width .5s ease-out;
+  margin: 0 0 20px;
+}
+
+.article__wrapper {
+  padding: 100px 20px;
+}
+
+.article__body {
+  margin-top: 30px;
+  font-family: "News Gothic No 2",sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: #4a4a4a;
+  line-height: 1.625;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+}
+
+.article-header {
+  margin-bottom: 0px!important;
+}
+
+.comment-form-1 {
+  background-color: #000;
+  padding: 100px 0;
+}
+
+.comment-form-1 h2 {
+  font-family: "News Gothic No 2",sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  color: #0f72ea!important; 
+  margin-bottom: 30px;
+  text-transform: none;
+}
+
+.cf2 {
+  margin-bottom:20px;
+}
+
+.cf2-1 {
+  margin:40px 0 40px 0;
+}
+
+.cfb {
+  padding: 15px 30px;
+}
+
+.form-vertical input, .form-vertical select, .form-vertical textarea{
+  font-family: "News Gothic No 2",sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+.collapsible {
+  background-color: #fff;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 25px;
+}
+
+.active, .collapsible:hover {
+  background-color: #fff;
+}
+
+.collapsible:after {
+  color: white;
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+}
+
+.content {
+  padding: 0 18px;
+  max-height: 660px;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  background-color: #fff;
+}
+
+.article-share-desktop {
+  margin-top: 100px;
+  top: 50px;
+  right: 0;
+  width: 16.66667%!important;
+  position: sticky;
+}
+
+@media only screen and (min-width: 990px) {
+.article__content--large {
+    width: 75%;
+}
+
+}
+
+.page-title {
+  color: #0f72ea!important;
+  font-family: "News Gothic No 2",sans-serif!important;
+  font-size: 2.5rem!important;
+}
+
+.page-h1 {
+  font-size: 2.5rem!important;
+  color: #0f72ea!important;
+  font-family: "News Gothic No 2",sans-serif!important;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.page-cnt {
+  color: #0f72ea!important;
+  font-family: "News Gothic No 2",sans-serif!important;
+  font-size: 1.4rem!important;
+  font-weight: 400;
+  line-height: 1.625;
+}
+
+a {
+  color: #1272ea;
+}
+
+a:hover {
+  color: #0054cc;
+}
+
+.grid {
+  padding: 30px 0;
+}
+
+.shopify-policy__container {
+  max-width: 100ch!important;
+  padding: 30px 0;
+}
+
+.shopify-policy__title {
+  color: #0f72ea!important;
+}
+
+.shopify-policy__title h1{
+  font-size: 3.8rem!important;
+  color: #0f72ea!important;
+  font-family: "News Gothic No 2",sans-serif!important;
+}
+
+.shopify-policy__body .rte h3 {
+  text-align-last: left;
+  font-size: 2rem!important;
+  color: #0f72ea!important;
+  font-family: "News Gothic No 2",sans-serif!important;
+  text-transform: none;
+  margin: 20px 0!important;
+  letter-spacing: 0;
+}
+
+.shopify-policy__body .rte p {
+  margin-bottom: 20px;
+}
+
+@media only screen and (max-width: 990px) {
+ 
+  .shopify-policy__body .rte h3 {
+    text-align-last: left;
+    font-size: 1.4rem!important;
+    color: #0f72ea!important;
+    font-family: "News Gothic No 2",sans-serif!important;
+    text-transform: none;
+    margin: 20px 0!important;
+    letter-spacing: 0;
+  }
+  
+  }
+  
+  .desktop-ul {
+    display: table-row;
+  }
+
+  .desktop-ul ul {
+    display: table-row;
+  }
+
+  .desktop-ul li {
+    display: table-cell;
+  }
+
+  .desktop3 {
+    //display: table-cell!important;
+  }
+
+  .desktop3 img {
+    //width: 250px;
+    //padding: 5px;
+  }
+
+  .coupon-msg {
+    width: 184px;
+    font-weight: 600;
+  }
+
+  .coupon-row {
+    padding: 10px 0 10px 0;
+  }
+
+  .coupon-row-1 {
+    text-align-last: right;
+    padding: 20px 0 20px 0;
+  }
+
+  .mobile {
+    display: none;
+  }
+
+  .coupon-btn {
+    width: 112px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    text-transform: uppercase;
+    color: #1272EA;
+    margin: 0px 48px;
+    border: 1px solid #1272EA;
+    place-content: center;
+  }
+
+  .stckypr {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+  }
+
+  @media only screen and (max-width: 720px) {
+ 
+    .desktop {
+      display: none;
+    }
+
+    .stckypr {
+      position: relative!important;
+    }
+    
+    .mobile {
+      display: block;
+      padding: 20px 0 0 0;
+    }
+
+    .coupon-msg {
+      width: 400px;
+      height: 20px;
+    }
+
+    .coupon-btn {
+      width: 112px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      text-transform: uppercase;
+      color: #1272EA;
+      margin: 0px 77px;
+      border: 1px solid #1272EA;
+      place-content: center;
+    }
+
+    .coupon-row-1 {
+      text-align-last: center;
+      padding: 10px 0 10px 0;
+    }
+
+    .coupon-row-2 {
+      text-align-last: center;
+      padding: 10px 0 10px 0;
+    }
+
+    .cart__row {
+      padding: 0 34px 0 2px;
+   }
+  }
+
+  .timer {
+    padding: 10px;
+    color: #fff;
+    font-family: Times New Roman;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 36px;
+  }
+  .timer--expired {
+    display: none;
+  }
+  .timer__title {
+    @extend .paragraph;
+    text-align: center;
+  }
+  .timer-display {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    margin-top: 5px;
+  }
+  .timer-block {
+    position: relative;
+    width: 25%;
+    padding: 0 10px;
+    &:not(:last-child):after {
+      content: ':';
+      position: absolute;
+      right: 0;
+      top: 3px;
+    }
+  }
+  .timer-block__num,
+  .timer-block__unit {
+    display: block;
+    text-align: center;
+  }
+
+  .hero__cta:hover {
+    color: #ffffff;
+    background-color: #1272ea;
+  } 
+
+  .hero__cta:hover {
+    background-color: #4893f1!important;
+  }  
+
+  .btn-unit {
+    font-size: 14px;
+    font-family: "News Gothic Std", "News Gothic No.2", sans-serif;
+    width: 130px;
+    border: 1px solid #1272EA;
+    padding: 2px 5px;
+    margin: 0 10px 0 0;
+  }
+
+  .btn-unit-1 {
+    font-size: 14px;
+    width: 130px;
+    font-family: "Poppins", sans-serif;
+    border: 1px solid #EBF1FC;
+    padding: 2px 5px;
+    margin: 0 10px 0 0;
+  }
+
+@media only screen and (max-width: 420px) {
+
+  .btn-unit {
+    font-size: 14px;
+    width: 98px;
+    font-family: "Poppins", sans-serif;
+    border: 1px solid #1272EA;
+    padding: 2px 1px;
+    margin: 0 2px 0 0;
+  }
+
+  .btn-unit-1 {
+    font-size: 14px;
+    font-family: "News Gothic Std", "News Gothic No.2", sans-serif;
+    width: 98px;
+    border: 1px solid #EBF1FC;
+    padding: 2px 1px;
+    margin: 0 2px 0 0;
+  }
+
+  .product-single__price.on-sale {
+    font-size: 16px;
+  }
+
+  .product-single__price--compare-at {
+    font-size: 13px;
+  }
+
+  .yotpo .text-m {
+    font-size: 12px!important;
+}
+
+}
+
+.product-single__form--no-variants {
+  margin-top: 10px;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.rte h3 {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+
+input {
+  border: 1px solid #EBF1FC;
+  background-color: #fff;
+}
+
+.sticky {position: fixed;top: 0;width: 100%;z-index: 999; max-width: 100%;background: #fff!important;-webkit-box-shadow: 0px 5px 22px -8px rgba(0,0,0,0.75);-moz-box-shadow: 0px 5px 22px -8px rgba(0,0,0,0.75);box-shadow: 0px 5px 22px -8px rgba(0,0,0,0.75);}
+
+.sticky a {color: black !important;}
+.sticky .header-wrapper--transparent .site-header__logo-image {
+  display: block;
+}
+
+.sticky .header-wrapper--transparent .site-header__logo-image--transparent {
+  display: none;
+}
+
+.btnhover:hover{
+  color: #fff!important;
+}
+
+.btnhovera:hover{
+  color: #fff!important;
+}
+
+.article__heading-link a:hover {
+  color: #0054cc!important;
+}
+
+.card-list {
+  position: relative;
+  box-sizing: content-box;
+
+  .sk-fading-circle {
+    position: relative;
+    left: auto;
+    top: 50px;
+    margin: 0 auto;
+    clear: left;
+  }
+}
+$card-transition: all 500ms ease-out;
+
+.card {
+  width: 100%;
+  opacity: 1;
+  transition: $card-transition;
+  @include transform(translateY(50px));
+
+  float: left;
+  
+}
+
+.card-list__column {
+  margin-left: 0;
+  display: grid;
+  grid-gap: 30px;
+  grid-template-columns: repeat(2, 550px);
+  align-content: space-around;
+  justify-content: space-between;
+}
+
+.card-list__column--center {
+  margin: 0 auto;
+  float: none;
+}
+
+.card-list__column--half-left {
+  float: none;
+}
+
+.card-list__column--half-right {
+  float: left;
+  clear: none;
+}
+
+.card-list__sub-actions {
+  display: none;
+  opacity: 0;
+  padding-left: 0;
+}
+
+.page-width {
+  zoom: 1;
+  max-width: 1200px;
+  padding: 0 20px;
+  margin: 0 auto;
+}
+
+.card__name {
+  margin: 5px 0;
+  text-transform: none;
+}
+
+.card__description {
+  font-size: rem(14);
+  padding: ($gutter / 2) 0;
+}
+
+.card__read-more {
+  position: relative;
+  font-size: rem(10);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.25px;
+
+  .icon-arrow-right {
+    width: 7px;
+    height: 7px;
+    position: absolute;
+    right: -17px;
+    top: 50%;
+    transform: translate(7px,-50%);
+    transition: all .5s ease-out;
+    vertical-align: middle;
+  }
+}
+
+.card--reveal,
+.animations--disabled .card {
+  opacity: 1;
+  @include transform(translateY(0));
+}
+
+.supports-no-js .card,
+.supports-no-js .card-list__sub-actions,
+.card-list__sub-actions--loaded {
+  display: block;
+  opacity: 1;
+  transition: opacity 0.25s ease-out, transform 0.25s ease-out;
+  @include transform(translateY(0));
+}
+
+.card-list__sub-actions--no-results {
+  margin-top: -($gutter * 3.5);
+}
+
+.card-list__view-all {
+  text-align: center;
+  margin: ($gutter / 2) 0 ($gutter * 2);
+}
+
+.card--right {
+  float: right;
+  clear: right;
+}
+
+.card__wrapper--padding {
+  padding: 30px 30px 0;
+}
+
+.card__image-wrapper,
+.card__image {
+  display: block;
+  width: 100%;
+}
+
+
+.card__image-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.card__image-wrapper--aligned {
+  width: 100%;
+  padding-top: 100%;
+}
+
+.card__image {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: all .5s ease-out;
+
+  .card__wrapper:hover & {
+    @include transform(scale(1.05));
+  }
+}
+
+.supports-no-js .card__image {
+  position: relative;
+}
+
+.card__image--align {
+  object-position: center center;
+  object-fit: contain;
+  font-family: 'object-fit: contain';
+}
+
+.card__info {
+  clear: both;
+  padding: $gutter * 1.1;
+  clear: both;
+  background-color: #fff;
+}
+
+.card__date {
+  color: #979797;
+  display: block;
+  margin-bottom: 15px;
+  font-size: 0.8rem;
+}
+
+.card__name {
+  margin: 5px 0;
+  color: #0f72ea!important;
+  font-size: 2rem;
+}
+
+.card__read-more {
+  position: relative;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.25px;
+  color: #0f72ea;
+}
+
+.card__excerpt  {
+  font-family: "News Gothic No 2",sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1rem;
+  color: #4a4a4a;
+  line-height: 1.625;
+}
+
+
+.masonry-wrapper {
+  padding: 1.5em;
+  max-width: 1160px;
+  margin-right: auto;
+  margin-left: auto;
+}
+.masonry {
+  columns: 1;
+  column-gap: 20px;
+}
+.masonry-item {
+  display: inline-block;
+  vertical-align: top;
+  margin-bottom: 20px;
+}
+@media only screen and (max-width: 1023px) and (min-width: 768px) {  .masonry {
+    columns: 2;
+  }
+}
+@media only screen and (min-width: 1024px) {
+  .masonry {
+    columns: 2;
+  }
+}
+
+.masonry-item {
+
+}
+.masonry-title, .masonry-description {
+  margin: 0;
+}
+.masonry-title {
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 1rem 1.5rem;
+}
+.masonry-description {
+  padding: 1.5rem;
+  font-size: .75rem;
+  border-top: 1px solid rgba(0, 0, 0, .05);
+}
+
+.blog__nav {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-style: solid none;
+  border-width: 1px;
+  border-color: #e7e7e7;
+  margin-bottom: 40px;
+}
+
+.blog__nav-h {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  color: #0f72ea!important;
+  font-size: 16px;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  text-transform: none;
+  font-family: "News Gothic No 2",sans-serif;
+}
+
+.dynamic-checkout__content {
+  column-count: 3;
+}
+
+.dynamic-checkout__content {
+  padding-top: 0;
+}
+
+.additional_checkout_buttons {
+  padding-top: 0;
+}
+
+.btn-title-selected {
+  color:#1272EA; 
+  font-weight:700;
+  margin-bottom: 5px;
+}
+
+.btn-title {
+  font-weight:400;
+  margin-bottom: 5px;
+}
+
+.page-width-1 {
+  zoom: 1;
+  max-width: 1980px;
+  padding: 0; 
+  margin: 0 auto;
+}  
+
+.site-nav__dropdown-link {
+  font-weight: 500;
+}

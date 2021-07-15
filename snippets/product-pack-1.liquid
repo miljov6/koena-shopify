@@ -1,0 +1,138 @@
+  <div id="product1-price">
+  <div class="price-container{% if variant.unit_price_measurement %} price-container--unit-available{% endif %}" data-price-container>
+    <span id="ProductPrice"
+      class="product-single__price{% if variant.compare_at_price > variant.price %} on-sale{% endif %}"
+      itemprop="price"
+      content="{{ variant.price | divided_by: 100.00 }}" style="font-weight: 600;">
+      {{ variant.price | money }}
+    </span>
+    {%- if variant.compare_at_price > variant.price -%}
+      <span id="PriceA11y" class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
+      <span class="product-single__price--wrapper" aria-hidden="false">
+        <span id="ComparePrice" class="product-single__price--compare-at">
+          {{ variant.compare_at_price | money }}
+        </span>
+      </span>
+      <span id="ComparePriceA11y" class="visually-hidden" aria-hidden="false">{{ 'products.general.sale_price' | t }}</span>
+    {%- else -%}
+      <span id="PriceA11y" class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
+      <span class="product-single__price--wrapper hide" aria-hidden="true">
+        <span id="ComparePrice" class="product-single__price--compare-at"></span>
+      </span>
+      <span id="ComparePriceA11y" class="visually-hidden" aria-hidden="true">{{ 'products.general.sale_price' | t }}</span>
+    {%- endif -%}
+  
+    <div class="product-single__unit">
+      {%- capture unit_price_separator -%}
+        <span aria-hidden="true">/</span><span class="visually-hidden">&nbsp;{{ 'general.accessibility.unit_price_separator' | t }}&nbsp;</span>
+      {%- endcapture -%}
+  
+      {%- capture unit_price_base_unit -%}
+        <span data-unit-price-base-unit>
+          {%- if variant.unit_price_measurement -%}
+            {%- if variant.unit_price_measurement.reference_value != 1 -%}
+              {{- variant.unit_price_measurement.reference_value -}}
+            {%- endif -%}
+            {{ variant.unit_price_measurement.reference_unit }}
+          {%- endif -%}
+        </span>
+      {%- endcapture -%}
+      <span class="product-unit-price">
+        <span class="visually-hidden">{{ 'products.general.unit_price' | t }}</span>
+        <span data-unit-price>{{ variant.unit_price | money }}</span>{{- unit_price_separator -}}{{- unit_price_base_unit -}}
+      </span>
+    </div>
+  </div>
+  </div>
+  <div id="product2-price" style="display: none;">
+    <div class="price-container{% if product2.unit_price_measurement %} price-container--unit-available{% endif %}" data-price-container>
+      <span id="ProductPrice"
+        class="product-single__price{% if product2.compare_at_price.price > product2.price %} on-sale{% endif %}"
+        itemprop="price"
+        content="{{ product2.price | divided_by: 100.00 }}" style="font-weight: 600; color: #f78d2b;">
+        {{ product2.price | money }}
+      </span>
+      {%- if product2.compare_at_price > product2.price -%}
+        <span id="PriceA11y" class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
+        <span class="product-single__price--wrapper" aria-hidden="false">
+          <span id="ComparePrice" class="product-single__price--compare-at">
+            {{ product2.compare_at_price | money }}
+          </span>
+        </span>
+        <span id="ComparePriceA11y" class="visually-hidden" aria-hidden="false">{{ 'products.general.sale_price' | t }}</span>
+      {%- else -%}
+        <span id="PriceA11y" class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
+        <span class="product-single__price--wrapper hide" aria-hidden="true">
+          <span id="ComparePrice" class="product-single__price--compare-at"></span>
+        </span>
+        <span id="ComparePriceA11y" class="visually-hidden" aria-hidden="true">{{ 'products.general.sale_price' | t }}</span>
+      {%- endif -%}
+    
+      <div class="product-single__unit">
+        {%- capture unit_price_separator -%}
+          <span aria-hidden="true">/</span><span class="visually-hidden">&nbsp;{{ 'general.accessibility.unit_price_separator' | t }}&nbsp;</span>
+        {%- endcapture -%}
+    
+        {%- capture unit_price_base_unit -%}
+          <span data-unit-price-base-unit>
+            {%- if product2.unit_price_measurement -%}
+              {%- if product2.unit_price_measurement.reference_value != 1 -%}
+                {{- product2.unit_price_measurement.reference_value -}}
+              {%- endif -%}
+              {{ product2.unit_price_measurement.reference_unit }}
+            {%- endif -%}
+          </span>
+        {%- endcapture -%}
+        <span class="product-unit-price">
+          <span class="visually-hidden">{{ 'products.general.unit_price' | t }}</span>
+          <span data-unit-price>{{ product2.unit_price | money }}</span>{{- unit_price_separator -}}{{- unit_price_base_unit -}}
+        </span>
+      </div>
+    </div>
+    </div>
+    <div id="product3-price" style="display: none;">
+      <div class="price-container{% if product3.unit_price_measurement %} price-container--unit-available{% endif %}" data-price-container>
+        <span id="ProductPrice"
+          class="product-single__price{% if product3.compare_at_price.price > product3.price %} on-sale{% endif %}"
+          itemprop="price"
+          content="{{ product3.price | divided_by: 100.00 }}" style="font-weight: 600; color: #f78d2b;">
+          {{ product3.price | money }}
+        </span>
+        {%- if product3.compare_at_price > product3.price -%}
+          <span id="PriceA11y" class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
+          <span class="product-single__price--wrapper" aria-hidden="false">
+            <span id="ComparePrice" class="product-single__price--compare-at">
+              {{ product3.compare_at_price | money }}
+            </span>
+          </span>
+          <span id="ComparePriceA11y" class="visually-hidden" aria-hidden="false">{{ 'products.general.sale_price' | t }}</span>
+        {%- else -%}
+          <span id="PriceA11y" class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
+          <span class="product-single__price--wrapper hide" aria-hidden="true">
+            <span id="ComparePrice" class="product-single__price--compare-at"></span>
+          </span>
+          <span id="ComparePriceA11y" class="visually-hidden" aria-hidden="true">{{ 'products.general.sale_price' | t }}</span>
+        {%- endif -%}
+      
+        <div class="product-single__unit">
+          {%- capture unit_price_separator -%}
+            <span aria-hidden="true">/</span><span class="visually-hidden">&nbsp;{{ 'general.accessibility.unit_price_separator' | t }}&nbsp;</span>
+          {%- endcapture -%}
+      
+          {%- capture unit_price_base_unit -%}
+            <span data-unit-price-base-unit>
+              {%- if product3.unit_price_measurement -%}
+                {%- if product3.unit_price_measurement.reference_value != 1 -%}
+                  {{- product3.unit_price_measurement.reference_value -}}
+                {%- endif -%}
+                {{ product3.unit_price_measurement.reference_unit }}
+              {%- endif -%}
+            </span>
+          {%- endcapture -%}
+          <span class="product-unit-price">
+            <span class="visually-hidden">{{ 'products.general.unit_price' | t }}</span>
+            <span data-unit-price>{{ product3.unit_price | money }}</span>{{- unit_price_separator -}}{{- unit_price_base_unit -}}
+          </span>
+        </div>
+      </div>
+      </div>

@@ -1,0 +1,53 @@
+ <div class="results__col">   
+   
+{% for block in section.blocks %}             
+{% assign tile_img-1 =  block.settings.tile__image | img_url:"master" %}           
+              
+              <div class="results__img full-mobile">
+                <div class="results__img-inner">
+                  <img src="{{ tile_img-1 }}" alt="Results & Reviews | Koéna" class="results__img-file">
+                </div>
+              </div>     
+            
+
+{% endfor %}                                           
+</div> 
+
+
+{% schema %}
+  {
+  	"name": "Result Testimonials",
+  	"class": "Result Testimonials",
+  	"max_blocks": 300,
+  	"blocks": [
+
+  		{
+  			"type": "tile",
+  			"name": "tile",
+  			"settings": [
+  				{
+  					"type": "image_picker",
+  					"id": "tile__image",
+  					"label": "Tile"
+  				}
+  			]
+  		}
+
+  	],
+  "presets": [
+    {
+      "name": "Result Testimonials",
+      "category": "Result Testimonials"
+    }
+  ]
+  }
+
+{% endschema %}
+
+{% stylesheet %}
+  
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
+

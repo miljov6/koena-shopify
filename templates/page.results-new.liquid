@@ -1,0 +1,409 @@
+ <div class="page-width">
+  <header class="section-header text-center">
+    <h1 class="section-header__title h2 page-h1">{{ page.title }}</h1>
+    <div class="text-block page-cnt">{{ page.content }}</div>
+  </header>
+
+
+<div class="results">
+    <div class="resultswrapper" style="width: 100%;">
+      <div data-duration-in="300" data-duration-out="100" class="tabs w-tabs">
+        <div class="tab__menu w-tab-menu">
+          <a data-w-tab="Tab 1" class="tab w-inline-block w-tab-link w--current">
+            <div>Pictures</div>
+          </a>
+          <a data-w-tab="Tab 2" class="tab w-inline-block w-tab-link">
+            <div>Videos</div>
+          </a>
+          <a data-w-tab="Tab 3" class="tab w-inline-block w-tab-link">
+            <div>Testimonials</div>
+          </a>
+          <a data-w-tab="Tab 4" class="tab w-inline-block w-tab-link">
+            <div>Reviews</div>
+          </a>          
+          
+        </div>
+        
+        <div class="tab__content w-tab-content">
+          
+          <div data-w-tab="Tab 1" class="tab__panel w-tab-pane w--tab-active">
+        
+              {% section 'results-tiles' %}
+              
+          </div>
+          <div data-w-tab="Tab 2" class="tab__panel w-tab-pane w--tab-active">
+              
+			{% section 'results-videos' %}         
+              
+          </div>
+         
+          
+          <div data-w-tab="Tab 3" class="w-tab-pane">
+            
+            {% section 'results-testimonials-2' %}
+          
+          </div>
+          <div data-w-tab="Tab 4" class="w-tab-pane">
+          
+            <script type="text/javascript"> (function e(){var e=document.createElement("script");e.type="text/javascript",e.async=!0, e.src="//staticw2.yotpo.com/IJwaQ5pXnQdvzjYgkBcpN0wSS3PcCAoUde2twylv/widget.js";var t=document.getElementsByTagName("script")[0]; t.parentNode.insertBefore(e,t)})(); </script>
+<div id='yotpo-testimonials-custom-tab'></div>			 
+          
+          </div>          
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  {% comment %}
+    {% section 'results-featured-product' %}
+  {% endcomment %}
+    
+
+</div>
+
+
+<style>
+
+.results__video .results__img.review2  {
+ background-color: #0f72ea; 
+ margin-bottom: 40px;
+}
+  
+.results__video .results__review {
+  color: white;
+}  
+  
+  
+  
+.shopify-section-results-tiles {
+  width: 100%;
+}
+.resultswrapper {
+  width: 100%;
+  padding-bottom: 64px;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.results__col {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 32px;
+  margin: -10px;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.results__img {
+  position: relative;
+  padding: 10px;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 50%;
+  -ms-flex: 0 0 50%;
+  flex: 0 0 50%; 
+}
+  
+.results__img.review2 {
+  position: relative;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 100%;
+  -ms-flex: 0 0 100%;
+  flex: 0 0 100%;
+  padding: 40px 10px 40px 10px;
+  text-align: center;
+}  
+  
+.results__review {
+  font-style: italic;
+  margin: 0 auto 12px auto;
+  font-size: 24px;
+  color: #0f72ea;
+  max-width: 40em;
+}   
+  
+.results__img.video {
+  position: relative;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 100%;
+  -ms-flex: 0 0 100%;
+  flex: 0 0 100%; 
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding-top: 56.25%;
+}  
+  
+.responsive-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;  
+}  
+
+.results__img-file {
+  position: absolute;
+  left: 0%;
+  top: 0%;
+  right: 0%;
+  bottom: 0%;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 0 12px 4px #f1f1f1;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
+.results {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: start;
+  -webkit-align-items: flex-start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+  padding-bottom: 64px;
+}
+
+.results__h {
+  color: #0f72ea;
+  font-size: 40px;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.text-block {
+  text-align: center;
+}
+
+.tab__menu {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+      flex-wrap: wrap;
+}
+
+.tabs {
+  margin-top: 0px;
+}
+
+.tab {
+  border-style: solid;
+  border-width: 2px;
+  border-color: #0f72ea;
+  background-color: #fff;
+  color: #0f72ea;
+  margin: -1px;
+}
+  
+.tab__content {
+ padding-top: 40px; 
+}
+
+.tab.w--current {
+  background-color: #0f72ea;
+  color: #fff;
+}
+
+.results__img-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding-top: 100%;
+}
+  
+.results__img.full-mobile {  
+    -webkit-flex-basis: 33.333%;
+    -ms-flex-preferred-size: 33.3333%
+    flex-basis: 33.33333%
+}  
+
+@media screen and (max-width: 991px) {
+.results__img.full-mobile {  
+    -webkit-flex-basis: 50%;
+    -ms-flex-preferred-size: 50%;
+    flex-basis: 50%;  
+}  
+  .resultswrapper {
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+  }
+  .results__col {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 50%;
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+  }
+  .results__img {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .results__col {
+    margin: -10px;
+  }
+  .results__img {
+    padding: 10px;
+    -webkit-flex-basis: 50%;
+    -ms-flex-preferred-size: 50%;
+    flex-basis: 50%;
+  }
+  .results__h {
+    font-size: 32px;
+  }
+  .results__review {
+  font-size: 20px;
+    line-height: 1.3333;
+    margin-bottom: 6px;
+}  
+.results__img.review2 {
+  padding: 20px 10px 20px 10px;
+  text-align: center;
+}  
+.results__video .results__img.review2  {
+ margin-bottom: 20px;
+}  
+.tab__content {
+ padding-top: 30px; 
+}
+.results__img.full-mobile {  
+    -webkit-flex-basis: 100%;
+    -ms-flex-preferred-size: 100%;
+    flex-basis: 100%;  
+}
+}
+
+@media screen and (max-width: 479px) {
+  .results__col {
+    margin: -10px;
+  }
+  
+  /*
+  .results__img {
+    padding: 12px;
+    -webkit-flex-basis: 100%;
+    -ms-flex-preferred-size: 100%;
+    flex-basis: 100%;
+  }
+  */ 
+  .results__h {
+    font-size: 32px;
+  }
+    .results__review {
+  font-size: 16px;
+   line-height: 1.5;
+    margin-bottom: 6px;
+} 
+}
+  
+.w-tabs {
+  position: relative;
+}
+.w-tabs:before,
+.w-tabs:after {
+  content: " ";
+  display: table;
+  grid-column-start: 1;
+  grid-row-start: 1;
+  grid-column-end: 2;
+  grid-row-end: 2;
+}
+.w-tabs:after {
+  clear: both;
+}
+.w-tab-menu {
+  position: relative;
+}
+.w-tab-link {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  text-decoration: none;
+  padding: 9px 30px;
+  text-align: left;
+  cursor: pointer;
+  color: #222222;
+  background-color: #fff;
+}
+
+.w-tab-content {
+  position: relative;
+  display: block;
+  overflow: hidden;
+}
+.w-tab-pane {
+  position: relative;
+  display: none;
+}
+.w--tab-active {
+  display: block;
+}
+@media screen and (max-width: 479px) {
+  .w-tab-link {
+    display: block;
+  }
+}
+  
+.w-inline-block {
+  max-width: 100%;
+  display: inline-block;
+}  
+
+.rte a:not(.image-link)::after, .rte-setting a:not(.image-link)::after, .text-link:not(.image-link)::after {
+    border-bottom: none !important;
+}  
+ 
+.resultswrapper .w-tab-content{
+
+     overflow: visible; 
+}
+  
+.results__img.full  {
+    -webkit-flex-basis: 100% !important;
+    -ms-flex-preferred-size: 100% !important;
+    flex-basis: 100% !important;
+  }
+  
+
+  
+  .shopify-section.Results.Video .results__col {
+    margin: 0;
+  }  
+  
+.yotpo-label {
+  display: none;
+}
+</style>  
+

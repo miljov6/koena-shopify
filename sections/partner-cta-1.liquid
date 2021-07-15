@@ -1,0 +1,86 @@
+<style>
+.partner__sub--wrapper.cta {
+  display: block;
+  padding-top: 90px;
+  padding-bottom: 120px;
+  text-align: center;
+  background-color: white;
+}
+  .partner__sub.cta {
+   margin: auto; 
+    display: block;
+    color:#0f72ea;
+    max-width: 35em;
+    text-align: center;
+    background-color: white;
+  }
+.gb__button {
+  display: block;
+  margin: auto;
+  width: 100%;
+  max-width: 250px;
+  padding: 15px 30px;
+  background-color: #0f72ea;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: white;
+  text-decoration: none;
+  text-align: center;
+}
+  
+  @media (max-width: 767px) {
+  .partner__sub--wrapper.cta {
+  padding-top: 60px;
+  padding-bottom: 90px;
+}
+  
+}
+</style>
+
+{% if section.settings.button__checkbox == false %}
+<div class="partner__sub--wrapper cta">
+    <h2 class="partner__sub cta">{{ section.settings.button__h }}</h2>
+    <a href="{{ section.settings.button__link }}" target="_blank" class="gb__button w-button">LEARN MORE</a>
+</div>
+{% endif %}
+
+{% schema %}
+  {
+  	"name": "Button Section",
+  	"class": "partner-page",
+  	"settings": [
+	{
+		"type": "checkbox",
+		"id": "button__checkbox",
+		"label": "Hide Section"
+
+  	},
+	{
+		"type": "text",
+		"id": "button__h",
+		"label": "Heading Text"
+
+  	},
+	{
+		"type": "url",
+		"id": "button__link",
+		"label": "Button link"
+
+  	}
+],
+  "presets": [
+    {
+      "name": "Button Section",
+      "category": "Tiles"
+    }
+  ]
+  }
+
+{% endschema %}
+
+{% stylesheet %}
+
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

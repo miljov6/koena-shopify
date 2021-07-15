@@ -1,0 +1,86 @@
+ <div class="results__col">   
+   
+{% for block in section.blocks %}             
+{% assign tile_img-1 =  block.settings.tile__image-1 | img_url:"master" %}
+{% assign tile_img-2 =  block.settings.tile__image-2 | img_url:"master" %}              
+              
+              <div class="results__img {% if block.settings.tile__image-2 == blank %} full {% endif %}">
+                <div class="results__img-inner">
+                  <img src="{{ tile_img-1 }}" alt="Results & Reviews | Koéna" class="results__img-file">
+                </div>
+              </div>  
+              
+              {% if block.settings.tile__image-2 != blank %}
+              
+              <div class="results__img">
+                <div class="results__img-inner">
+                  <img src="{{ tile_img-2 }}" alt="Results & Reviews | Koéna" class="results__img-file">
+                </div>
+              </div>     
+              
+              {% endif %}
+              
+             {% if block.settings.tile__review != empty %}  
+              <div class="results__img review2">
+                <div class="results__review">"{{ block.settings.tile__review }}"</div>
+                <div class="results__name">{{ block.settings.tile__name }} </div>
+              </div>  
+			{% endif %}
+            
+
+{% endfor %}                                           
+</div> 
+
+
+{% schema %}
+  {
+  	"name": "Result Tiles",
+  	"class": "Results Tiles",
+  	"max_blocks": 300,
+  	"blocks": [
+
+  		{
+  			"type": "tile",
+  			"name": "tile",
+  			"settings": [
+  				{
+  					"type": "image_picker",
+  					"id": "tile__image-1",
+  					"label": "Before Image"
+  				},
+  				{
+  					"type": "image_picker",
+  					"id": "tile__image-2",
+  					"label": "After Image"
+  				},
+  				{
+  					"type": "text",
+  					"id": "tile__review",
+  					"label": "Review"
+  				},
+  				{
+  					"type": "text",
+  					"id": "tile__name",
+  					"label": "Name"
+  				}
+  			]
+  		}
+
+  	],
+  "presets": [
+    {
+      "name": "Result Tiles",
+      "category": "Result Tiles"
+    }
+  ]
+  }
+
+{% endschema %}
+
+{% stylesheet %}
+  
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
+

@@ -1,0 +1,129 @@
+{% assign partner__image =  section.settings.partner__image | img_url: '1x1' | replace: '_1x1.', '_{width}x.'  %}
+
+
+<div class="partner__header-wrap">
+    <div class="partner__header" style="position: relative; background-image: linear-gradient(359deg, rgba(0, 0, 0, 0.6), transparent), url({{ partner__image }});">
+      <h1 class="gb__h1">{{ section.settings.partner__h }}</h1>
+      <div class="partner-overlay"></div>
+        <img alt="Koena Partners | {{ section.settings.partner__h }}" class="gb__img-lander lazyload"
+             
+                  src="{{ section.settings.partner__image | img_url: '300x' }}"
+                  data-src="{{ partner__image }}"
+                  data-widths="[540, 720, 900, 1080, 1296, 1512, 1728, 1944, 2048]"
+                  data-sizes="auto"
+                  data-parent-fit="cover"
+             
+             >      
+      
+    </div>
+    <div class="partner__sub--wrapper">
+    <h2 class="partner__sub partner__sub-1">{{ section.settings.partner__text }}</h2>
+    </div>
+</div>
+
+<div class="page-width">
+<div class="gb__tiles">
+    
+{% for block in section.blocks %}
+  
+{% assign img_url =  block.settings.block__image | img_url: '1x1' | replace: '_1x1.', '_{width}x.'  %}
+
+    <div class="gb__tile {% if block.settings.block__flipped == true %} flipped {% endif %}">
+      <div class="gb__image">
+        <img alt="Koena Partners | {{ block.settings.block__h}}" class="gb__img lazyload"
+             
+                  src="{{ block.settings.block__image | img_url: '300x' }}"
+                  data-src="{{ img_url }}"
+                  data-widths="[540, 720, 900, 1080, 1296, 1512, 1728, 1944, 2048]"
+                  data-sizes="auto"
+                  data-parent-fit="cover"
+             
+             >
+        
+      </div>
+      <div class="gb__text">
+        <h2 class="gb__tile-h">{{ block.settings.block__h}}</h2>
+        <div class="gb__line"></div>
+        <p class="gb__p">{{ block.settings.block__text}}</p>
+      </div>
+    </div>
+ 
+{% endfor %}
+
+</div>  
+</div>
+
+{% schema %}
+  {
+  	"name": "Heading & Tiles",
+  	"class": "partner-page",
+  	"settings": [
+	{
+		"type": "text",
+		"id": "partner__h",
+		"label": "Page Heading"
+
+  	},
+	{
+		"type": "image_picker",
+		"id": "partner__image",
+		"label": "Header BG Image"
+
+  	},
+	{
+		"type": "textarea",
+		"id": "partner__text",
+		"label": "Page Sub Heading"
+
+  	}],
+	"blocks": [
+
+	{
+  		"type": "blocksection",
+  		"name": "Block Section",
+  		"settings": [
+		{
+			"type": "text",
+			"id": "block__h",
+			"label": "Heading"
+
+  		},
+		{
+			"type": "image_picker",
+			"id": "block__image",
+			"label": "Image"
+
+  		},
+		{
+			"type": "textarea",
+			"id": "block__text",
+			"label": "Text"
+
+  		},
+		{
+			"type": "checkbox",
+			"id": "block__flipped",
+			"label": "Flip Direction",
+			"default": false,
+			"info": "Changes the positioning of image / text"
+
+  		}
+
+		]
+	}
+],
+  "presets": [
+    {
+      "name": "Partner Page",
+      "category": "Tiles"
+    }
+  ]
+  }
+
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,4 +1,10 @@
 <div class="price-container{% if variant.unit_price_measurement %} price-container--unit-available{% endif %}" data-price-container>
+  <span id="ProductPrice"
+    class="product-single__price{% if variant.compare_at_price > variant.price %} on-sale{% endif %}"
+    itemprop="price"
+    content="{{ variant.price | divided_by: 100.00 }}" style="font-weight: 600;">
+    {{ variant.price | money }}{{ product2.price | money }}
+  </span>
   {%- if variant.compare_at_price > variant.price -%}
     <span id="PriceA11y" class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
     <span class="product-single__price--wrapper" aria-hidden="false">
@@ -14,13 +20,6 @@
     </span>
     <span id="ComparePriceA11y" class="visually-hidden" aria-hidden="true">{{ 'products.general.sale_price' | t }}</span>
   {%- endif -%}
-
-  <span id="ProductPrice"
-    class="product-single__price{% if variant.compare_at_price > variant.price %} on-sale{% endif %}"
-    itemprop="price"
-    content="{{ variant.price | divided_by: 100.00 }}">
-    {{ variant.price | money }}
-  </span>
 
   <div class="product-single__unit">
     {%- capture unit_price_separator -%}

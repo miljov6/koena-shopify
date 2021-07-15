@@ -1,0 +1,77 @@
+ <div class="results__col">   
+{% for block in section.blocks %}                 
+
+   <div class="results__video">
+            <div class="results__img video">
+				<iframe class="responsive-iframe" src="https://www.youtube.com/embed/{{ block.settings.video__url }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>              
+   			</div>    
+              <div class="results__img review2">
+                <div class="results__review">{{ block.settings.video__description}}</div>
+              </div>  
+   </div>                                             
+{% endfor %}          
+</div>              
+
+ <style>
+   
+.results__video {
+  width: 100%;
+}
+   
+.results__video-description { 
+ width: 100%;
+}
+.video__description {
+ width: 66.6666%;
+  display: inline-block;
+  float: right;
+}
+.video__name {
+ width: 33.33333%;
+  display: inline-block;
+  float: left;
+}   
+</style>  
+
+{% schema %}
+  {
+  	"name": "Result Videos",
+  	"class": "Results Video",
+  	"max_blocks": 200,
+  	"blocks": [
+  		{
+  			"type": "video",
+  			"name": "video",
+  			"settings": [
+  				{
+  					"type": "text",
+  					"id": "video__url",
+  					"label": "Youtube ID (last string of digits in the URL after 'watch?v='"
+  				},
+  				{
+  					"type": "textarea",
+  					"id": "video__description",
+  					"label": "Description"
+  				}
+  			]
+  		}
+
+  	],
+  "presets": [
+    {
+      "name": "Result Videos",
+      "category": "Result Videos"
+    }
+  ]
+  }
+
+{% endschema %}
+
+{% stylesheet %}
+
+
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
+

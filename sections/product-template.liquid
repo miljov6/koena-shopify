@@ -47,7 +47,7 @@
           {% endfor %}
         </ul>
       {% endunless %}</div>
-      <div class="grid__item large--five-twelfths medium--five-twelfths text-center">
+      <div class="grid__item large--five-twelfths medium--five-twelfths text-center stckypr">
         {%- if product.compare_at_price > product.price -%}
           <div class="save">
             <p>Save</p>
@@ -132,158 +132,235 @@
           {% endif %}
 
           <h1 class="product-single__title" itemprop="name">{{ product.title }}</h1>
-
           <div class="price-box" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
             {% comment %}
               Optionally show the 'compare at' or original price of the product.
             {% endcomment %}
-            {% include 'product-price', variant: current_variant %}
-
-            {%- if cart.taxes_included or shop.shipping_policy.body != blank -%}
-              <div class="product-single__policies rte">
-                {%- if cart.taxes_included -%}
-                  {{ 'products.general.include_taxes' | t }}
-                {%- endif -%}
-                {%- if shop.shipping_policy.body != blank -%}
-                  {{ 'products.general.shipping_policy_html' | t: link: shop.shipping_policy.url }}
-                {%- endif -%}
-              </div>
-            {%- endif -%}
-
-            <hr class="hr--small">
-
-            <meta itemprop="priceCurrency" content="{{ cart.currency.iso_code }}">
-            <link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}">
-
-            {% capture "form_classes" %}
-              product-single__form{% if product.has_only_default_variant %} product-single__form--no-variants{% endif %}
-            {%- endcapture %}
-
-            {% capture "form_id" %}AddToCartForm--{{ section.id }}{%- endcapture %}
-
-            {% form 'product', product, class:form_classes, id:form_id, data-product-form: '' %}
-              {{ form | payment_terms }}
-              {% unless product.has_only_default_variant %}
-                {% for option in product.options_with_values %}
-                  <div class="radio-wrapper js product-form__item">
-                    <label class="single-option-radio__label"
-                      for="ProductSelect-option-{{ forloop.index0 }}">
-                      {{ option.name | escape }}
-                    </label>
-                    {% if section.settings.product_selector == 'radio' %}
-                      <fieldset class="single-option-radio"
-                        id="ProductSelect-option-{{ forloop.index0 }}">
-                        {% assign option_index = forloop.index %}
-                        {% for value in option.values %}
-                          {% assign variant_label_state = true %}
-                          {% if product.options.size == 1 %}
-                            {% unless product.variants[forloop.index0].available  %}
-                              {% assign variant_label_state = false %}
-                            {% endunless %}
-                          {% endif %}
-                          <input type="radio"
-                            {% if option.selected_value == value %} checked="checked"{% endif %}
-                            {% unless variant_label_state %} disabled="disabled"{% endunless %}
-                            value="{{ value | escape }}"
-                            data-index="option{{ option_index }}"
-                            name="option{{ option.position }}"
-                            class="single-option-selector__radio{% unless variant_label_state %} disabled{% endunless %}"
-                            id="ProductSelect-option-{{ option.name | handleize }}-{{ value | escape }}">
-                          <label for="ProductSelect-option-{{ option.name | handleize }}-{{ value | escape }}"{% unless variant_label_state %} class="disabled"{% endunless %}>{{ value | escape }}</label>
-                        {% endfor %}
-                      </fieldset>
-                    {% else %}
-                      <select class="single-option-selector__radio single-option-selector-{{ section.id }} product-form__input" id="SingleOptionSelector-{{ forloop.index0 }}" data-index="option{{ forloop.index }}">
-                        {% for value in option.values %}
-                          <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>{{ value | escape }}</option>
-                        {% endfor %}
-                      </select>
-                    {% endif %}
-                  </div>
-                {% endfor %}
-              {% endunless %}
-
-              <select name="id" id="ProductSelect--{{ section.id }}" class="product-single__variants no-js">
-                {% for variant in product.variants %}
-                  {% if variant.available %}
-                    <option {% if variant == product.selected_or_first_available_variant %}
-                      selected="selected" {% endif %}
-                      data-sku="{{ variant.sku }}"
-                      value="{{ variant.id }}">
-                      {{ variant.title }} - {{ variant.price | money_with_currency }}
-                    </option>
-                  {% else %}
-                    <option disabled="disabled">
-                      {{ variant.title }} - {{ 'products.product.sold_out' | t }}
-                    </option>
-                  {% endif %}
-                {% endfor %}
-              </select>
-
-              {% if section.settings.quantity_enabled %}
-              <div class="qtydiv">
-                <label for="Quantity" class="quantity-selector">Quantity</label>
-                <div class="qtybox">
-                  <span class="btnqty qtyminus icon icon-minus"></span>
-                  <input type="text" id="quantity" name="quantity" value="1" min="1" class="quantity-selector quantity-input" readonly="">
-                  <span class="btnqty qtyplus icon icon-plus"></span>
+            <div class="grid__item medium--one-half large--one-whole" style="padding: 0">
+              <div class="grid__item medium--one-half large--one-half small--one-half text-left" style="padding: 0">
+                <div class="yotpo bottomLine"
+                  data-appkey="IJwaQ5pXnQdvzjYgkBcpN0wSS3PcCAoUde2twylv"
+                  data-domain="{{shop.permanent_domain | escape }}"
+                  data-product-id="{{ product.id }}"
+                  data-product-models="{{ product.id }}"
+                  data-name="{{ product.title | escape }}"
+                  data-url="{{ shop.url }}{{ product.url }}"
+                  data-image-url="{{ product.featured_image | product_img_url: 'large' |replace: '?', '%3F' | replace: '&','%26'}}"
+                  data-description="{{ product.description | escape }}"
+                  data-bread-crumbs="{% for tag in product.tags %}{{ tag | escape }};{% endfor %}">
                 </div>
-              </div>
-              {% endif %}
+                  <style>
+                     .yotpo.bottomLine {   
+                        padding-top: 6px;
+                        align-items: left !important;
+                        display: flex !important;
+                        align-content: left!important;
+                        justify-content: left!important;
+                        margin-bottom: 1rem;
+                      } 
+                   </style>
+                </div>
+               <div class="grid__item medium--one-half large--one-half small--one-half text-right">
+            {% include 'product-price', variant: current_variant %}</div>
+          </div>
 
-              <div class="product-single__add-to-cart{% if section.settings.add_to_cart_button_size == 'large' %} product-single__add-to-cart--full-width{% endif %}">
-                <button type="submit" name="add" id="AddToCart--{{ section.id }}" class="btn btn--add-to-cart{% if section.settings.enable_payment_button and product.selling_plan_groups == empty %} btn--secondary-accent{% endif %}"{% unless current_variant.available %} disabled="disabled"{% endunless %}>
-                  <span class="btn__text">
-                    {% if current_variant.available %}
-                      {{ 'products.product.add_to_cart' | t }}
-                    {% else %}
-                      {{ 'products.product.sold_out' | t }}
-                    {% endif %}
-                  </span>
-                </button>
-                {% if section.settings.enable_payment_button %}
-                  {{ form | payment_button }}
+          <div class="product-single__policies rte">
+            {%- if cart.taxes_included -%}
+              {{ 'products.general.include_taxes' | t }}
+            {%- endif -%}
+            {%- if shop.shipping_policy.body != blank -%}
+              {{ 'products.general.shipping_policy_html' | t: link: shop.shipping_policy.url }}
+            {%- endif -%}
+          </div>
+
+        <hr class="hr--small">
+
+        <meta itemprop="priceCurrency" content="{{ cart.currency.iso_code }}">
+        <link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}">
+
+        {% capture "form_classes" %}
+          product-single__form{% if product.has_only_default_variant %} product-single__form--no-variants{% endif %}
+        {%- endcapture %}
+
+        {% capture "form_id" %}AddToCartForm--{{ section.id }}{%- endcapture %}
+
+        {% form 'product', product, class:form_classes, id:form_id, data-product-form: '' %}
+          {{ form | payment_terms }}
+          {% unless product.has_only_default_variant %}
+            {% for option in product.options_with_values %}
+              <div class="radio-wrapper js product-form__item">
+                <label class="single-option-radio__label"
+                  for="ProductSelect-option-{{ forloop.index0 }}">
+                  {{ option.name | escape }}
+                </label>
+                {% if section.settings.product_selector == 'radio' %}
+                  <fieldset class="single-option-radio"
+                    id="ProductSelect-option-{{ forloop.index0 }}">
+                    {% assign option_index = forloop.index %}
+                    {% for value in option.values %}
+                      {% assign variant_label_state = true %}
+                      {% if product.options.size == 1 %}
+                        {% unless product.variants[forloop.index0].available  %}
+                          {% assign variant_label_state = false %}
+                        {% endunless %}
+                      {% endif %}
+                      <input type="radio"
+                        {% if option.selected_value == value %} checked="checked"{% endif %}
+                        {% unless variant_label_state %} disabled="disabled"{% endunless %}
+                        value="{{ value | escape }}"
+                        data-index="option{{ option_index }}"
+                        name="option{{ option.position }}"
+                        class="single-option-selector__radio{% unless variant_label_state %} disabled{% endunless %}"
+                        id="ProductSelect-option-{{ option.name | handleize }}-{{ value | escape }}">
+                      <label for="ProductSelect-option-{{ option.name | handleize }}-{{ value | escape }}"{% unless variant_label_state %} class="disabled"{% endunless %}>{{ value | escape }}</label>
+                    {% endfor %}
+                  </fieldset>
+                {% else %}
+                  <select class="single-option-selector__radio single-option-selector-{{ section.id }} product-form__input" id="SingleOptionSelector-{{ forloop.index0 }}" data-index="option{{ forloop.index }}">
+                    {% for value in option.values %}
+                      <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>{{ value | escape }}</option>
+                    {% endfor %}
+                  </select>
                 {% endif %}
               </div>
-            {% endform %}
+            {% endfor %}
+          {% endunless %}
 
+          <select name="id" id="ProductSelect--{{ section.id }}" class="product-single__variants no-js">
+            {% for variant in product.variants %}
+              {% if variant.available %}
+                <option {% if variant == product.selected_or_first_available_variant %}
+                  selected="selected" {% endif %}
+                  data-sku="{{ variant.sku }}"
+                  value="{{ variant.id }}">
+                  {{ variant.title }} - {{ variant.price | money_with_currency }}
+                </option>
+              {% else %}
+                <option disabled="disabled">
+                  {{ variant.title }} - {{ 'products.product.sold_out' | t }}
+                </option>
+              {% endif %}
+            {% endfor %}
+          </select>
+
+          {% if section.settings.quantity_enabled %}
+          <div class="qtydiv">
+            <label for="Quantity" class="quantity-selector">Quantity</label>
+            <div class="qtybox">
+              <span class="btnqty qtyminus icon icon-minus"></span>
+              <input type="text" id="quantity" name="quantity" value="1" min="1" class="quantity-selector quantity-input" readonly="">
+              <span class="btnqty qtyplus icon icon-plus"></span>
+            </div>
           </div>
-          <button type = "button" class = "collapsible active"><strong>DESCRIPTION</strong></button>
-          <div class="content product-single__description rte" itemprop="description" style="display: block;">
+          {% endif %}
+
+          <div class="product-single__add-to-cart{% if section.settings.add_to_cart_button_size == 'large' %} product-single__add-to-cart--full-width{% endif %}">
+            <button type="submit" name="add" id="AddToCart--{{ section.id }}" class="btn btn--add-to-cart{% if section.settings.enable_payment_button and product.selling_plan_groups == empty %} btn--secondary-accent{% endif %}"{% unless current_variant.available %} disabled="disabled"{% endunless %}>
+              <span class="btn__text">
+                {% if current_variant.available %}
+                  {{ 'products.product.add_to_cart' | t }}
+                {% else %}
+                  {{ 'products.product.sold_out' | t }}
+                {% endif %}
+              </span>
+            </button>
+            {% if section.settings.enable_payment_button %}
+              {{ form | payment_button }}
+            {% endif %}
+          </div>
+        {% endform %}
+
+      </div>
+      {% if section.settings.banner  != blank %}
+              <div style="padding: 0px 0px 20px 0px">
+              <a href="{{section.settings.url2}}" class = "text-link">{{section.settings.url2-text}}
+                        <noscript>
+                          {{ section.settings.banner  | img_url: '520x100' | img_tag: section.settings.banner .alt, 'feature-row__image-no-js' }}
+                        </noscript>
+                        <div class="feature-row__image-wrapper" style="padding-top:{{ 1 | divided_by: section.settings.banner .aspect_ratio | times: 100}}%;">
+                          {% assign img_url = section.settings.banner  | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+                          <img class="feature-row__image lazyload"
+                            src="{{ section.settings.banner  | img_url: '300x300' }}"
+                            data-src="{{ img_url }}"
+                            data-widths="[520, 580, 720, 900, 1080, 1296, 1512, 1728, 1944, 2048]"
+                            data-aspectratio="{{ section.settings.banner .aspect_ratio }}"
+                            data-sizes="auto"
+                            alt="{{ section.settings.banner .alt | escape }}">
+                      </div>
+                    </a>
+                  </div>
+                      {% endif %}
+          <div class="accordion" id="accordion">
+            <div class="card">
+			<div class="card-header" id="headingOne">
+          <div role = "button" class="collapsed" data-toggle="collapse" data-target="#collapseOne"> <i class="more-less fa fa-plus"></i><strong>DESCRIPTION</strong></div>
+          </div>
+		  <div id="collapseOne" class="content product-single__description rte collapse" aria-labelledby="headingOne" itemprop="description" data-parent="#accordion">
             {{ product.description }}
           </div>
-
-          <button type = "button" class = "collapsible"><strong>RESTA PLEX®</strong></button>
-          <div class="content product-single__description rte" itemprop="description">
+        </div>
+        <div class="card">
+		<div class="card-header" id="headingTwo">
+          <div role = "button" data-toggle="collapse" data-target="#collapseTwo"><i class="more-less fa fa-plus"></i><strong>RESTA PLEX®</strong></div>
+          </div>
+		  <div class="content product-single__description rte collapse collapse" id="collapseTwo" aria-labelledby="headingTwo" itemprop="description" data-parent="#accordion">
             {% include 'resta-plex' %}
           </div>
-
-          <button type = "button" class = "collapsible"><strong>INGREDIENTS</strong></button>
-          <div class="content product-single__description rte" itemprop="description">
+        </div>
+		<div class="card">
+		<div class="card-header" id="headingThree">
+          <div role = "button" data-toggle="collapse" data-target="#collapseThree"><i class="more-less fa fa-plus"></i><strong>INGREDIENTS</strong></div>
+			</div>
+		 <div id="collapseThree" class="content product-single__description rte collapse" aria-labelledby="headingThree" itemprop="description" data-parent="#accordion">
             {% include 'ingredients' %}
           </div>
-
-          <button type = "button" class = "collapsible"><strong>STORAGE</strong></button>
-          <div class="content product-single__description rte" itemprop="description">
+		  
+        </div>
+          <div class="card">
+		  <div class="card-header" id="headingFour">
+          <div role = "button" data-toggle="collapse" data-target="#collapseFour"><i class="more-less fa fa-plus"></i><strong>STORAGE</strong></div>
+          </div>
+		  <div id="collapseFour" class="content product-single__description rte collapse" aria-labelledby="headingFour" itemprop="description" data-parent="#accordion">
             {% include 'storage' %}
           </div>
-
-          <button type = "button" class = "collapsible"><strong>ALLERGEN-FREE</strong></button>
-          <div class="content product-single__description rte" itemprop="description">
+       
+		</div>
+        <div class="card">
+		<div class="card-header" id="headingFive">
+          <div role = "button" data-toggle="collapse" data-target="#collapseFive"><i class="more-less fa fa-plus"></i><strong>ALLERGEN-FREE</strong></div>
+          </div>
+		  <div id="collapseFive" class="content product-single__description rte collapse" aria-labelledby="headingFive" itemprop="description" data-parent="#accordion">
             {% include 'allergen-free' %}
           </div>
-
-          <button type = "button" class = "collapsible"><strong>USAGE</strong></button>
-          <div class="content product-single__description rte" itemprop="description">
+        
+		</div>
+        <div class="card">
+		<div class="card-header" id="headingSix">
+          <div role = "button" data-toggle="collapse" data-target="#collapseSix" ><i class="more-less fa fa-plus"></i><strong>USAGE</strong></div>
+          </div>
+		  <div id="collapseSix" class="content product-single__description rte collapse" aria-labelledby="headingSix" itemprop="description" data-parent="#accordion">
             {% include 'usage' %}
           </div>
+        </div>
 
           {% if section.settings.social_sharing_products %}
             {% include 'social-sharing', share_title: product.title, share_permalink: product.url, share_image: product.featured_media %}
           {% endif %}
         </div>
       </div>
+      </div>
     </div>
+    <script>
+    $('#accordion')
+      .on('show.bs.collapse', function(e) {   
+        $(e.target).prev('.card-header').find('i').addClass('fa fa-minus');    
+      })
+      .on('hide.bs.collapse', function(e) {
+       $(e.target).prev('.card-header').find('i').removeClass('fa fa-minus');
+       $(e.target).prev('.card-header').find('i').addClass('fa fa-plus');   
+      });
+    
+</script>
 </div>
 {% unless product == empty %}
   <script type="application/json" id="ProductJson-{{ section.id }}">
@@ -293,39 +370,7 @@
     {{ product.media | where: 'media_type', 'model' | json }}
   </script>
 {% endunless %}
-<script>
-  var coll = document.getElementsByClassName("collapsible");
-  var i;
-  
-  for (i = 0; i < coll.length; i++) {
-    coll[i].addEventListener("click", function() {
-      this.classList.toggle("active");
-      var content = this.nextElementSibling;
-      //var content2 = this.nextSibling;
-      if (content.style.display === "block") {
-        content.style.display = "none";
-      /*} else if (content2.classList.length >= 2) {
-        content2.classList.toggle("active");*/
-      } else {
-        content.style.display = "block";
-      }
-    });
-  }
-  </script>
 
-<script>
-
-  var col2 = document.querySelectorAll('.collapsible'),
-
-  col2.forEach(function(item){
-
-    item.addEventListener('click', function(){
-    document.querySelector('.active').classList.remove('active');
-    item.classList.add('active');
-} , false)
-
-})
-  </script>
 
 
 {% schema %}
@@ -887,6 +932,72 @@
         "zh-TW": "啟用影片循環功能"
       },
       "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "banner",
+      "label": {
+        "en": "Gift Card Banner"
+      }
+    },
+    {
+      "id": "url2",
+      "type": "url",
+      "label": "Gift Card Link"
+    },
+    {
+      "type": "product",
+      "id": "pack-1",
+      "label": {
+        "cs": "Produkt",
+        "da": "Produkt",
+        "de": "Produkt",
+        "en": "Product Pack 1",
+        "es": "Producto",
+        "fi": "Tuote",
+        "fr": "Produit",
+        "it": "Prodotto",
+        "ja": "商品",
+        "ko": "제품",
+        "nb": "Produkt",
+        "nl": "Product",
+        "pl": "Produkt",
+        "pt-BR": "Produto",
+        "pt-PT": "Produto",
+        "sv": "Produkt",
+        "th": "สินค้า",
+        "tr": "Ürün",
+        "vi": "Sản phẩm",
+        "zh-CN": "产品",
+        "zh-TW": "產品"
+      }
+    },
+		{
+	    "type": "product",
+      "id": "pack-2",
+      "label": {
+        "cs": "Produkt",
+        "da": "Produkt",
+        "de": "Produkt",
+        "en": "Product Pack 2",
+        "es": "Producto",
+        "fi": "Tuote",
+        "fr": "Produit",
+        "it": "Prodotto",
+        "ja": "商品",
+        "ko": "제품",
+        "nb": "Produkt",
+        "nl": "Product",
+        "pl": "Produkt",
+        "pt-BR": "Produto",
+        "pt-PT": "Produto",
+        "sv": "Produkt",
+        "th": "สินค้า",
+        "tr": "Ürün",
+        "vi": "Sản phẩm",
+        "zh-CN": "产品",
+        "zh-TW": "產品"
+      }
     }
   ]
 }

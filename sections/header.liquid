@@ -76,7 +76,7 @@
     {% include 'drawer-menu' %}
   </div>
   <div class="header-container drawer__header-container">
-    <div class="header-wrapper" data-header-wrapper>
+    <div class="header-wrapper header-bottom" data-header-wrapper>
       {% if section.settings.show_announcement %}
         {% if section.settings.home_page_only == false or request.page_type == 'index' %}
           <style>
@@ -131,7 +131,7 @@
                 </button>
               </div>
             </div>
-            <div class="grid__item large--one-third medium-down--one-half">
+            <div class="grid__item large--one-sixth medium-down--one-half">
               {% comment %}
                 Use the uploaded logo from theme settings if enabled.
                 Site name gets precedence with H1 tag on homepage, div on other pages.
@@ -166,7 +166,7 @@
                 </div>
               {% endif %}
             </div>
-            <nav class="grid__item large--two-thirds large--text-right medium-down--hide" role="navigation">
+            <nav class="grid__item medium-down--hide large--three-fifths large--text-left" role="navigation">
               {% comment %}
                 List out your main-menu linklist (default)
 
@@ -194,13 +194,13 @@
                       </a>
                       <ul
                         id="MenuParent-{{ parent_index }}"
-                        class="site-nav__dropdown {% if link.levels == 2 %}site-nav--has-grandchildren{% endif %}"
+                        class="site-nav__dropdown {% if link.levels == 2 %}site-nav--has-grandchildren{% endif %} desktop-ul"
                         data-meganav-dropdown>
                         {% for childlink in link.links %}
                           {% if childlink.links != blank %}
                           {% assign child_index = forloop.index %}
                             <li
-                              class="site-nav__item site-nav--has-dropdown site-nav--has-dropdown-grandchild {% if childlink.active %}site-nav--active{% endif %}"
+                              class="site-nav__item site-nav--has-dropdown site-nav--has-dropdown-grandchild {% if childlink.active %}site-nav--active{% endif %} desktop3"
                               aria-haspopup="true">
                               <a
                                 href="{{ childlink.url }}"
@@ -266,30 +266,17 @@
                     {% include 'search-bar', search_btn_style: 'btn', search_bar_location: 'search-bar--header' %}
                   </li>
                 {% endcomment %}
-                {% if shop.customer_accounts_enabled %}
-                  <li class="site-nav__item site-nav__expanded-item site-nav__item--compressed">
-                    <a class="site-nav__link site-nav__link--icon" href="{{ routes.account_url }}">
-                      <span class="icon-fallback-text">
-                        <span class="icon icon-customer" aria-hidden="true"></span>
-                        <span class="fallback-text">
-                          {% if customer %}
-                            {{ 'layout.customer.account' | t }}
-                          {% else %}
-                            {{ 'layout.customer.log_in' | t }}
-                          {% endif %}
-                        </span>
-                      </span>
-                    </a>
-                  </li>
-                {% endif %}
-
+                </ul>
+              </ul>
+              </nav>
+              <ul class="site-nav" id="AccessibleNav">    
                 {% if section.settings.search == 'page' or section.settings.search == 'modal' %}
                   {% assign search_modal = true %}
                   {% if section.settings.search == 'page' %}
-                    {% assign search_modal = false %}
+                  {% assign search_modal = false %}
                   {% endif %}
-                  <li class="site-nav__item site-nav__item--compressed">
-                    <a href="{{ routes.search_url }}" class="site-nav__link site-nav__link--icon{% if search_modal %} js-toggle-search-modal{% endif %}" data-mfp-src="#SearchModal">
+                  <li class="site-nav__item site-nav__item--compressed site-nav-2">
+                    <a href="{{ routes.search_url }}" class="site-nav__link site-nav__link--icon search-expand {% if search_modal %} js-toggle-search-modal{% endif %}" data-mfp-src="#SearchModal">
                       <span class="icon-fallback-text">
                         <span class="icon icon-search" aria-hidden="true"></span>
                         <span class="fallback-text">{{ 'general.search.title' | t }}</span>
@@ -298,7 +285,7 @@
                   </li>
                 {% endif %}
 
-                <li class="site-nav__item site-nav__item--compressed">
+                <li class="site-nav__item site-nav__item--compressed site-nav-2">
                   <a href="{{ routes.cart_url }}" class="site-nav__link site-nav__link--icon cart-link js-drawer-open-button-right" aria-controls="CartDrawer">
                     <span class="icon-fallback-text">
                       <span class="icon icon-cart" aria-hidden="true"></span>
@@ -307,11 +294,37 @@
                     <span class="cart-link__bubble{% if cart.item_count > 0 %} cart-link__bubble--visible{% endif %}"></span>
                   </a>
                 </li>
-
+                {% if shop.customer_accounts_enabled %}
+                  <li class="site-nav__item site-nav__expanded-item site-nav__item--compressed site-nav-2">
+                    {% if request.page_type == 'index' and section.settings.transparent_header_enable %}
+                    <a class="site-nav__link site-nav__link--icon btn--login" href="{{ routes.account_url }}" style="border: 1px solid white;">
+                      <button class="btn-login" style="color:white"> 
+                    {% else %}
+                      
+                    <a class="site-nav__link site-nav__link--icon btn--login" href="{{ routes.account_url }}">
+                      {% comment %}
+                      <span class="icon-fallback-text">
+                        <span class="icon icon-customer" aria-hidden="true"></span>
+                        <span class="fallback-text">
+                                          {% endcomment %}
+                                          <button class="btn-login">                        
+                      {% endif %}                      
+                          {% if customer %}
+                            {{ 'layout.customer.account' | t }}
+                          {% else %}
+                            {{ 'layout.customer.log_in' | t }}
+                          {% endif %}
+                        </button>
+                        {% comment %}
+                        </span>
+                      </span>
+                      {% endcomment %}
+                    </a>
+                  </li>
+                {% endif %}
               </ul>
               <!-- //site-nav -->
-            </nav>
-            <div class="grid__item large--hide one-quarter">
+            <div class="grid__item large--hide one-fifth">
               <div class="site-nav--mobile text-right">
                 <a href="{{ routes.cart_url }}" class="site-nav__link cart-link js-drawer-open-button-right" aria-controls="CartDrawer">
                   <span class="icon-fallback-text">

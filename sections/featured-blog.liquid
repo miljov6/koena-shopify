@@ -21,34 +21,41 @@
     {% if section.settings.title != blank %}
       <div class="section-header text-center">
         <h2 class="h1 section-header__title">{{ section.settings.title | escape }}</h2>
+        {% if section.settings.subtitle != blank %}
+        <p class="featured-blog-subtitle">{{ section.settings.subtitle | escape }}</p>
+      {% endif %}
         <hr class="hr--small">
       </div>
     {% endif %}
 
     {% unless blog.articles_count == 0 %}
-      <div class="grid-uniform">
+      <div class="grid-uniform blog-grid">
         {% for article in blog.articles limit: section.settings.post_limit %}
           <div class="grid__item {{ width }}">
             <div class="featured-blog__post">
 
               {% if section.settings.blog_show_image %}
-                {% unless article.image == blank %}
+                {% if article.image != blank %}
                   <a class="article__featured-image-link" href="{{ article.url }}">
                     <noscript>
                       {{ article.image | img_url: '1024x1024' | img_tag: article.title | escape }}
                     </noscript>
-                    <div class="article__featured-image-wrapper" style="padding-top:{{ 1 | divided_by: article.image.aspect_ratio | times: 100}}%;">
-                      {% assign img_url = article.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
-                      <img class="article__featured-image lazyload"
-                        src="{{ article.image | img_url: '300x300' }}"
-                        data-src="{{ img_url }}"
-                        data-widths="[310, 360, 480, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
-                        data-aspectratio="{{ article.image.aspect_ratio }}"
-                        data-sizes="auto"
-                        alt="{{ article.title | escape }}">
+                    <div class="article__featured-image-wrapper" style="padding-top:250px;">
+	                      {% assign img_url = article.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+                          <img class="article__featured-image lazyload"
+                            src="{{ article.image | img_url: '300x300' }}"
+                            data-src="{{ img_url }}"
+                            data-widths="[310, 360, 480, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                            data-aspectratio="{{ article.image.aspect_ratio }}"
+                            data-sizes="auto"
+                            alt="{{ article.title | escape }}">
                     </div>
                   </a>
-                {% endunless %}
+                {% else %}              
+                    <div class="article__featured-image-wrapper" style="padding-top:0px;">
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg blog-placeholder' }}
+              </div>  
+              {% endif %}
               {% endif %}
 
               {% unless section.settings.post_limit == 1 and section.settings.blog_show_image %}
@@ -78,14 +85,42 @@
     {% endif %}
 
     {% if section.settings.show_view_all %}
-      <div class="section-header text-center">
-        <a href="{{ blog.url }}" class="btn">
-          {{ 'blogs.article.view_all' | t }}
+      <div class="section-header text-center see-our-blog-1">
+        <a href="{{ blog.url }}" class="btn see-our-blog">
+         SEE OUR BLOG
         </a>
       </div>
     {% endif %}
 
   </div>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('.blog-grid').slick({
+			infinite: true,
+			slidesToShow: 3,
+			responsive: [
+    {
+      breakpoint: 768,
+      settings: {
+        arrows: false,
+        centerMode: true,
+        centerPadding: '40px',
+        slidesToShow: 1
+      }
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        arrows: false,
+        centerMode: true,
+        centerPadding: '40px',
+        slidesToShow: 1
+      }
+    }
+  ]
+		});
+	});
+  </script>
 </div>
 
 
@@ -335,6 +370,16 @@
         "zh-TW": "顯示摘要"
       },
       "default": true
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": {
+        "en": "Subtitle"
+      },
+      "default": {
+        "en": "Subtitle"
+      }
     },
     {
       "type": "checkbox",

@@ -1,0 +1,361 @@
+<div class="page-width">
+
+    <div class="gb__header">
+    <h2 class="gb__h1">Koéna Gives Back</h2>
+    <div class="gb__line"></div>
+    <h5 class="gb__sub-h">{{ section.settings.giveback__title }}</h5>
+  </div>
+  <div class="gb__tiles">
+    
+    {% for block in section.blocks %}
+    {% assign giveback__img =  block.settings.giveback__img | img_url:"master" %}
+    <div class="gb__tile">
+      <div class="gb__image"><img src="{{ giveback__img }}" alt="" class="gb__img"></div>
+      <div class="gb__text">
+        <h4 class="gb__tile-h">{{ block.settings.giveback__h }}</h4>
+        <p class="gb__p">{{ block.settings.giveback__text }}</p><a href="{{ block.settings.giveback__url }}" class="gb__button w-button">LEARN MORE</a></div>
+    </div>
+    {% endfor %}
+  </div>
+  
+  
+</div>
+
+<style>
+  .gb__header {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding-top: 90px;
+  padding-bottom: 90px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  text-align: center;
+}
+
+.div-block {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.gb__h1 {
+  margin-top: 0px;
+  font-family: "News Gothic No 2",sans-serif!important;
+  font-style: normal;
+  font-weight: 400;
+  margin-bottom: 20px;
+  color: #0f72ea!important;
+  font-size: 2.5rem;
+  line-height: 1.225;
+}
+
+@media screen and (max-width: 767px) {
+  .page-width {
+    padding: 0 20px 50px 20px;
+
+  }
+}  
+
+.gb__tiles {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  max-width: 1200px;
+  margin-right: auto;
+  margin-left: auto;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-align: stretch;
+  -webkit-align-items: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+}
+
+.gb__tile {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  overflow: hidden;
+  margin-right: 15px;
+  margin-bottom: 30px;
+  margin-left: 15px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 400px;
+  -ms-flex: 0 0 400px;
+  flex: 0 0 400px;
+  border-radius: 15px;
+  box-shadow: 10px 0 25px 0 #d3d3d3;
+}
+
+.gb__image {
+  width: 100%;
+  height: 250px;
+  min-height: 250px;
+    -webkit-box-flex: 0;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+}
+
+.gb__img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
+.gb__tile-h {
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+
+.gb__p {
+  margin-bottom: 30px;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.gb__button {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  padding: 15px 30px;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: #0f72ea;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: white;
+  text-decoration: none;
+}
+
+.gb__sub-h {
+  margin-top: 24px;
+  margin-bottom: 0px;
+  font-weight: 400;
+  color: #4a4a4a;
+  opacity: 0.8;
+  max-width: 36em;
+  font-size: 1.25em;
+  text-transform: none!important;
+  font-family: "News Gothic No 2",sans-serif!important;
+  line-height: 1.55;
+  letter-spacing: 0;
+}
+
+.gb__text {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 45px 30px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  text-align: center;
+}
+
+.gb__line {
+  width: 60px;
+  height: 4px;
+  background-color: #0f72ea;
+  margin-bottom: 20px;
+}
+  
+@media screen and (max-width: 991px) {
+  .gb__tile {
+    margin-bottom: 60px;
+    -webkit-flex-basis: 500px;
+    -ms-flex-preferred-size: 500px;
+    flex-basis: 500px;
+  }
+}
+  
+@media screen and (max-width: 767px) {
+    .gb__header {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding-top: 60px;
+  padding-bottom: 60px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  text-align: center;
+}
+  .gb__sub-h {
+    font-size: 16px;
+    line-height: 1.5;
+}
+  
+  .gb__tiles {
+    margin-right: 0px;
+    margin-left: 0px;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+  }
+  .gb__tile {
+    margin-right: 0px;
+    margin-bottom: 30px;
+    margin-left: 0px;
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 500px;
+    -ms-flex: 0 500px;
+    flex: 0 500px;
+  }
+  .gb__tile:last-child {
+    margin-bottom: 0px;
+  }
+  .gb__line {
+  margin-bottom: 10px;
+}
+}
+  @media screen and (max-width: 479px) {
+  .gb__tile {
+    margin-bottom: 30px;
+  }
+}
+</style>  
+
+
+{% schema %}
+  {
+  	"name": "Give Back",
+  	"class": "giveback-tile",
+  	"settings": [
+	{
+		"type": "textarea",
+		"id": "giveback__title",
+		"label": "Page Intro Text"
+
+  	}
+
+],
+	"blocks": [
+
+	{
+  		"type": "tile",
+  		"name": "Partner Tile",
+  		"settings": [
+	{
+		"type": "image_picker",
+		"id": "giveback__img",
+		"label": "Image"
+
+  	},
+	{
+		"type": "text",
+		"id": "giveback__h",
+		"label": "Title"
+
+  	},
+	{
+		"type": "textarea",
+		"id": "giveback__text",
+		"label": "Description"
+
+  	},
+	{
+		"type": "url",
+		"id": "giveback__url",
+		"label": "Left URL"
+
+  	}
+
+		]
+	}
+],
+  "presets": [
+    {
+      "name": "Give Back Home",
+      "category": "Tiles"
+    }
+  ]
+  }
+
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

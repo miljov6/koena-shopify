@@ -1,0 +1,71 @@
+ <div class="results__col">   
+{% for block in section.blocks %}                 
+
+   <div class="results__testimonial">
+     <h2 class="testimonial__title">{{ block.settings.testimonial__title }}</h2>
+     <h5 class="testimonial__title">"{{ block.settings.testimonial__quote }}"</h5>
+     <p class="testimonial__title">{{ block.settings.testimonial__name }}</p>
+   </div>                                             
+{% endfor %}          
+</div>              
+
+<style>
+  
+.results__testimonial {
+ width: 100%;
+  text-align: center;
+  padding: 40px 10px 40px 10px;
+}
+  
+.testimonial__quote {
+ font-style: italic; 
+}
+  
+</style>  
+
+{% schema %}
+  {
+  	"name": "Result Testimonials",
+  	"class": "Result-testimonials",
+  	"max_blocks": 200,
+  	"blocks": [
+  		{
+  			"type": "testimonial",
+  			"name": "testimonial",
+  			"settings": [
+  				{
+  					"type": "text",
+  					"id": "testimonial__title",
+  					"label": "Title"
+  				},
+  				{
+  					"type": "textarea",
+  					"id": "testimonial__quote",
+  					"label": "Quote"
+  				},
+  				{
+  					"type": "text",
+  					"id": "testimonial__name",
+  					"label": "Name, Location"
+  				}
+  			]
+  		}
+
+  	],
+  "presets": [
+    {
+      "name": "Result Testimonials",
+      "category": "Result Testimonials"
+    }
+  ]
+  }
+
+{% endschema %}
+
+{% stylesheet %}
+
+
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

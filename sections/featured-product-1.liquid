@@ -1,0 +1,1788 @@
+<div id="product1">
+{%- assign product = all_products[section.settings.featured_product] -%}
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+
+{%- if section.settings.featured_product2 != empty -%}
+{%- assign product2 = all_products[section.settings.featured_product2] -%}
+{%- assign current_variant = product2.selected_or_first_available_variant -%}
+{%- endif -%}
+
+{%- if section.settings.featured_product3 != empty -%}
+{%- assign product3 = all_products[section.settings.featured_product3] -%}
+{%- assign current_variant = product3.selected_or_first_available_variant -%}
+{%- endif -%}
+
+{%- if product == empty -%}
+  {%- assign section_onboarding = true -%}
+  {%- assign vendor = 'home_page.onboarding.product_vendor' | t -%}
+  {%- assign title = 'home_page.onboarding.product_title' | t -%}
+  {%- assign compare_at_price = 2999 -%}
+  {%- assign price = 1999 -%}
+{%- else -%}
+  {%- assign section_onboarding = false -%}
+  {%- assign vendor = product.vendor -%}
+  {%- assign title = product.title -%}
+  {%- assign compare_at_price = current_variant.compare_at_price -%}
+  {%- assign price = current_variant.price -%}
+{%- endif -%}
+
+{%- assign first_3d_model = product.media | where: "media_type", "model" | first -%}
+<div itemscope itemtype="http://schema.org/Product" id="FeaturedProductSection--{{ section.id }}"
+  data-section-id="{{ section.id }}"
+  data-section-type="product-template"
+  data-enable-history-state="false"
+  data-featured-product="true"
+  {% if first_3d_model %}data-has-model="true"{% endif %}>
+  <div class="wrapper">
+    <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
+    <meta itemprop="image" content="{{ product.featured_image.src | img_url: 'grande' }}">
+
+    <div class="grid product-single-1 div-box-m">
+      {% if section.settings.swap_places == true %}
+<div class="grid__item product-single__meta--wrapper medium-up--one-half large--six-twelfths div-box-1">
+        {% if section.settings.show_vendor %}
+          <h2 class="product-single__vendor" itemprop="brand">{{ vendor }}</h2>
+        {% endif %}
+
+        <h1 class="product-single__title" itemprop="name">{{ title }}</h1>
+        <a href="{{product.url}}#reviews">
+        <div id="product-{{product.id}}" class="yotpo bottomLine"
+        data-appkey="IJwaQ5pXnQdvzjYgkBcpN0wSS3PcCAoUde2twylv"
+        data-domain="{{shop.permanent_domain | escape }}"
+        data-product-id="{{ product.id }}"
+        data-product-models="{{ product.id }}"
+        data-name="{{ product.title | escape }}"
+        data-url="{{ shop.url }}{{ product.url }}"
+        data-image-url="{{ product.featured_image | product_img_url: 'large' |replace: '?', '%3F' | replace: '&','%26'}}"
+        data-description="{{ product.description | escape }}"
+        data-bread-crumbs="{% for tag in product.tags %}{{ tag | escape }};{% endfor %}">
+      </div></a>
+      <style>
+        .yotpo.bottomLine {   
+        align-items: left !important;
+        display: flex !important;
+        align-content: left!important;
+        justify-content: left!important;
+        margin-bottom: 1rem;
+      } 
+      </style>
+      <script>
+        $(this).delay(3000).queue(function(){
+           $('div#product-{{product.id}} a.text-m').attr('href','{{product.url}}#reviews');
+           $(this).dequeue();
+        });
+        </script>
+        <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+        {% if section.settings.text != blank %}
+          <div class="rte rich-text__text mob-1">
+            {{ section.settings.text }}
+          </div>
+          <div id="section---{{section.id}}"style="padding: 20px 0;">
+          <button id="unit1" class="btn-unit"><span style="color:#1272EA; font-weight:700;">UNIT PACK </span><br>{{ product.price | money }}<span style="text-decoration: line-through; font-size: 11px;"> {{ product.compare_at_price | money }}</span></button>
+          <button id="unit2" class="btn-unit-1" {%- if section.settings.featured_product2 == empty -%} style="display: none;"{% endif %}>2 Pack <br>{{ product2.price | money  }} <span style="text-decoration: line-through; font-size: 11px;"> {{ product2.compare_at_price | money }}</span></button>
+          <button id="unit3" class="btn-unit-1" {%- if section.settings.featured_product3 == empty -%} style="display: none;"{% endif %}>3 Pack  <br>{{ product3.price | money  }}<span style="text-decoration: line-through; font-size: 11px;"> {{ product3.compare_at_price | money }}</span></button>
+        </div>
+        {% endif %}
+        <div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="mob-2">
+          {% comment %}
+            Optionally show the 'compare at' or original price of the product.
+          {% endcomment %}
+          <div class = "product-price-container" style="display: none;">
+            {% include 'product-price', variant: current_variant %}
+            <meta itemprop="priceCurrency" content="{{ cart.currency.iso_code }}"></div>
+          <link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}">
+            
+          {% if section_onboarding %}
+            <div class="product-single__add-to-cart default-product">
+              <button type="submit" name="add" id="AddToCart--{{ section.id }}" class="btn btn--add-to-cart" disabled="disabled">
+                <span class="btn__text">
+                  {{ 'products.product.sold_out' | t }}
+                </span>
+              </button>
+            </div>
+          {% else %}
+            {% capture "form_classes" %}
+              product-single__form{% if product.has_only_default_variant %} product-single__form--no-variants{% endif %}
+            {%- endcapture %}
+
+            {% capture "form_id" %}AddToCartForm--{{ section.id }}{%- endcapture %}
+
+            {% form 'product', product, class:form_classes, id:form_id, data-product-form: '' %}
+              {{ form | payment_terms }}
+              {% unless product.has_only_default_variant %}
+                {% for option in product.options_with_values %}
+                  <div class="radio-wrapper js product-form__item">
+                    <label class="single-option-radio__label{% if section.settings.show_variant_labels == false %} hidden-label{% endif %}"
+                      for="ProductSelect--{{ section.id }}-option-{{ forloop.index0 }}">
+                      {{ option.name | escape }}
+                    </label>
+                    <fieldset class="single-option-radio"
+
+                      id="ProductSelect--{{ section.id }}-option-{{ forloop.index0 }}">
+                      {% assign option_index = forloop.index %}
+                      {% for value in option.values %}
+                        {% assign variant_label_state = true %}
+                        {% if product.options.size == 1 %}
+                          {% unless product.variants[forloop.index0].available  %}
+                            {% assign variant_label_state = false %}
+                          {% endunless %}
+                        {% endif %}
+                        <input type="radio"
+                          {% if option.selected_value == value %} checked="checked"{% endif %}
+                          {% unless variant_label_state %} disabled="disabled"{% endunless %}
+                          value="{{ value | escape }}"
+                          data-index="option{{ option_index }}"
+                          name="option{{ option.position }}"
+                          class="single-option-selector__radio{% unless variant_label_state %} disabled{% endunless %}"
+                          id="ProductSelect--{{ section.id }}-option-{{ option.name | handleize }}-{{ value | escape }}">
+                        <label for="ProductSelect--{{ section.id }}-option-{{ option.name | handleize }}-{{ value | escape }}"{% unless variant_label_state %} class="disabled"{% endunless %}>{{ value | escape }}</label>
+                      {% endfor %}
+                    </fieldset>
+                  </div>
+                {% endfor %}
+              {% endunless %}
+
+              <select name="id" id="ProductSelect--{{ section.id }}" class="product-single__variants no-js">
+                {% for variant in product.variants %}
+                  {% if variant.available %}
+                    <option {% if variant == product.selected_or_first_available_variant %}
+                      selected="selected" {% endif %}
+                      data-sku="{{ variant.sku }}"
+                      value="{{ variant.id }}">
+                      {{ variant.title }} - {{ variant.price | money }}
+                    </option>
+                  {% else %}
+                    <option disabled="disabled">
+                      {{ variant.title }} - {{ 'products.product.sold_out' | t }}
+                    </option>
+                  {% endif %}
+                {% endfor %}
+              </select>
+
+              <div class="product-single__add-to-cart">
+                <button type="submit" name="add" id="AddToCart--{{ section.id }}" class="btn btn--add-to-cart{% if section.settings.enable_payment_button %} btn--secondary-accent{% endif %}"{% unless current_variant.available %} disabled="disabled"{% endunless %}>
+                  <span class="btn__text">
+                    {% if current_variant.available %}
+                      {{ 'products.product.add_to_cart' | t }}
+                    {% else %}
+                      {{ 'products.product.sold_out' | t }}
+                    {% endif %}
+                  </span>
+                </button>
+                {% if section.settings.enable_payment_button %}
+                  {{ form | payment_button }}
+                {% endif %}
+              </div>
+            {% endform %}
+          {% endif %}
+        </div>
+      </div>
+	  <div class="grid__item large--six-twelfths medium-up--one-half text-center div-box-4">
+        <a {% unless section_onboarding %} href="{{ product.url }}?variant={{ current_variant.id }}"{% endunless %}> 
+        <div class="product-single__media-group-wrapper product-single__media-group-wrapper--featured" data-product-single-media-group-wrapper>
+          {% unless section_onboarding %}
+            {%- unless product.media.size == 0 -%}
+              <div class="product-single__media-group product-single__media-group--single-xr" data-product-single-media-group>
+                {%- assign link = product.url -%}
+                {%- assign height = 442 -%}
+                {%- assign width = 442 -%}
+                {%- assign featured_media = product.selected_or_first_available_variant.featured_media | default: product.featured_media -%}
+                {%- assign rendered_media_ids = '' -%}
+
+                {%- unless product.has_only_default_variant -%}
+                  {%- for variant in product.variants -%}
+                    {%- assign variant_media = variant.featured_media -%}
+
+                    {%- if variant_media -%}
+                      {%- if rendered_media_ids contains variant_media.id -%}
+                        {%- continue -%}
+                      {%- endif -%}
+
+                      {%- assign featured = false -%}
+                      {%- if variant_media == featured_media -%}
+                        {%- assign featured = true -%}
+                      {%- endif -%}
+
+                      {%- assign rendered_media_ids = rendered_media_ids | append: variant_media.id | append: ' ' -%}
+                      {% include 'media' with variant_media, enable_image_zoom: false, stacked: false, featured: featured, width: width, height: height %}
+                    {%- endif -%}
+                  {%- endfor -%}
+                {%- endunless -%}
+
+                {%- unless featured_media and rendered_media_ids contains featured_media.id -%}
+                  {% include 'media' with featured_media, enable_image_zoom: false, stacked: false, featured: true, width: width, height: height %}
+                {%- endunless -%}
+              </div>
+              {%- assign first_3d_model = product.media | where: "media_type", "model" | first -%}
+              {%- if first_3d_model -%}
+                {%- include 'xr-button' with model_id: first_3d_model.id, multi: false -%}
+              {%- endif -%}
+            {%- endunless -%}
+          {% else %}
+            {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          {% endunless %}
+        </div>
+        </a>
+      </div>
+{% else %}
+<div class="grid__item large--six-twelfths medium-up--one-half text-center">
+        <a {% unless section_onboarding %} href="{{ product.url }}?variant={{ current_variant.id }}"{% endunless %}> 
+        <div class="product-single__media-group-wrapper product-single__media-group-wrapper--featured" data-product-single-media-group-wrapper>
+          {% unless section_onboarding %}
+            {%- unless product.media.size == 0 -%}
+              <div class="product-single__media-group product-single__media-group--single-xr" data-product-single-media-group>
+                {%- assign link = product.url -%}
+                {%- assign height = 442 -%}
+                {%- assign width = 442 -%}
+                {%- assign featured_media = product.selected_or_first_available_variant.featured_media | default: product.featured_media -%}
+                {%- assign rendered_media_ids = '' -%}
+
+                {%- unless product.has_only_default_variant -%}
+                  {%- for variant in product.variants -%}
+                    {%- assign variant_media = variant.featured_media -%}
+
+                    {%- if variant_media -%}
+                      {%- if rendered_media_ids contains variant_media.id -%}
+                        {%- continue -%}
+                      {%- endif -%}
+
+                      {%- assign featured = false -%}
+                      {%- if variant_media == featured_media -%}
+                        {%- assign featured = true -%}
+                      {%- endif -%}
+
+                      {%- assign rendered_media_ids = rendered_media_ids | append: variant_media.id | append: ' ' -%}
+                      {% include 'media' with variant_media, enable_image_zoom: false, stacked: false, featured: featured, width: width, height: height %}
+                    {%- endif -%}
+                  {%- endfor -%}
+                {%- endunless -%}
+
+                {%- unless featured_media and rendered_media_ids contains featured_media.id -%}
+                  {% include 'media' with featured_media, enable_image_zoom: false, stacked: false, featured: true, width: width, height: height %}
+                {%- endunless -%}
+              </div>
+              {%- assign first_3d_model = product.media | where: "media_type", "model" | first -%}
+              {%- if first_3d_model -%}
+                {%- include 'xr-button' with model_id: first_3d_model.id, multi: false -%}
+              {%- endif -%}
+            {%- endunless -%}
+          {% else %}
+            {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          {% endunless %}
+        </div>
+        </a>
+      </div>
+	  <div class="grid__item product-single__meta--wrapper medium-up--one-half large--six-twelfths">
+        {% if section.settings.show_vendor %}
+          <h2 class="product-single__vendor" itemprop="brand">{{ vendor }}</h2>
+        {% endif %}
+
+        <h1 class="product-single__title" itemprop="name">{{ title }}</h1>
+        <a href="{{product.url}}#reviews">
+        <div id="product-{{product.id}}" class="yotpo bottomLine"
+        data-appkey="IJwaQ5pXnQdvzjYgkBcpN0wSS3PcCAoUde2twylv"
+        data-domain="{{shop.permanent_domain | escape }}"
+        data-product-id="{{ product.id }}"
+        data-product-models="{{ product.id }}"
+        data-name="{{ product.title | escape }}"
+        data-url="{{ shop.url }}{{ product.url }}"
+        data-image-url="{{ product.featured_image | product_img_url: 'large' |replace: '?', '%3F' | replace: '&','%26'}}"
+        data-description="{{ product.description | escape }}"
+        data-bread-crumbs="{% for tag in product.tags %}{{ tag | escape }};{% endfor %}">
+      </div></a>
+      <style>
+        .yotpo.bottomLine {   
+        align-items: left !important;
+        display: flex !important;
+        align-content: left!important;
+        justify-content: left!important;
+        margin-bottom: 1rem;
+      } 
+      </style>
+      <script>
+        $(this).delay(3000).queue(function(){
+           $('div#product-{{product.id}} a.text-m').attr('href','{{product.url}}#reviews');
+           $(this).dequeue();
+        });
+        </script>
+        <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+        {% if section.settings.text != blank %}
+          <div class="rte rich-text__text mob-1">
+            {{ section.settings.text }}
+          </div>
+          <div id="section---{{section.id}}"style="padding: 20px 0;">
+            <button id="unit1" class="btn-unit"><span style="color:#1272EA; font-weight:700;">UNIT PACK </span><br>{{ product.price | money }}<span style="text-decoration: line-through; font-size: 11px;"> {{ product.compare_at_price | money }}</span></button>
+            <button id="unit2" class="btn-unit-1" {%- if section.settings.featured_product2 == empty -%}style="display: none;"{% endif %}>2 Pack <br>{{ product2.price | money }} <span style="text-decoration: line-through; font-size: 11px;"> {{ product2.compare_at_price | money }}</span></button>
+            <button id="unit3" class="btn-unit-1" {%- if section.settings.featured_product3 == empty -%} style="display: none;"{% endif %}>3 Pack  <br>{{ product3.price | money }}<span style="text-decoration: line-through; font-size: 11px;"> {{ product3.compare_at_price | money }}</span></button>
+          </div>
+        {% endif %}
+        <div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="mob-2">
+          {% comment %}
+            Optionally show the 'compare at' or original price of the product.
+          {% endcomment %}
+          <div class = "product-price-container" style="display: none;">
+          {% include 'product-price', variant: current_variant %}
+          <meta itemprop="priceCurrency" content="{{ cart.currency.iso_code }}"></div>
+          <link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}">
+
+          {% if section_onboarding %}
+            <div class="product-single__add-to-cart default-product">
+              <button type="submit" name="add" id="AddToCart--{{ section.id }}" class="btn btn--add-to-cart" disabled="disabled">
+                <span class="btn__text">
+                  {{ 'products.product.sold_out' | t }}
+                </span>
+              </button>
+            </div>
+          {% else %}
+            {% capture "form_classes" %}
+              product-single__form{% if product.has_only_default_variant %} product-single__form--no-variants{% endif %}
+            {%- endcapture %}
+
+            {% capture "form_id" %}AddToCartForm--{{ section.id }}{%- endcapture %}
+
+            {% form 'product', product, class:form_classes, id:form_id, data-product-form: '' %}
+              {{ form | payment_terms }}
+              {% unless product.has_only_default_variant %}
+                {% for option in product.options_with_values %}
+                  <div class="radio-wrapper js product-form__item">
+                    <label class="single-option-radio__label{% if section.settings.show_variant_labels == false %} hidden-label{% endif %}"
+                      for="ProductSelect--{{ section.id }}-option-{{ forloop.index0 }}">
+                      {{ option.name | escape }}
+                    </label>
+                    <fieldset class="single-option-radio"
+
+                      id="ProductSelect--{{ section.id }}-option-{{ forloop.index0 }}">
+                      {% assign option_index = forloop.index %}
+                      {% for value in option.values %}
+                        {% assign variant_label_state = true %}
+                        {% if product.options.size == 1 %}
+                          {% unless product.variants[forloop.index0].available  %}
+                            {% assign variant_label_state = false %}
+                          {% endunless %}
+                        {% endif %}
+                        <input type="radio"
+                          {% if option.selected_value == value %} checked="checked"{% endif %}
+                          {% unless variant_label_state %} disabled="disabled"{% endunless %}
+                          value="{{ value | escape }}"
+                          data-index="option{{ option_index }}"
+                          name="option{{ option.position }}"
+                          class="single-option-selector__radio{% unless variant_label_state %} disabled{% endunless %}"
+                          id="ProductSelect--{{ section.id }}-option-{{ option.name | handleize }}-{{ value | escape }}">
+                        <label for="ProductSelect--{{ section.id }}-option-{{ option.name | handleize }}-{{ value | escape }}"{% unless variant_label_state %} class="disabled"{% endunless %}>{{ value | escape }}</label>
+                      {% endfor %}
+                    </fieldset>
+                  </div>
+                {% endfor %}
+              {% endunless %}
+
+              <select name="id" id="ProductSelect--{{ section.id }}" class="product-single__variants no-js">
+                {% for variant in product.variants %}
+                  {% if variant.available %}
+                    <option {% if variant == product.selected_or_first_available_variant %}
+                      selected="selected" {% endif %}
+                      data-sku="{{ variant.sku }}"
+                      value="{{ variant.id }}">
+                      {{ variant.title }} - {{ variant.price | money }}
+                    </option>
+                  {% else %}
+                    <option disabled="disabled">
+                      {{ variant.title }} - {{ 'products.product.sold_out' | t }}
+                    </option>
+                  {% endif %}
+                {% endfor %}
+              </select>
+
+              <div class="product-single__add-to-cart">
+                <button type="submit" name="add" id="AddToCart--{{ section.id }}" class="btn btn--add-to-cart{% if section.settings.enable_payment_button %} btn--secondary-accent{% endif %}"{% unless current_variant.available %} disabled="disabled"{% endunless %}>
+                  <span class="btn__text">
+                    {% if current_variant.available %}
+                      {{ 'products.product.add_to_cart' | t }}
+                    {% else %}
+                      {{ 'products.product.sold_out' | t }}
+                    {% endif %}
+                  </span>
+                </button>
+                {% if section.settings.enable_payment_button %}
+                  {{ form | payment_button }}
+                {% endif %}
+              </div>
+            {% endform %}
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+    </div>
+
+    {% if collection %}
+      <hr class="hr--clear">
+      <div class="text-center">
+        <a href="{{ collection.url }}" class="return-link">&larr; {{ 'products.general.collection_return' | t: collection: collection.title }}</a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+</div>
+
+<div id="product2" style="display: none;">
+
+
+  {%- if product2 == empty -%}
+    {%- assign section_onboarding = true -%}
+    {%- assign vendor = 'home_page.onboarding.product_vendor' | t -%}
+    {%- assign title = 'home_page.onboarding.product_title' | t -%}
+    {%- assign compare_at_price = 2999 -%}
+    {%- assign price = 1999 -%}
+  {%- else -%}
+    {%- assign section_onboarding = false -%}
+    {%- assign vendor = product2.vendor -%}
+    {%- assign title = product2.title -%}
+    {%- assign compare_at_price = current_variant.compare_at_price -%}
+    {%- assign price = current_variant.price -%}
+  {%- endif -%}
+  
+  {%- assign first_3d_model = product2.media | where: "media_type", "model" | first -%}
+  <div itemscope itemtype="http://schema.org/Product" id="FeaturedProductSection--{{ section.id }}"
+    data-section-id="{{ section.id }}"
+    data-section-type="product-template"
+    data-enable-history-state="false"
+    data-featured-product="true"
+    {% if first_3d_model %}data-has-model="true"{% endif %}>
+    <div class="wrapper">
+      <meta itemprop="url" content="{{ shop.url }}{{ product2.url }}">
+      <meta itemprop="image" content="{{ product2.featured_image.src | img_url: 'grande' }}">
+  
+      <div class="grid product-single-1 div-box-m">
+        {% if section.settings.swap_places == true %}
+  <div class="grid__item product-single__meta--wrapper medium-up--one-half large--six-twelfths div-box-1">
+          {% if section.settings.show_vendor %}
+            <h2 class="product-single__vendor" itemprop="brand">{{ vendor }}</h2>
+          {% endif %}
+  
+          <h1 class="product-single__title" itemprop="name">{{ title }}</h1>
+          <a href="{{product2.url}}#reviews">
+          <div id="product-{{product2.id}}" class="yotpo bottomLine"
+          data-appkey="IJwaQ5pXnQdvzjYgkBcpN0wSS3PcCAoUde2twylv"
+          data-domain="{{shop.permanent_domain | escape }}"
+          data-product-id="{{ product2.id }}"
+          data-product-models="{{ product2.id }}"
+          data-name="{{ product2.title | escape }}"
+          data-url="{{ shop.url }}{{ product2.url }}"
+          data-image-url="{{ product2.featured_image | product_img_url: 'large' |replace: '?', '%3F' | replace: '&','%26'}}"
+          data-description="{{ product2.description | escape }}"
+          data-bread-crumbs="{% for tag in product2.tags %}{{ tag | escape }};{% endfor %}">
+        </div></a>
+        <style>
+          .yotpo.bottomLine {   
+          align-items: left !important;
+          display: flex !important;
+          align-content: left!important;
+          justify-content: left!important;
+          margin-bottom: 1rem;
+        } 
+        </style>
+        <script>
+          $(this).delay(3000).queue(function(){
+             $('div#product-{{product2.id}} a.text-m').attr('href','{{product2.url}}#reviews');
+             $(this).dequeue();
+          });
+          </script>
+          <span class="shopify-product-reviews-badge" data-id="{{ product2.id }}"></span>
+          {% if section.settings.text2 != blank %}
+            <div class="rte rich-text__text mob-1">
+              {{ section.settings.text2 }}
+            </div>
+          {% endif %}
+          <div id="section---{{section.id}}"style="padding: 20px 0;">
+            <button id="unit1" class="btn-unit-1">UNIT PACK<br>{{ product.price | money }}<span style="text-decoration: line-through; font-size: 11px;"> {{ product.compare_at_price | money }}</span></button>
+            <button id="unit2" class="btn-unit" {%- if section.settings.featured_product2 == empty -%} style="display: none;"{% endif %}><span style="color:#1272EA; font-weight:700;">2 Pack </span><br>{{ product2.price | money }} <span style="text-decoration: line-through; font-size: 11px;"> {{ product2.compare_at_price | money }}</span></button>
+            <button id="unit3" class="btn-unit-1" {%- if section.settings.featured_product3 == empty -%} style="display: none;"{% endif %}>3 Pack  <br>{{ product3.price | money }}<span style="text-decoration: line-through; font-size: 11px;"> {{ product3.compare_at_price | money }}</span></button>
+          </div>
+          <div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="mob-2">
+            {% comment %}
+              Optionally show the 'compare at' or original price of the product.
+            {% endcomment %}
+            <div class = "product-price-container" style="display: none;">
+              {% include 'product-price', variant: current_variant %}
+              <meta itemprop="priceCurrency" content="{{ cart.currency.iso_code }}"></div>
+            <link itemprop="availability" href="http://schema.org/{% if product2.available %}InStock{% else %}OutOfStock{% endif %}">
+  
+            {% if section_onboarding %}
+              <div class="product-single__add-to-cart default-product">
+                <button type="submit" name="add" id="AddToCart--{{ section.id }}" class="btn btn--add-to-cart" disabled="disabled">
+                  <span class="btn__text">
+                    {{ 'products.product2.sold_out' | t }}
+                  </span>
+                </button>
+              </div>
+            {% else %}
+              {% capture "form_classes" %}
+                product-single__form{% if product2.has_only_default_variant %} product-single__form--no-variants{% endif %}
+              {%- endcapture %}
+  
+              {% capture "form_id" %}AddToCartForm--{{ section.id }}{%- endcapture %}
+  
+              {% form 'product', product, class:form_classes, id:form_id, data-product-form: '' %}
+                {{ form | payment_terms }}
+                {% unless product2.has_only_default_variant %}
+                  {% for option in product2.options_with_values %}
+                    <div class="radio-wrapper js product-form__item">
+                      <label class="single-option-radio__label{% if section.settings.show_variant_labels == false %} hidden-label{% endif %}"
+                        for="ProductSelect--{{ section.id }}-option-{{ forloop.index0 }}">
+                        {{ option.name | escape }}
+                      </label>
+                      <fieldset class="single-option-radio"
+  
+                        id="ProductSelect--{{ section.id }}-option-{{ forloop.index0 }}">
+                        {% assign option_index = forloop.index %}
+                        {% for value in option.values %}
+                          {% assign variant_label_state = true %}
+                          {% if product2.options.size == 1 %}
+                            {% unless product2.variants[forloop.index0].available  %}
+                              {% assign variant_label_state = false %}
+                            {% endunless %}
+                          {% endif %}
+                          <input type="radio"
+                            {% if option.selected_value == value %} checked="checked"{% endif %}
+                            {% unless variant_label_state %} disabled="disabled"{% endunless %}
+                            value="{{ value | escape }}"
+                            data-index="option{{ option_index }}"
+                            name="option{{ option.position }}"
+                            class="single-option-selector__radio{% unless variant_label_state %} disabled{% endunless %}"
+                            id="ProductSelect--{{ section.id }}-option-{{ option.name | handleize }}-{{ value | escape }}">
+                          <label for="ProductSelect--{{ section.id }}-option-{{ option.name | handleize }}-{{ value | escape }}"{% unless variant_label_state %} class="disabled"{% endunless %}>{{ value | escape }}</label>
+                        {% endfor %}
+                      </fieldset>
+                    </div>
+                  {% endfor %}
+                {% endunless %}
+  
+                <select name="id" id="ProductSelect--{{ section.id }}" class="product-single__variants no-js">
+                  {% for variant in product2.variants %}
+                    {% if variant.available %}
+                      <option {% if variant == product2.selected_or_first_available_variant %}
+                        selected="selected" {% endif %}
+                        data-sku="{{ variant.sku }}"
+                        value="{{ variant.id }}">
+                        {{ variant.title }} - {{ variant.price | money }}
+                      </option>
+                    {% else %}
+                      <option disabled="disabled">
+                        {{ variant.title }} - {{ 'products.product.sold_out' | t }}
+                      </option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+  
+                <div class="product-single__add-to-cart">
+                  <button type="submit" name="add" id="AddToCart--{{ section.id }}" class="btn btn--add-to-cart{% if section.settings.enable_payment_button %} btn--secondary-accent{% endif %}"{% unless current_variant.available %} disabled="disabled"{% endunless %}>
+                    <span class="btn__text">
+                      {% if current_variant.available %}
+                        {{ 'products.product.add_to_cart' | t }}
+                      {% else %}
+                        {{ 'products.product.sold_out' | t }}
+                      {% endif %}
+                    </span>
+                  </button>
+                  {% if section.settings.enable_payment_button %}
+                    {{ form | payment_button }}
+                  {% endif %}
+                </div>
+              {% endform %}
+            {% endif %}
+          </div>
+        </div>
+      <div class="grid__item large--six-twelfths medium-up--one-half text-center div-box-4">
+          <a {% unless section_onboarding %} href="{{ product2.url }}?variant={{ current_variant.id }}"{% endunless %}> 
+          <div class="product-single__media-group-wrapper product-single__media-group-wrapper--featured" data-product-single-media-group-wrapper>
+            {% unless section_onboarding %}
+              {%- unless product2.media.size == 0 -%}
+                <div class="product-single__media-group product-single__media-group--single-xr" data-product-single-media-group>
+                  {%- assign link = product2.url -%}
+                  {%- assign height = 442 -%}
+                  {%- assign width = 442 -%}
+                  {%- assign featured_media = product2.selected_or_first_available_variant.featured_media | default: product2.featured_media -%}
+                  {%- assign rendered_media_ids = '' -%}
+  
+                  {%- unless product2.has_only_default_variant -%}
+                    {%- for variant in product2.variants -%}
+                      {%- assign variant_media = variant.featured_media -%}
+  
+                      {%- if variant_media -%}
+                        {%- if rendered_media_ids contains variant_media.id -%}
+                          {%- continue -%}
+                        {%- endif -%}
+  
+                        {%- assign featured = false -%}
+                        {%- if variant_media == featured_media -%}
+                          {%- assign featured = true -%}
+                        {%- endif -%}
+  
+                        {%- assign rendered_media_ids = rendered_media_ids | append: variant_media.id | append: ' ' -%}
+                        {% include 'media' with variant_media, enable_image_zoom: false, stacked: false, featured: featured, width: width, height: height %}
+                      {%- endif -%}
+                    {%- endfor -%}
+                  {%- endunless -%}
+  
+                  {%- unless featured_media and rendered_media_ids contains featured_media.id -%}
+                    {% include 'media' with featured_media, enable_image_zoom: false, stacked: false, featured: true, width: width, height: height %}
+                  {%- endunless -%}
+                </div>
+                {%- assign first_3d_model = product2.media | where: "media_type", "model" | first -%}
+                {%- if first_3d_model -%}
+                  {%- include 'xr-button' with model_id: first_3d_model.id, multi: false -%}
+                {%- endif -%}
+              {%- endunless -%}
+            {% else %}
+              {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            {% endunless %}
+          </div>
+          </a>
+        </div>
+  {% else %}
+  <div class="grid__item large--six-twelfths medium-up--one-half text-center>
+          <a {% unless section_onboarding %} href="{{ product2.url }}?variant={{ current_variant.id }}"{% endunless %}> 
+          <div class="product-single__media-group-wrapper product-single__media-group-wrapper--featured" data-product-single-media-group-wrapper>
+            {% unless section_onboarding %}
+              {%- unless product2.media.size == 0 -%}
+                <div class="product-single__media-group product-single__media-group--single-xr" data-product-single-media-group>
+                  {%- assign link = product2.url -%}
+                  {%- assign height = 442 -%}
+                  {%- assign width = 442 -%}
+                  {%- assign featured_media = product2.selected_or_first_available_variant.featured_media | default: product2.featured_media -%}
+                  {%- assign rendered_media_ids = '' -%}
+  
+                  {%- unless product2.has_only_default_variant -%}
+                    {%- for variant in product2.variants -%}
+                      {%- assign variant_media = variant.featured_media -%}
+  
+                      {%- if variant_media -%}
+                        {%- if rendered_media_ids contains variant_media.id -%}
+                          {%- continue -%}
+                        {%- endif -%}
+  
+                        {%- assign featured = false -%}
+                        {%- if variant_media == featured_media -%}
+                          {%- assign featured = true -%}
+                        {%- endif -%}
+  
+                        {%- assign rendered_media_ids = rendered_media_ids | append: variant_media.id | append: ' ' -%}
+                        {% include 'media' with variant_media, enable_image_zoom: false, stacked: false, featured: featured, width: width, height: height %}
+                      {%- endif -%}
+                    {%- endfor -%}
+                  {%- endunless -%}
+  
+                  {%- unless featured_media and rendered_media_ids contains featured_media.id -%}
+                    {% include 'media' with featured_media, enable_image_zoom: false, stacked: false, featured: true, width: width, height: height %}
+                  {%- endunless -%}
+                </div>
+                {%- assign first_3d_model = product2.media | where: "media_type", "model" | first -%}
+                {%- if first_3d_model -%}
+                  {%- include 'xr-button' with model_id: first_3d_model.id, multi: false -%}
+                {%- endif -%}
+              {%- endunless -%}
+            {% else %}
+              {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            {% endunless %}
+          </div>
+          </a>
+        </div>
+      <div class="grid__item product-single__meta--wrapper medium-up--one-half large--six-twelfths">
+          {% if section.settings.show_vendor %}
+            <h2 class="product-single__vendor" itemprop="brand">{{ vendor }}</h2>
+          {% endif %}
+  
+          <h1 class="product-single__title" itemprop="name">{{ title }}</h1>
+          <a href="{{product2.url}}#reviews">
+          <div id="product-{{product2.id}}" class="yotpo bottomLine"
+          data-appkey="IJwaQ5pXnQdvzjYgkBcpN0wSS3PcCAoUde2twylv"
+          data-domain="{{shop.permanent_domain | escape }}"
+          data-product-id="{{ product2.id }}"
+          data-product-models="{{ product2.id }}"
+          data-name="{{ product2.title | escape }}"
+          data-url="{{ shop.url }}{{ product2.url }}"
+          data-image-url="{{ product2.featured_image | product_img_url: 'large' |replace: '?', '%3F' | replace: '&','%26'}}"
+          data-description="{{ product2.description | escape }}"
+          data-bread-crumbs="{% for tag in product2.tags %}{{ tag | escape }};{% endfor %}">
+        </div></a>
+        <style>
+          .yotpo.bottomLine {   
+          align-items: left !important;
+          display: flex !important;
+          align-content: left!important;
+          justify-content: left!important;
+          margin-bottom: 1rem;
+        } 
+        </style>
+        <script>
+          $(this).delay(3000).queue(function(){
+             $('div#product-{{product2.id}} a.text-m').attr('href','{{product2.url}}#reviews');
+             $(this).dequeue();
+          });
+          </script>
+          <span class="shopify-product-reviews-badge" data-id="{{ product2.id }}"></span>
+          {% if section.settings.text2 != blank %}
+            <div class="rte rich-text__text mob-1">
+              {{ section.settings.text2 }}
+            </div>
+            <div id="section---{{section.id}}"style="padding: 20px 0;">
+              <button id="unit1" class="btn-unit-1">UNIT PACK<br>{{ product.price | money }}<span style="text-decoration: line-through; font-size: 11px;"> {{ product.compare_at_price | money }}</span></button>
+              <button id="unit2" class="btn-unit" {%- if section.settings.featured_product2 == empty -%} style="display: none;"{% endif %}><span style="color:#1272EA; font-weight:700;">2 Pack</span><br>{{ product2.price | money }} <span style="text-decoration: line-through; font-size: 11px;"> {{ product2.compare_at_price | money }}</span></button>
+              <button id="unit3" class="btn-unit-1" {%- if section.settings.featured_product3 == empty -%} style="display: none;"{% endif %}>3 Pack  <br>{{ product3.price | money }}<span style="text-decoration: line-through; font-size: 11px;"> {{ product3.compare_at_price | money }}</span></button>
+            </div>
+          {% endif %}
+          <div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="mob-2">
+            {% comment %}
+              Optionally show the 'compare at' or original price of the product.
+            {% endcomment %}
+            <div class = "product-price-container" style="display: none;">
+            {% include 'product-price', variant: current_variant %}
+            <meta itemprop="priceCurrency" content="{{ cart.currency.iso_code }}"></div>
+            <link itemprop="availability" href="http://schema.org/{% if product2.available %}InStock{% else %}OutOfStock{% endif %}">
+  
+            {% if section_onboarding %}
+              <div class="product-single__add-to-cart default-product">
+                <button type="submit" name="add" id="AddToCart--{{ section.id }}" class="btn btn--add-to-cart" disabled="disabled">
+                  <span class="btn__text">
+                    {{ 'products.product.sold_out' | t }}
+                  </span>
+                </button>
+              </div>
+            {% else %}
+              {% capture "form_classes" %}
+                product-single__form{% if product2.has_only_default_variant %} product-single__form--no-variants{% endif %}
+              {%- endcapture %}
+  
+              {% capture "form_id" %}AddToCartForm--{{ section.id }}{%- endcapture %}
+  
+              {% form 'product', product, class:form_classes, id:form_id, data-product-form: '' %}
+                {{ form | payment_terms }}
+                {% unless product2.has_only_default_variant %}
+                  {% for option in product2.options_with_values %}
+                    <div class="radio-wrapper js product-form__item">
+                      <label class="single-option-radio__label{% if section.settings.show_variant_labels == false %} hidden-label{% endif %}"
+                        for="ProductSelect--{{ section.id }}-option-{{ forloop.index0 }}">
+                        {{ option.name | escape }}
+                      </label>
+                      <fieldset class="single-option-radio"
+  
+                        id="ProductSelect--{{ section.id }}-option-{{ forloop.index0 }}">
+                        {% assign option_index = forloop.index %}
+                        {% for value in option.values %}
+                          {% assign variant_label_state = true %}
+                          {% if product2.options.size == 1 %}
+                            {% unless product2.variants[forloop.index0].available  %}
+                              {% assign variant_label_state = false %}
+                            {% endunless %}
+                          {% endif %}
+                          <input type="radio"
+                            {% if option.selected_value == value %} checked="checked"{% endif %}
+                            {% unless variant_label_state %} disabled="disabled"{% endunless %}
+                            value="{{ value | escape }}"
+                            data-index="option{{ option_index }}"
+                            name="option{{ option.position }}"
+                            class="single-option-selector__radio{% unless variant_label_state %} disabled{% endunless %}"
+                            id="ProductSelect--{{ section.id }}-option-{{ option.name | handleize }}-{{ value | escape }}">
+                          <label for="ProductSelect--{{ section.id }}-option-{{ option.name | handleize }}-{{ value | escape }}"{% unless variant_label_state %} class="disabled"{% endunless %}>{{ value | escape }}</label>
+                        {% endfor %}
+                      </fieldset>
+                    </div>
+                  {% endfor %}
+                {% endunless %}
+  
+                <select name="id" id="ProductSelect--{{ section.id }}" class="product-single__variants no-js">
+                  {% for variant in product2.variants %}
+                    {% if variant.available %}
+                      <option {% if variant == product2.selected_or_first_available_variant %}
+                        selected="selected" {% endif %}
+                        data-sku="{{ variant.sku }}"
+                        value="{{ variant.id }}">
+                        {{ variant.title }} - {{ variant.price | money }}
+                      </option>
+                    {% else %}
+                      <option disabled="disabled">
+                        {{ variant.title }} - {{ 'products.product.sold_out' | t }}
+                      </option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+  
+                <div class="product-single__add-to-cart">
+                  <button type="submit" name="add" id="AddToCart--{{ section.id }}" class="btn btn--add-to-cart{% if section.settings.enable_payment_button %} btn--secondary-accent{% endif %}"{% unless current_variant.available %} disabled="disabled"{% endunless %}>
+                    <span class="btn__text">
+                      {% if current_variant.available %}
+                        {{ 'products.product.add_to_cart' | t }}
+                      {% else %}
+                        {{ 'products.product.sold_out' | t }}
+                      {% endif %}
+                    </span>
+                  </button>
+                  {% if section.settings.enable_payment_button %}
+                    {{ form | payment_button }}
+                  {% endif %}
+                </div>
+              {% endform %}
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+      </div>
+  
+      {% if collection %}
+        <hr class="hr--clear">
+        <div class="text-center">
+          <a href="{{ collection.url }}" class="return-link">&larr; {{ 'products.general.collection_return' | t: collection: collection.title }}</a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+  </div>
+<div  {% if product3.title == empty %} style="display: none;"{% endif %}>
+<div id="product3" style="display: none;">
+
+
+  {%- if product3 == empty -%}
+    {%- assign section_onboarding = true -%}
+    {%- assign vendor = 'home_page.onboarding.product_vendor' | t -%}
+    {%- assign title = 'home_page.onboarding.product_title' | t -%}
+    {%- assign compare_at_price = 2999 -%}
+    {%- assign price = 1999 -%}
+  {%- else -%}
+    {%- assign section_onboarding = false -%}
+    {%- assign vendor = product3.vendor -%}
+    {%- assign title = product3.title -%}
+    {%- assign compare_at_price = current_variant.compare_at_price -%}
+    {%- assign price = current_variant.price -%}
+  {%- endif -%}
+  
+  {%- assign first_3d_model = product3.media | where: "media_type", "model" | first -%}
+  <div itemscope itemtype="http://schema.org/Product" id="FeaturedProductSection--{{ section.id }}"
+    data-section-id="{{ section.id }}"
+    data-section-type="product-template"
+    data-enable-history-state="false"
+    data-featured-product="true"
+    {% if first_3d_model %}data-has-model="true"{% endif %}>
+    <div class="wrapper">
+      <meta itemprop="url" content="{{ shop.url }}{{ product3.url }}">
+      <meta itemprop="image" content="{{ product3.featured_image.src | img_url: 'grande' }}">
+  
+      <div class="grid product-single-1 div-box-m">
+        {% if section.settings.swap_places == true %}
+      <div class="grid__item product-single__meta--wrapper medium-up--one-half large--six-twelfths div-box-1">
+          {% if section.settings.show_vendor %}
+            <h2 class="product-single__vendor" itemprop="brand">{{ vendor }}</h2>
+          {% endif %}
+  
+          <h1 class="product-single__title" itemprop="name">{{ title }}</h1>
+          <a href="{{product3.url}}#reviews">
+          <div id="product-{{product3.id}}" class="yotpo bottomLine"
+          data-appkey="IJwaQ5pXnQdvzjYgkBcpN0wSS3PcCAoUde2twylv"
+          data-domain="{{shop.permanent_domain | escape }}"
+          data-product-id="{{ product3.id }}"
+          data-product-models="{{ product3.id }}"
+          data-name="{{ product3.title | escape }}"
+          data-url="{{ shop.url }}{{ product3.url }}"
+          data-image-url="{{ product3.featured_image | product_img_url: 'large' |replace: '?', '%3F' | replace: '&','%26'}}"
+          data-description="{{ product3.description | escape }}"
+          data-bread-crumbs="{% for tag in product3.tags %}{{ tag | escape }};{% endfor %}">
+        </div></a>
+        <style>
+          .yotpo.bottomLine {   
+          align-items: left !important;
+          display: flex !important;
+          align-content: left!important;
+          justify-content: left!important;
+          margin-bottom: 1rem;
+        } 
+        </style>
+        <script>
+          $(this).delay(3000).queue(function(){
+             $('div#product-{{product3.id}} a.text-m').attr('href','{{product3.url}}#reviews');
+             $(this).dequeue();
+          });
+          </script>
+          <span class="shopify-product-reviews-badge" data-id="{{ product3.id }}"></span>
+          {% if section.settings.text3 != blank %}
+            <div class="rte rich-text__text mob-1">
+              {{ section.settings.text3 }}
+            </div>
+          {% endif %}
+          <div id="section---{{section.id}}"style="padding: 20px 0;">
+            <button id="unit1" class="btn-unit-1">UNIT PACK<br>{{ product.price | money }}<span style="text-decoration: line-through; font-size: 11px;"> {{ product.compare_at_price | money }}</span></button>
+            <button id="unit2" class="btn-unit-1" {%- if section.settings.featured_product2 == empty -%}style="display: none;"{% endif %}>2 Pack <br>{{ product2.price | money }} <span style="text-decoration: line-through; font-size: 11px;"> {{ product2.compare_at_price | money }}</span></button>
+            <button id="unit3" class="btn-unit" {%- if section.settings.featured_product3 == empty -%} style="display: none;"{% endif %}><span style="color:#1272EA; font-weight:700;">3 Pack</span>  <br>{{ product3.price | money }}<span style="text-decoration: line-through; font-size: 11px;"> {{ product3.compare_at_price | money }}</span></button>
+          </div>
+          <div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="mob-2">
+            {% comment %}
+              Optionally show the 'compare at' or original price of the product.
+            {% endcomment %}
+            <div class = "product-price-container" style="display: none;">
+              {% include 'product-price', variant: current_variant %}
+              <meta itemprop="priceCurrency" content="{{ cart.currency.iso_code }}"></div>
+            <link itemprop="availability" href="http://schema.org/{% if product3.available %}InStock{% else %}OutOfStock{% endif %}">
+  
+            {% if section_onboarding %}
+              <div class="product-single__add-to-cart default-product">
+                <button type="submit" name="add" id="AddToCart--{{ section.id }}" class="btn btn--add-to-cart" disabled="disabled">
+                  <span class="btn__text">
+                    {{ 'products.product3.sold_out' | t }}
+                  </span>
+                </button>
+              </div>
+            {% else %}
+              {% capture "form_classes" %}
+                product-single__form{% if product3.has_only_default_variant %} product-single__form--no-variants{% endif %}
+              {%- endcapture %}
+  
+              {% capture "form_id" %}AddToCartForm--{{ section.id }}{%- endcapture %}
+  
+              {% form 'product', product, class:form_classes, id:form_id, data-product-form: '' %}
+                {{ form | payment_terms }}
+                {% unless product3.has_only_default_variant %}
+                  {% for option in product3.options_with_values %}
+                    <div class="radio-wrapper js product-form__item">
+                      <label class="single-option-radio__label{% if section.settings.show_variant_labels == false %} hidden-label{% endif %}"
+                        for="ProductSelect--{{ section.id }}-option-{{ forloop.index0 }}">
+                        {{ option.name | escape }}
+                      </label>
+                      <fieldset class="single-option-radio"
+  
+                        id="ProductSelect--{{ section.id }}-option-{{ forloop.index0 }}">
+                        {% assign option_index = forloop.index %}
+                        {% for value in option.values %}
+                          {% assign variant_label_state = true %}
+                          {% if product3.options.size == 1 %}
+                            {% unless product3.variants[forloop.index0].available  %}
+                              {% assign variant_label_state = false %}
+                            {% endunless %}
+                          {% endif %}
+                          <input type="radio"
+                            {% if option.selected_value == value %} checked="checked"{% endif %}
+                            {% unless variant_label_state %} disabled="disabled"{% endunless %}
+                            value="{{ value | escape }}"
+                            data-index="option{{ option_index }}"
+                            name="option{{ option.position }}"
+                            class="single-option-selector__radio{% unless variant_label_state %} disabled{% endunless %}"
+                            id="ProductSelect--{{ section.id }}-option-{{ option.name | handleize }}-{{ value | escape }}">
+                          <label for="ProductSelect--{{ section.id }}-option-{{ option.name | handleize }}-{{ value | escape }}"{% unless variant_label_state %} class="disabled"{% endunless %}>{{ value | escape }}</label>
+                        {% endfor %}
+                      </fieldset>
+                    </div>
+                  {% endfor %}
+                {% endunless %}
+  
+                <select name="id" id="ProductSelect--{{ section.id }}" class="product-single__variants no-js">
+                  {% for variant in product3.variants %}
+                    {% if variant.available %}
+                      <option {% if variant == product3.selected_or_first_available_variant %}
+                        selected="selected" {% endif %}
+                        data-sku="{{ variant.sku }}"
+                        value="{{ variant.id }}">
+                        {{ variant.title }} - {{ variant.price | money }}
+                      </option>
+                    {% else %}
+                      <option disabled="disabled">
+                        {{ variant.title }} - {{ 'products.product.sold_out' | t }}
+                      </option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+  
+                <div class="product-single__add-to-cart">
+                  <button type="submit" name="add" id="AddToCart--{{ section.id }}" class="btn btn--add-to-cart{% if section.settings.enable_payment_button %} btn--secondary-accent{% endif %}"{% unless current_variant.available %} disabled="disabled"{% endunless %}>
+                    <span class="btn__text">
+                      {% if current_variant.available %}
+                        {{ 'products.product.add_to_cart' | t }}
+                      {% else %}
+                        {{ 'products.product.sold_out' | t }}
+                      {% endif %}
+                    </span>
+                  </button>
+                  {% if section.settings.enable_payment_button %}
+                    {{ form | payment_button }}
+                  {% endif %}
+                </div>
+              {% endform %}
+            {% endif %}
+          </div>
+        </div>
+      <div class="grid__item large--six-twelfths medium-up--one-half text-center div-box-4">
+          <a {% unless section_onboarding %} href="{{ product3.url }}?variant={{ current_variant.id }}"{% endunless %}> 
+          <div class="product-single__media-group-wrapper product-single__media-group-wrapper--featured" data-product-single-media-group-wrapper>
+            {% unless section_onboarding %}
+              {%- unless product3.media.size == 0 -%}
+                <div class="product-single__media-group product-single__media-group--single-xr" data-product-single-media-group>
+                  {%- assign link = product3.url -%}
+                  {%- assign height = 442 -%}
+                  {%- assign width = 442 -%}
+                  {%- assign featured_media = product3.selected_or_first_available_variant.featured_media | default: product3.featured_media -%}
+                  {%- assign rendered_media_ids = '' -%}
+  
+                  {%- unless product3.has_only_default_variant -%}
+                    {%- for variant in product3.variants -%}
+                      {%- assign variant_media = variant.featured_media -%}
+  
+                      {%- if variant_media -%}
+                        {%- if rendered_media_ids contains variant_media.id -%}
+                          {%- continue -%}
+                        {%- endif -%}
+  
+                        {%- assign featured = false -%}
+                        {%- if variant_media == featured_media -%}
+                          {%- assign featured = true -%}
+                        {%- endif -%}
+  
+                        {%- assign rendered_media_ids = rendered_media_ids | append: variant_media.id | append: ' ' -%}
+                        {% include 'media' with variant_media, enable_image_zoom: false, stacked: false, featured: featured, width: width, height: height %}
+                      {%- endif -%}
+                    {%- endfor -%}
+                  {%- endunless -%}
+  
+                  {%- unless featured_media and rendered_media_ids contains featured_media.id -%}
+                    {% include 'media' with featured_media, enable_image_zoom: false, stacked: false, featured: true, width: width, height: height %}
+                  {%- endunless -%}
+                </div>
+                {%- assign first_3d_model = product3.media | where: "media_type", "model" | first -%}
+                {%- if first_3d_model -%}
+                  {%- include 'xr-button' with model_id: first_3d_model.id, multi: false -%}
+                {%- endif -%}
+              {%- endunless -%}
+            {% else %}
+              {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            {% endunless %}
+          </div>
+          </a>
+        </div>
+  {% else %}
+  <div class="grid__item large--six-twelfths medium-up--one-half text-center">
+          <a {% unless section_onboarding %} href="{{ product3.url }}?variant={{ current_variant.id }}"{% endunless %}> 
+          <div class="product-single__media-group-wrapper product-single__media-group-wrapper--featured" data-product-single-media-group-wrapper>
+            {% unless section_onboarding %}
+              {%- unless product3.media.size == 0 -%}
+                <div class="product-single__media-group product-single__media-group--single-xr" data-product-single-media-group>
+                  {%- assign link = product3.url -%}
+                  {%- assign height = 442 -%}
+                  {%- assign width = 442 -%}
+                  {%- assign featured_media = product3.selected_or_first_available_variant.featured_media | default: product3.featured_media -%}
+                  {%- assign rendered_media_ids = '' -%}
+  
+                  {%- unless product3.has_only_default_variant -%}
+                    {%- for variant in product3.variants -%}
+                      {%- assign variant_media = variant.featured_media -%}
+  
+                      {%- if variant_media -%}
+                        {%- if rendered_media_ids contains variant_media.id -%}
+                          {%- continue -%}
+                        {%- endif -%}
+  
+                        {%- assign featured = false -%}
+                        {%- if variant_media == featured_media -%}
+                          {%- assign featured = true -%}
+                        {%- endif -%}
+  
+                        {%- assign rendered_media_ids = rendered_media_ids | append: variant_media.id | append: ' ' -%}
+                        {% include 'media' with variant_media, enable_image_zoom: false, stacked: false, featured: featured, width: width, height: height %}
+                      {%- endif -%}
+                    {%- endfor -%}
+                  {%- endunless -%}
+  
+                  {%- unless featured_media and rendered_media_ids contains featured_media.id -%}
+                    {% include 'media' with featured_media, enable_image_zoom: false, stacked: false, featured: true, width: width, height: height %}
+                  {%- endunless -%}
+                </div>
+                {%- assign first_3d_model = product3.media | where: "media_type", "model" | first -%}
+                {%- if first_3d_model -%}
+                  {%- include 'xr-button' with model_id: first_3d_model.id, multi: false -%}
+                {%- endif -%}
+              {%- endunless -%}
+            {% else %}
+              {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            {% endunless %}
+          </div>
+          </a>
+        </div>
+      <div class="grid__item product-single__meta--wrapper medium-up--one-half large--six-twelfths">
+          {% if section.settings.show_vendor %}
+            <h2 class="product-single__vendor" itemprop="brand">{{ vendor }}</h2>
+          {% endif %}
+  
+          <h1 class="product-single__title" itemprop="name">{{ title }}</h1>
+          <a href="{{product3.url}}#reviews">
+          <div id="product-{{product3.id}}" class="yotpo bottomLine"
+          data-appkey="IJwaQ5pXnQdvzjYgkBcpN0wSS3PcCAoUde2twylv"
+          data-domain="{{shop.permanent_domain | escape }}"
+          data-product-id="{{ product3.id }}"
+          data-product-models="{{ product3.id }}"
+          data-name="{{ product3.title | escape }}"
+          data-url="{{ shop.url }}{{ product3.url }}"
+          data-image-url="{{ product3.featured_image | product_img_url: 'large' |replace: '?', '%3F' | replace: '&','%26'}}"
+          data-description="{{ product3.description | escape }}"
+          data-bread-crumbs="{% for tag in product3.tags %}{{ tag | escape }};{% endfor %}">
+        </div></a>
+        <style>
+          .yotpo.bottomLine {   
+          align-items: left !important;
+          display: flex !important;
+          align-content: left!important;
+          justify-content: left!important;
+          margin-bottom: 1rem;
+        } 
+        </style>
+        <script>
+          $(this).delay(3000).queue(function(){
+             $('div#product-{{product3.id}} a.text-m').attr('href','{{product3.url}}#reviews');
+             $(this).dequeue();
+          });
+          </script>
+          <span class="shopify-product-reviews-badge" data-id="{{ product3.id }}"></span>
+          {% if section.settings.text3 != blank %}
+            <div class="rte rich-text__text mob-1">
+              {{ section.settings.text3 }}
+            </div>
+            <div id="section---{{section.id}}"style="padding: 20px 0;">
+              <button id="unit1" class="btn-unit-1">UNIT PACK<br>{{ product.price | money }}<span style="text-decoration: line-through; font-size: 11px;"> {{ product.compare_at_price | money }}</span></button>
+              <button id="unit2" class="btn-unit-1" {%- if section.settings.featured_product2 == empty -%} style="display: none;"{% endif %}>2 Pack <br>{{ product2.price | money }} <span style="text-decoration: line-through; font-size: 11px;"> {{ product2.compare_at_price | money }}</span></button>
+              <button id="unit3" class="btn-unit" {%- if section.settings.featured_product3 == empty -%} style="display: none;"{% endif %}><span style="color:#1272EA; font-weight:700;">3 Pack</span><br>{{ product3.price | money }}<span style="text-decoration: line-through; font-size: 11px;"> {{ product3.compare_at_price | money }}</span></button>
+            </div>
+          {% endif %}
+          <div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="mob-2">
+            {% comment %}
+              Optionally show the 'compare at' or original price of the product.
+            {% endcomment %}
+            <div class = "product-price-container" style="display: none;">
+            {% include 'product-price', variant: current_variant %}
+            <meta itemprop="priceCurrency" content="{{ cart.currency.iso_code }}"></div>
+            <link itemprop="availability" href="http://schema.org/{% if product3.available %}InStock{% else %}OutOfStock{% endif %}">
+  
+            {% if section_onboarding %}
+              <div class="product-single__add-to-cart default-product">
+                <button type="submit" name="add" id="AddToCart--{{ section.id }}" class="btn btn--add-to-cart" disabled="disabled">
+                  <span class="btn__text">
+                    {{ 'products.product.sold_out' | t }}
+                  </span>
+                </button>
+              </div>
+            {% else %}
+              {% capture "form_classes" %}
+                product-single__form{% if product3.has_only_default_variant %} product-single__form--no-variants{% endif %}
+              {%- endcapture %}
+  
+              {% capture "form_id" %}AddToCartForm--{{ section.id }}{%- endcapture %}
+  
+              {% form 'product', product, class:form_classes, id:form_id, data-product-form: '' %}
+                {{ form | payment_terms }}
+                {% unless product3.has_only_default_variant %}
+                  {% for option in product3.options_with_values %}
+                    <div class="radio-wrapper js product-form__item">
+                      <label class="single-option-radio__label{% if section.settings.show_variant_labels == false %} hidden-label{% endif %}"
+                        for="ProductSelect--{{ section.id }}-option-{{ forloop.index0 }}">
+                        {{ option.name | escape }}
+                      </label>
+                      <fieldset class="single-option-radio"
+  
+                        id="ProductSelect--{{ section.id }}-option-{{ forloop.index0 }}">
+                        {% assign option_index = forloop.index %}
+                        {% for value in option.values %}
+                          {% assign variant_label_state = true %}
+                          {% if product3.options.size == 1 %}
+                            {% unless product3.variants[forloop.index0].available  %}
+                              {% assign variant_label_state = false %}
+                            {% endunless %}
+                          {% endif %}
+                          <input type="radio"
+                            {% if option.selected_value == value %} checked="checked"{% endif %}
+                            {% unless variant_label_state %} disabled="disabled"{% endunless %}
+                            value="{{ value | escape }}"
+                            data-index="option{{ option_index }}"
+                            name="option{{ option.position }}"
+                            class="single-option-selector__radio{% unless variant_label_state %} disabled{% endunless %}"
+                            id="ProductSelect--{{ section.id }}-option-{{ option.name | handleize }}-{{ value | escape }}">
+                          <label for="ProductSelect--{{ section.id }}-option-{{ option.name | handleize }}-{{ value | escape }}"{% unless variant_label_state %} class="disabled"{% endunless %}>{{ value | escape }}</label>
+                        {% endfor %}
+                      </fieldset>
+                    </div>
+                  {% endfor %}
+                {% endunless %}
+  
+                <select name="id" id="ProductSelect--{{ section.id }}" class="product-single__variants no-js">
+                  {% for variant in product3.variants %}
+                    {% if variant.available %}
+                      <option {% if variant == product3.selected_or_first_available_variant %}
+                        selected="selected" {% endif %}
+                        data-sku="{{ variant.sku }}"
+                        value="{{ variant.id }}">
+                        {{ variant.title }} - {{ variant.price | money }}
+                      </option>
+                    {% else %}
+                      <option disabled="disabled">
+                        {{ variant.title }} - {{ 'products.product.sold_out' | t }}
+                      </option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+  
+                <div class="product-single__add-to-cart">
+                  <button type="submit" name="add" id="AddToCart--{{ section.id }}" class="btn btn--add-to-cart{% if section.settings.enable_payment_button %} btn--secondary-accent{% endif %}"{% unless current_variant.available %} disabled="disabled"{% endunless %}>
+                    <span class="btn__text">
+                      {% if current_variant.available %}
+                        {{ 'products.product.add_to_cart' | t }}
+                      {% else %}
+                        {{ 'products.product.sold_out' | t }}
+                      {% endif %}
+                    </span>
+                  </button>
+                  {% if section.settings.enable_payment_button %}
+                    {{ form | payment_button }}
+                  {% endif %}
+                </div>
+              {% endform %}
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+      </div>
+  
+      {% if collection %}
+        <hr class="hr--clear">
+        <div class="text-center">
+          <a href="{{ collection.url }}" class="return-link">&larr; {{ 'products.general.collection_return' | t: collection: collection.title }}</a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $("div#section---{{section.id}} button#unit1").click(function(){
+      $("div#shopify-section-{{section.id}} div#product2").css('display', 'none');
+      $("div#shopify-section-{{section.id}} div#product3").css('display', 'none');
+      $("div#shopify-section-{{section.id}} div#product1").css('display', 'block');
+    });
+    $("div#section---{{section.id}} button#unit2").click(function(){
+      $("div#shopify-section-{{section.id}} div#product1").css('display', 'none');
+      $("div#shopify-section-{{section.id}} div#product2").css('display', 'block');
+      $("div#shopify-section-{{section.id}} div#product3").css('display', 'none');
+    });
+    $("div#section---{{section.id}} button#unit3").click(function(){
+      $("div#shopify-section-{{section.id}} div#product1").css('display', 'none');
+      $("div#shopify-section-{{section.id}} div#product2").css('display', 'none');
+      $("div#shopify-section-{{section.id}} div#product3").css('display', 'block');
+    });
+  });
+  </script>
+{% unless product.empty == empty %}
+  <script type="application/json" id="ProductJson-{{ section.id }}">
+    {{ product | json }}
+  </script>
+  <script type="application/json" id="ModelJson-{{ section.id }}">
+    {{ product.media | where: 'media_type', 'model' | json }}
+  </script>
+{% endunless %}
+
+{% schema %}
+{
+  "name": {
+    "cs": "Propagovaný produkt",
+    "da": "Fremhævet produkt",
+    "de": "Vorgestelltes Produkt",
+    "en": "Featured Products 2",
+    "es": "Producto destacado",
+    "fi": "Esittelyssä oleva tuote",
+    "fr": "Produit en vedette",
+    "it": "Prodotto in primo piano",
+    "ja": "おすすめ商品",
+    "ko": "특별 상품",
+    "nb": "Utvalgt produkt",
+    "nl": "Uitgelicht product",
+    "pl": "Polecany produkt",
+    "pt-BR": "Produto em destaque",
+    "pt-PT": "Produto em destaque",
+    "sv": "Utvald produkt",
+    "th": "สินค้าที่แนะนำ",
+    "tr": "Öne çıkan ürün",
+    "vi": "Sản phẩm nổi bật",
+    "zh-CN": "特色产品",
+    "zh-TW": "精選產品"
+  },
+  "settings": [
+    {
+      "type": "product",
+      "id": "featured_product",
+      "label": {
+        "cs": "Produkt",
+        "da": "Produkt",
+        "de": "Produkt",
+        "en": "Product",
+        "es": "Producto",
+        "fi": "Tuote",
+        "fr": "Produit",
+        "it": "Prodotto",
+        "ja": "商品",
+        "ko": "제품",
+        "nb": "Produkt",
+        "nl": "Product",
+        "pl": "Produkt",
+        "pt-BR": "Produto",
+        "pt-PT": "Produto",
+        "sv": "Produkt",
+        "th": "สินค้า",
+        "tr": "Ürün",
+        "vi": "Sản phẩm",
+        "zh-CN": "产品",
+        "zh-TW": "產品"
+      }
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": {
+        "cs": "Text",
+        "da": "Tekst",
+        "de": "Text",
+        "en": "Text",
+        "es": "texto",
+        "fi": "Teksti",
+        "fr": "Texte",
+        "it": "Testo",
+        "ja": "テキスト",
+        "ko": "텍스트",
+        "nb": "Tekst",
+        "nl": "Tekst",
+        "pl": "Tekst",
+        "pt-BR": "Texto",
+        "pt-PT": "Texto",
+        "sv": "Text",
+        "th": "ข้อความ",
+        "tr": "Metin",
+        "vi": "Văn bản",
+        "zh-CN": "文本",
+        "zh-TW": "文字"
+      },
+      "default": "<p>Text for unit 3</p>"
+    },
+    {
+      "type": "product",
+      "id": "featured_product2",
+      "label": {
+        "cs": "Produkt",
+        "da": "Produkt",
+        "de": "Produkt",
+        "en": "Product2",
+        "es": "Producto",
+        "fi": "Tuote",
+        "fr": "Produit",
+        "it": "Prodotto",
+        "ja": "商品",
+        "ko": "제품",
+        "nb": "Produkt",
+        "nl": "Product",
+        "pl": "Produkt",
+        "pt-BR": "Produto",
+        "pt-PT": "Produto",
+        "sv": "Produkt",
+        "th": "สินค้า",
+        "tr": "Ürün",
+        "vi": "Sản phẩm",
+        "zh-CN": "产品",
+        "zh-TW": "產品"
+      }
+    },
+    {
+      "type": "richtext",
+      "id": "text2",
+      "label": {
+        "cs": "Text",
+        "da": "Tekst",
+        "de": "Text",
+        "en": "Text",
+        "es": "texto",
+        "fi": "Teksti",
+        "fr": "Texte",
+        "it": "Testo",
+        "ja": "テキスト",
+        "ko": "텍스트",
+        "nb": "Tekst",
+        "nl": "Tekst",
+        "pl": "Tekst",
+        "pt-BR": "Texto",
+        "pt-PT": "Texto",
+        "sv": "Text",
+        "th": "ข้อความ",
+        "tr": "Metin",
+        "vi": "Văn bản",
+        "zh-CN": "文本",
+        "zh-TW": "文字"
+      },
+      "default": "<p>Text for unit 2</p>"
+    },
+    {
+      "type": "product",
+      "id": "featured_product3",
+      "label": {
+        "cs": "Produkt",
+        "da": "Produkt",
+        "de": "Produkt",
+        "en": "Product3",
+        "es": "Producto",
+        "fi": "Tuote",
+        "fr": "Produit",
+        "it": "Prodotto",
+        "ja": "商品",
+        "ko": "제품",
+        "nb": "Produkt",
+        "nl": "Product",
+        "pl": "Produkt",
+        "pt-BR": "Produto",
+        "pt-PT": "Produto",
+        "sv": "Produkt",
+        "th": "สินค้า",
+        "tr": "Ürün",
+        "vi": "Sản phẩm",
+        "zh-CN": "产品",
+        "zh-TW": "產品"
+      }
+    },
+    {
+      "type": "richtext",
+      "id": "text3",
+      "label": {
+        "cs": "Text",
+        "da": "Tekst",
+        "de": "Text",
+        "en": "Text",
+        "es": "texto",
+        "fi": "Teksti",
+        "fr": "Texte",
+        "it": "Testo",
+        "ja": "テキスト",
+        "ko": "텍스트",
+        "nb": "Tekst",
+        "nl": "Tekst",
+        "pl": "Tekst",
+        "pt-BR": "Texto",
+        "pt-PT": "Texto",
+        "sv": "Text",
+        "th": "ข้อความ",
+        "tr": "Metin",
+        "vi": "Văn bản",
+        "zh-CN": "文本",
+        "zh-TW": "文字"
+      },
+      "default": "<p>Text for unit 3</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "swap_places",
+      "label": {
+        "cs": "Swap positions of product image and text",
+        "da": "Swap positions of product image and text",
+        "de": "Swap positions of product image and text",
+        "en": "Flip positions of product image and text",
+        "es": "Swap positions of product image and text",
+        "fi": "Swap positions of product image and text",
+        "fr": "Swap positions of product image and text",
+        "it": "Swap positions of product image and text",
+        "ja": "Swap positions of product image and text",
+        "ko": "Swap positions of product image and text",
+        "nb": "Swap positions of product image and text",
+        "nl": "Swap positions of product image and text",
+        "pl": "Swap positions of product image and text",
+        "pt-BR": "Swap positions of product image and text",
+        "pt-PT": "Swap positions of product image and text",
+        "sv": "Swap positions of product image and text",
+        "th": "Swap positions of product image and text",
+        "tr": "Swap positions of product image and text",
+        "vi": "Swap positions of product image and text",
+        "zh-CN":"Swap positions of product image and text",
+        "zh-TW":"Swap positions of product image and text"
+      },
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_variant_labels",
+      "label": {
+        "cs": "Zobrazit popisky variant",
+        "da": "Vis variantlabels",
+        "de": "Variantenbezeichnungen anzeigen",
+        "en": "Show variant labels",
+        "es": "Mostrar etiquetas variantes",
+        "fi": "Näytä tarravaihtoehdot",
+        "fr": "Afficher les étiquettes de variantes",
+        "it": "Mostra etichette varianti",
+        "ja": "バリエーションのラベルを表示する",
+        "ko": "이형 상품 레이블 표시",
+        "nb": "Vis variantetiketter",
+        "nl": "Variantlabels weergeven",
+        "pl": "Pokaż etykiety wariantów",
+        "pt-BR": "Exibir etiquetas de variantes",
+        "pt-PT": "Mostrar etiquetas de variantes",
+        "sv": "Visa variantetiketter",
+        "th": "แสดงป้ายกำกับตัวเลือกสินค้า",
+        "tr": "Varyasyon etiketlerini göster",
+        "vi": "Hiển thị nhãn mẫu mã",
+        "zh-CN": "显示多属性标签",
+        "zh-TW": "顯示子類標籤"
+      },
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": {
+        "cs": "Zobrazit dodavatele",
+        "da": "Vis leverandør",
+        "de": "Anbieter anzeigen",
+        "en": "Show vendor",
+        "es": "Mostrar proveedor",
+        "fi": "Näytä myyjä",
+        "fr": "Afficher le distributeur",
+        "it": "Mostra fornitore",
+        "ja": "販売元を表示する",
+        "ko": "공급업체 표시",
+        "nb": "Vis leverandør",
+        "nl": "Leverancier weergeven",
+        "pl": "Pokaż dostawcę",
+        "pt-BR": "Exibir fabricante",
+        "pt-PT": "Mostrar fornecedor",
+        "sv": "Visa säljare",
+        "th": "แสดงผู้ขาย",
+        "tr": "Satıcıyı göster",
+        "vi": "Hiển thị nhà cung cấp",
+        "zh-CN": "显示厂商",
+        "zh-TW": "顯示廠商"
+      },
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_payment_button",
+      "label": {
+        "cs": "Zobrazit dynamické tlačítko pokladny",
+        "da": "Vis dynamisk betalingsknap",
+        "de": "Dynamischen Checkout-Button anzeigen",
+        "en": "Show dynamic checkout button",
+        "es": "Mostrar botón de pago dinámico",
+        "fi": "Näytä dynaaminen kassapainike",
+        "fr": "Afficher le bouton de paiement dynamique",
+        "it": "Mostra pulsante di check-out dinamico",
+        "ja": "動的チェックアウトボタンを表示する",
+        "ko": "동적 결제 버튼 표시",
+        "nb": "Vis dynamisk knapp for å gå til kassen",
+        "nl": "Dynamische checkoutknop weergeven",
+        "pl": "Pokaż dynamiczny przycisk realizacji zakupu",
+        "pt-BR": "Exibir botão de checkout dinâmico",
+        "pt-PT": "Mostrar o botão dinâmico de finalização da compra",
+        "sv": "Visa dynamiska utcheckningsknappar",
+        "th": "แสดงปุ่มชำระเงินแบบไดนามิก",
+        "tr": "Dinamik ödeme düğmesini göster",
+        "vi": "Hiển thị nút thanh toán nhanh",
+        "zh-CN": "显示动态结账按钮",
+        "zh-TW": "顯示動態結帳按鈕"
+      },
+      "info": {
+        "cs": "Každý zákazník uvidí platební metodu, kterou ze všech metod dostupných v obchodě (například PayPal nebo Apple Pay) nejvíce preferuje. [Další informace](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+        "da": "Den enkelte kunde vil se sin foretrukne betalingsmetode blandt dem, der er tilgængelige i din butik, f.eks. PayPal eller Apple Pay. [Få mere at vide](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+        "de": "Jeder Kunde sieht seine bevorzugte Zahlungsmethode aus den in deinem Shop verfügbaren Zahlungsmethoden wie PayPal oder Apple Pay. [Mehr Informationen](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+        "en": "Each customer will see their preferred payment method from those available on your store, such as PayPal or Apple Pay. [Learn more](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+        "es": "Cada cliente verá su forma de pago preferida entre las disponibles en tu tienda, como PayPal o Apple Pay. [Más información](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+        "fi": "Kukin asiakas näkee ensisijaisen valintansa kauppasi tarjoamista maksutavoista, esim. PayPal tai Apple Pay. [Lisätietoja](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+        "fr": "Chaque client verra son moyen de paiement préféré parmi ceux qui sont proposés sur votre boutique, tels que PayPal ou Apple Pay. [En savoir plus](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+        "it": "Ogni cliente vedrà il suo metodo di pagamento preferito tra quelli disponibili nel tuo negozio, come PayPal o Apple Pay. [Maggiori informazioni](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+        "ja": "PayPalやApple Payなど、ストアで利用可能な希望の決済方法がお客様に表示されます。[詳しくはこちら](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+        "ko": "각 고객은 PayPal 또는 Apple Pay와 같이 스토어에서 사용 가능한 지불 방법을 확인할 수 있습니다. [자세히 알아보기](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+        "nb": "Hver enkelt kunde vil se sin foretrukne betalingsmåte blant de som er tilgjengelig i butikken din, som PayPal eller Apple Pay. [Finn ut mer](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+        "nl": "Elke klant ziet zijn of haar beschikbare voorkeursmethode om af te rekenen, zoals PayPal of Apple Pay. [Meer informatie](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+        "pl": "Każdy klient zobaczy swoją preferowaną metodę płatności wśród metod dostępnych w Twoim sklepie, np. PayPal lub Apple Pay. [Dowiedz się więcej](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+        "pt-BR": "Cada cliente verá a forma de pagamento preferencial dele dentre as disponíveis na loja, como PayPal ou Apple Pay. [Saiba mais](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+        "pt-PT": "Cada cliente irá ver o seu método de pagamento preferido entre os disponíveis na loja, como o PayPal ou Apple Pay. [Saiba mais](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+        "sv": "Varje kund kommer att se den föredragna betalningsmetoden från de som finns tillgängliga i din butik, till exempel PayPal eller Apple Pay. [Läs mer](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+        "th": "ลูกค้าแต่ละรายจะเห็นวิธีการชำระเงินที่ต้องการจากวิธีที่ใช้ได้ในร้านค้าของคุณ เช่น PayPal หรือ Apple Pay [ดูข้อมูลเพิ่มเติม](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+        "tr": "Her müşteri, mağazanız sunulanlar arasından tercih ettikleri ödeme yöntemini görür (ör. PayPal veya Apple Pay). [Daha fazla bilgi edinin](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+        "vi": "Mỗi khách hàng sẽ thấy phương thức thanh toán ưu tiên trong những phương thức thanh toán được hỗ trợ tại cửa hàng như PayPal hoặc Apple Pay. [Tìm hiểu thêm](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+        "zh-CN": "每位客户都可在您商店提供的付款方式中看到他们的首选付款方式，例如 PayPal 或 Apple Pay。[了解详细信息](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+        "zh-TW": "每位顧客都可以在您商店內開放使用的付款方式中看見他們偏好使用的方式，如 PayPal、Apple Pay 等。[深入瞭解](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)"
+      },
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_share_buttons",
+      "label": {
+        "cs": "Zobrazit tlačítka pro sdílení na sociálních sítích",
+        "da": "Vis knapper til deling på sociale medier",
+        "de": "Social-Sharing-Schaltflächen anzeigen",
+        "en": "Show social sharing buttons",
+        "es": "Mostrar botones para compartir en redes sociales",
+        "fi": "Näytä sosiaalisen median jakamispainikkeet",
+        "fr": "Afficher les boutons de partage social",
+        "it": "Mostra i pulsanti per la condivisione sui social",
+        "ja": "ソーシャルメディアでの共有ボタンを表示する",
+        "ko": "소셜 공유 버튼 표시",
+        "nb": "Vis knapper for deling på sosiale medier",
+        "nl": "Knoppen voor sociaal delen weergeven",
+        "pl": "Pokaż przyciski udostępniania w mediach społecznościowych",
+        "pt-BR": "Exibir botões de compartilhamento em redes sociais",
+        "pt-PT": "Mostrar botões de partilha nas redes sociais",
+        "sv": "Visa knappar för delning i sociala medier",
+        "th": "แสดงปุ่มสำหรับแชร์ลงโซเชียล",
+        "tr": "Sosyal medya paylaşım düğmelerini göster",
+        "vi": "Hiển thị nút chia sẻ qua mạng xã hội",
+        "zh-CN": "显示社交分享按钮",
+        "zh-TW": "顯示社群分享按鈕"
+      },
+      "default": true,
+      "info": {
+        "cs": "Upravit účty na sociálních sítích v obecném nastavení",
+        "da": "Rediger SoMe-konti i Generelle indstillinger",
+        "de": "Bearbeite Social-Media-Konten in den allgemeinen Einstellungen",
+        "en": "Edit social accounts in General settings",
+        "es": "Editar cuentas de las redes sociales en la configuración General",
+        "fi": "Muokkaa sosiaalisen median tilejä kohdassa Yleiset asetukset",
+        "fr": "Modifier les comptes sociaux dans les paramètres généraux",
+        "it": "Modifica gli account social nelle Impostazioni generali",
+        "ja": "一般設定でSNSアカウントを編集する",
+        "ko": "일반 설정에서 소셜 계정 수정",
+        "nb": "Rediger sosiale kontoer i Generelle innstillinger",
+        "nl": "Socialmedia-accounts in Algemene instellingen bewerken",
+        "pl": "Edytuj konta społecznościowe w ustawieniach ogólnych",
+        "pt-BR": "Edite as contas de redes sociais nas configurações gerais",
+        "pt-PT": "Editar as contas de redes sociais nas definições gerais",
+        "sv": "Redigera sociala konton i Allmänna inställningar",
+        "th": "แก้ไขบัญชีผู้ใช้โซเชียลมีเดียในการตั้งค่าทั่วไป",
+        "tr": "Genel ayarlardan sosyal medya hesaplarını düzenleyin",
+        "vi": "Chỉnh sửa tài khoản mạng xã hội trong Cài đặt chung",
+        "zh-CN": "在“通用”设置中编辑社交媒体账户",
+        "zh-TW": "前往「一般」設定編輯社群帳戶"
+      }
+    },
+    {
+      "type": "header",
+      "content": {
+        "cs": "Multimédia",
+        "da": "Medie",
+        "de": "Medien",
+        "en": "Media",
+        "es": "Elementos multimedia",
+        "fi": "Media",
+        "fr": "Médias",
+        "it": "Contenuti multimediali",
+        "ja": "メディア",
+        "ko": "미디어",
+        "nb": "Medier",
+        "nl": "Media",
+        "pl": "Multimedia",
+        "pt-BR": "Mídia",
+        "pt-PT": "Multimédia",
+        "sv": "Media",
+        "th": "สื่อ",
+        "tr": "Medya",
+        "vi": "Nội dung đa phương tiện",
+        "zh-CN": "媒体",
+        "zh-TW": "媒體"
+      },
+      "info": {
+        "cs": "Další informace o [typech multimédií](https://help.shopify.com/manual/products/product-media)",
+        "da": "Få mere at vide om [media types](https://help.shopify.com/manual/products/product-media)",
+        "de": "Mehr Informationen über [Medientypen ](https://help.shopify.com/manual/products/product-media)",
+        "en": "Learn more about [media types](https://help.shopify.com/manual/products/product-media)",
+        "es": "Más información sobre [tipos de archivos multimedia](https://help.shopify.com/manual/products/product-media)",
+        "fi": "Lue lisää [mediatyypeistä](https://help.shopify.com/manual/products/product-media)",
+        "fr": "En savoir plus sur les [types de supports multimédia](https://help.shopify.com/manual/products/product-media)",
+        "it": "Scopri di più sulle [tipologie di file multimediali](https://help.shopify.com/manual/products/product-media)",
+        "ja": "[メディアのタイプ](https://help.shopify.com/manual/products/product-media) について詳しくはこちら",
+        "ko": "[미디어 유형](https://help.shopify.com/manual/products/product-media)에 대해 자세히 알아보기",
+        "nb": "Lær mer om [medietyper](https://help.shopify.com/manual/products/product-media)",
+        "nl": "Meer informatie over [mediatypen](https://help.shopify.com/manual/products/product-media)",
+        "pl": "Dowiedz się więcej o [typach multimediów](https://help.shopify.com/manual/products/product-media)",
+        "pt-BR": "Saiba mais sobre [tipos de mídia](https://help.shopify.com/manual/products/product-media)",
+        "pt-PT": "Saiba mais sobre [media types](https://help.shopify.com/manual/products/product-media)",
+        "sv": "Läs mer om [mediatyper](https://help.shopify.com/manual/products/product-media)",
+        "th": "ดูข้อมูลเพิ่มเติมเกี่ยวกับ [ประเภทของสื่อ](https://help.shopify.com/manual/products/product-media)",
+        "tr": "[Medya türleri](https://help.shopify.com/manual/products/product-media) hakkında daha fazla bilgi edinin",
+        "vi": "Tìm hiểu thêm về [loại phương tiện](https://help.shopify.com/manual/products/product-media)",
+        "zh-CN": "详细了解[媒体类型](https://help.shopify.com/manual/products/product-media)",
+        "zh-TW": "深入瞭解 [媒體類型](https://help.shopify.com/manual/products/product-media)"
+      }
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_video_looping",
+      "label": {
+        "cs": "Povolit smyčky videa",
+        "da": "Aktivér looping af videoer",
+        "de": "Videoschleife aktivieren",
+        "en": "Enable video looping",
+        "es": "Habilitar la reproducción de video en bucle",
+        "fi": "Ota käyttöön videosilmukka",
+        "fr": "Activer le bouclage de la vidéo",
+        "it": "Abilita la riproduzione in loop dei video",
+        "ja": "ビデオのループを有効にする",
+        "ko": "동영상 루프 활성화",
+        "nb": "Aktiver løkkeavspilling av video",
+        "nl": "Video-looping inschakelen",
+        "pl": "Włącz zapętlanie wideo",
+        "pt-BR": "Habilitar loop de vídeo",
+        "pt-PT": "Ativar ciclo de vídeo",
+        "sv": "Aktivera video-loopning",
+        "th": "เปิดใช้การวนซ้ำวิดีโอ",
+        "tr": "Video döngüsünü etkinleştir",
+        "vi": "Bật vòng lặp video",
+        "zh-CN": "启用视频循环",
+        "zh-TW": "啟用影片循環功能"
+      },
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": {
+        "cs": "Propagovaný produkt",
+        "da": "Fremhævet produkt",
+        "de": "Vorgestelltes Produkt",
+        "en": "Featured product",
+        "es": "Producto destacado",
+        "fi": "Esittelyssä oleva tuote",
+        "fr": "Produit en vedette",
+        "it": "Prodotto in primo piano",
+        "ja": "おすすめ商品",
+        "ko": "특별 상품",
+        "nb": "Utvalgt produkt",
+        "nl": "Uitgelicht product",
+        "pl": "Polecany produkt",
+        "pt-BR": "Produto em destaque",
+        "pt-PT": "Produto em destaque",
+        "sv": "Utvald produkt",
+        "th": "สินค้าที่แนะนำ",
+        "tr": "Öne çıkan ürün",
+        "vi": "Sản phẩm nổi bật",
+        "zh-CN": "特色产品",
+        "zh-TW": "精選產品"
+      },
+      "category": {
+        "cs": "Produkt",
+        "da": "Produkt",
+        "de": "Produkt",
+        "en": "Product",
+        "es": "Producto",
+        "fi": "Tuote",
+        "fr": "Produit",
+        "it": "Prodotto",
+        "ja": "商品",
+        "ko": "제품",
+        "nb": "Produkt",
+        "nl": "Product",
+        "pl": "Produkt",
+        "pt-BR": "Produto",
+        "pt-PT": "Produto",
+        "sv": "Produkt",
+        "th": "สินค้า",
+        "tr": "Ürün",
+        "vi": "Sản phẩm",
+        "zh-CN": "产品",
+        "zh-TW": "產品"
+      }
+    }
+  ]
+}
+{% endschema %}

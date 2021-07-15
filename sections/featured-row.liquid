@@ -1,7 +1,7 @@
-<div class="wrapper">
-  <div class="page-width feature-row">
+<div class="wrapper" style="padding: 0; margin: 0;     max-width: 100%; background-color: {{section.settings.background}};">
+  <div class="page-width-1 feature-row">
     {% capture media_layout %}
-      <div class="feature-row__item">
+      <div class="feature-row__item grid__item text-left small--one-whole medium--one-whole large--one-half ft-img">
         {% if section.settings.image != blank %}
           <noscript>
             {{ section.settings.image | img_url: '600x600' | img_tag: section.settings.image.alt, 'feature-row__image-no-js' }}
@@ -22,17 +22,20 @@
       </div>
     {% endcapture %}
 
-    <div class="feature-row">
+    <div class="feature-row grid-uniform ft">
       {% if section.settings.layout == 'left' %}
         {{ media_layout }}
       {% endif %}
 
-      <div class="feature-row__item feature-row__text feature-row__text--{{ section.settings.layout }}">
+      <div class="grid__item text-left small--one-whole medium--one-whole large--one-half feature-row__item feature-row__text feature-row__text--{{ section.settings.layout }} ft2">
+        {% if section.settings.subtitle != blank %}
+        <p class="featured-row-subtitle">{{ section.settings.subtitle | escape }}</p>
+      {% endif %}
         {% if section.settings.title != blank %}
-          <h2 class="h3">{{ section.settings.title | escape }}</h2>
+          <h2 class="featured-row-title"><span style="color: #fff;">{{ section.settings.title | escape }}</span></h2>
         {% endif %}
-        {% if section.settings.text != blank %}
-          <div class="rte-setting featured-row__subtext">{{ section.settings.text }}</div>
+          {% if section.settings.text != blank %}
+      <div class="rte-setting featured-row__subtext featured-row-text ">{{ section.settings.text }}</div>
         {% endif %}
         {% if section.settings.button_label != blank and section.settings.button_link != blank %}
           <a href="{{ section.settings.button_link }}" class="btn">
@@ -236,6 +239,16 @@
       }
     },
     {
+      "type": "text",
+      "id": "subtitle",
+      "label": {
+        "en": "Subtitle"
+      },
+      "default": {
+        "en": "Subtitle"
+      }
+    },
+    {
       "type": "richtext",
       "id": "text",
       "label": {
@@ -284,6 +297,14 @@
         "zh-CN": "<p>将大文本与图片配对，以便将焦点置于您选择的产品、产品系列或博客文章。添加有关可用性和样式的详细信息，甚至是提供评论。</p>",
         "zh-TW": "<p>大型文字搭配圖片，以便強調特定產品、商品系列或網誌貼文。您可以加上各種有關可用性、樣式的資料，甚至可以提供使用心得。</p>"
       }
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": {
+        "en": "Background color"
+      },
+      "default": "#000000"
     },
     {
       "type": "text",

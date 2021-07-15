@@ -294,10 +294,10 @@ $max: max-width;
 }
 
 $viewportIncrement: 1px;
-$siteWidth: 1050px;
+$siteWidth: 1440px;
 $small: 590px;
 $medium: 768px;
-$large: 769px;
+$large: 1223px;
 $xlarge: $siteWidth + $viewportIncrement;
 
 $postSmall: $small + $viewportIncrement;
@@ -539,12 +539,13 @@ body {
     padding-top: $gutter;
 
     @include at-query($min, $large) {
-      padding-top: $contentTopMargin;
+      /*padding-top: $contentTopMargin/2;*/
+      padding-top: 0;
     }
   }
 
   @include at-query($min, $postSmall) {
-    padding-bottom: 40px;
+    padding-bottom: 10px;
   }
 }
 
@@ -1272,9 +1273,11 @@ a,
   color: $colorLink;
   text-decoration: none;
   background: transparent;
+  font-weight: 700;
 
   &:hover {
-    color: $colorLinkHover;
+    /*color: $colorLinkHover;*/
+    color: #0054CC;
   }
 }
 
@@ -1614,6 +1617,7 @@ label.error {
   position: relative;
   display: table;
   border-collapse: separate;
+  border: 1px solid #EBF1FC;
 
   .input-group-field:first-child,
   .input-group-btn:first-child,
@@ -2119,6 +2123,9 @@ $socialIconFontStack: 'icons';
 
   a {
     color: $colorTextBody;
+    font-size: 16px;
+    font-family: "News Gothic Std",'News Gothic No 2', sans-serif;
+    font-weight: 500;
 
     &:active {
       color: darken($colorTextBody, 20%);
@@ -2133,6 +2140,7 @@ $socialIconFontStack: 'icons';
 .site-footer__linklist {
   @include at-query($min, $postSmall) {
     margin-bottom: $footer-spacing-small;
+    text-transform: uppercase;
   }
 }
 
@@ -2244,6 +2252,7 @@ $socialIconFontStack: 'icons';
 .rte {
   @include clearfix;
   margin-bottom: $gutter / 2;
+  margin-top: $gutter / 2;
 
   p,
   ul,
@@ -2363,8 +2372,7 @@ $socialIconFontStack: 'icons';
 
 /*================ Module | Site Header ================*/
 .site-header {
-  //background-color: $colorBody;
-  background-color: transparent;
+  background-color: $colorBody;
   padding: 15px 0;
 
   .grid--table {
@@ -2442,8 +2450,8 @@ $socialIconFontStack: 'icons';
 }
 
 .search-bar--modal {
-  max-width: 300px;
-  margin: 20% auto 0;
+  max-width: 80%;
+  margin: 2% auto 0;
 }
 
 .search-bar--header {
@@ -2458,9 +2466,11 @@ $socialIconFontStack: 'icons';
 /*================ Module | Section Headers ================*/
 .section-header {
   margin-bottom: 30px;
+  margin-top: 30px;
 
   .section-header__title {
     letter-spacing: 0;
+    font-family: Times New Roman;
   }
 
   @include at-query($min, $postSmall) {
@@ -2481,7 +2491,7 @@ $socialIconFontStack: 'icons';
   }
 
   .section-header__title {
-    margin-bottom: $gutter / 2.5;
+    margin-bottom: $gutter / 5;
   }
 
   .section-header__left {
@@ -2794,7 +2804,7 @@ $socialIconFontStack: 'icons';
   margin-bottom: $gutter;
 
   &:first-child {
-    border-bottom: 1px solid $colorBorder;
+    //border-bottom: 1px solid $colorBorder;
     padding-bottom: $gutter / 2;
   }
 
@@ -2815,8 +2825,9 @@ $socialIconFontStack: 'icons';
 }
 
 .cart__row--last {
-  border-top: 1px solid $colorBorder;
+  //border-top: 1px solid $colorBorder;
   padding-top: $gutter / 2;
+  //border-bottom: 1px solid #EBF1FC;
 }
 
 .cart__row--table {
@@ -2957,8 +2968,12 @@ $socialIconFontStack: 'icons';
 }
 
 /*================ Templates | Product Page ================*/
+.product-single-1 {
+  padding: 0 180px;
+}
+
 .product-single {
-  text-align: center;
+  text-align: left;
 }
 
 .product-single__meta--wrapper {
@@ -3010,7 +3025,7 @@ $socialIconFontStack: 'icons';
 
 .btn--add-to-cart {
   margin: 10px 10px 0 0;
-  min-width: 155px;
+  min-width: 250px;
   flex: auto;
 
   &.btn {
@@ -3241,7 +3256,11 @@ shopify-payment-terms {
   display: inline-block;
   text-decoration: line-through;
 }
-
+.product-price-container {
+  padding: 10px;
+  border: 1px solid #000;
+  width: fit-content;
+}
 .product-single__unit {
   display: none;
 
@@ -3469,3 +3488,21 @@ shopify-payment-terms {
   display: block;
 }
 
+div#shopify-section-16225630309c9843cc {
+  margin-top:0;
+  background-color: #4d4d4d;
+}
+.featured-blog-text {
+  margin-top: 0px;
+}
+.featured-blog-subtitle {
+  text-align: center;
+  font-family: "News Gothic Std", "News Gothic No. 2", sans-serif;
+  font-size: 18px;
+  line-height: 21.6px;
+}
+
+.site-footer__logo-image {
+  display: block;
+  margin: 0;
+}

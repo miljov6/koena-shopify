@@ -1,13 +1,45 @@
 {
   "current": {
-    "checkout_accent_color": "#a26b25",
-    "checkout_button_color": "#000000",
+    "color_headings": "#4d4d4d",
+    "color_body_text": "#4d4d4d",
+    "color_primary": "#1272ea",
+    "color_secondary": "#1272ea",
+    "color_product_background": "#ffffff",
+    "color_sale_tag": "#f78d2b",
+    "color_newsletter": "#fff",
+    "type_header_family": "times_new_roman_n4",
+    "type_header_base_size": "30px",
+    "type_accent_family": "news_gothic_no_2_n4",
+    "type_base_family": "news_gothic_no_2_n4",
+    "cart_type": "page",
+    "social_facebook_link": "https:\/\/facebok.com\/shopify",
+    "social_twitter_link": "",
+    "social_instagram_link": "https:\/\/instagram.com\/shopify",
+    "favicon": "shopify:\/\/shop_images\/Koena-favicon.png",
+    "checkout_logo_image": "shopify:\/\/shop_images\/koena-blue-logo.png",
+    "checkout_accent_color": "#1272ea",
+    "checkout_button_color": "#1272ea",
     "checkout_error_color": "#e32c2b",
     "sections": {
       "header": {
         "type": "header",
         "settings": {
-          "show_announcement": true
+          "logo": "shopify:\/\/shop_images\/Union_6.png",
+          "logo_max_width": 260,
+          "header_color": "#000000",
+          "transparent_header_enable": true,
+          "transparent_logo": "shopify:\/\/shop_images\/Union_7.png",
+          "transparent_header_color": "#ffffff",
+          "search": "modal",
+          "main_menu_link_list": "main-menu",
+          "drawer_bottom_link_list": "footer",
+          "drawer_search_enable": true,
+          "show_announcement": false,
+          "home_page_only": false,
+          "text": "Announce something here",
+          "link": "",
+          "color_bg": "#1c1d1d",
+          "color_text": "#ffffff"
         }
       },
       "slideshow": {
@@ -15,48 +47,75 @@
         "blocks": {
           "slideshow-0": {
             "type": "slide",
-            "settings": {}
-          },
-          "slideshow-1": {
-            "type": "slide",
-            "settings": {}
+            "settings": {
+              "image": "shopify:\/\/shop_images\/header.png",
+              "image_position": "center center",
+              "image_overlay": true,
+              "image_overlay_opacity": 25,
+              "text_alignment": "center",
+              "slide_heading": "Science backed skincare,  that gets results",
+              "slide_subheading": "We’re driven by a larger goal than making great science-backed products that achieve results, we’re impassioned about giving back.",
+              "button_label": "Shop Now",
+              "button_link": "shopify:\/\/collections\/all",
+              "slide_text_color": "#ffffff",
+              "slide_button_label_color": "#ffffff",
+              "slide_button_background_color": "#1272ea"
+            }
           }
         },
         "block_order": [
-          "slideshow-0",
-          "slideshow-1"
+          "slideshow-0"
         ],
-        "settings": {}
+        "settings": {
+          "home_hero_height": "full",
+          "hero_home_auto": false,
+          "home_hero_auto_speed": 5
+        }
       },
       "featured-content": {
         "type": "featured-content",
         "settings": {
-          "section_title": "",
+          "home_page_full_width": true,
+          "section_title": "Our Products",
+          "text": "<p>Best products for our customers<\/p>",
+          "buttonurl": "",
+          "buttontext": "",
           "text_size": "large"
         }
       },
       "featured-collections": {
         "type": "featured-collections",
+        "disabled": true,
         "blocks": {
           "featured-collections-0": {
             "type": "collection",
-            "settings": {}
+            "settings": {
+              "collection": ""
+            }
           },
           "featured-collections-1": {
             "type": "collection",
-            "settings": {}
+            "settings": {
+              "collection": ""
+            }
           },
           "featured-collections-2": {
             "type": "collection",
-            "settings": {}
+            "settings": {
+              "collection": ""
+            }
           },
           "featured-collections-3": {
             "type": "collection",
-            "settings": {}
+            "settings": {
+              "collection": ""
+            }
           },
           "featured-collections-4": {
             "type": "collection",
-            "settings": {}
+            "settings": {
+              "collection": ""
+            }
           }
         },
         "block_order": [
@@ -66,30 +125,685 @@
           "featured-collections-3",
           "featured-collections-4"
         ],
-        "settings": {}
+        "settings": {
+          "title": "Collection list"
+        }
       },
       "featured-products": {
         "type": "featured-products",
+        "disabled": true,
         "settings": {
+          "title": "Featured collection",
+          "home_featured_products": "",
           "collection_products_grid": "grid"
         }
       },
       "featured-product": {
         "type": "featured-product",
-        "settings": {}
+        "disabled": true,
+        "settings": {
+          "featured_product": "",
+          "show_variant_labels": true,
+          "show_vendor": false,
+          "enable_payment_button": true,
+          "show_share_buttons": true,
+          "enable_video_looping": false
+        }
       },
       "newsletter": {
         "type": "newsletter",
+        "settings": {
+          "image": "shopify:\/\/shop_images\/newsletter.png",
+          "heading": "Register & Keep Up to Date!",
+          "subheading": "<p>Sign up to receive a healthy balance of special offers, new products, health & wellness advice, treatment & management tips and much more...all sent directly to your inbox!<\/p>"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "show_payment_icons": true,
+          "show_locale_selector": true,
+          "show_currency_selector": true,
+          "text": "<p>We are a small collective of people inspired by health.<\/p>",
+          "logo_max_width": 180,
+          "privacy_policy": "",
+          "tos": "",
+          "footer_link_list": "footer"
+        }
+      },
+      "1622556379febda043": {
+        "type": "featured-product-1",
+        "settings": {
+          "featured_product": "clean-and-clear-koena-dermaceutical-gentle-cleanser",
+          "text": "<p>Koéna's Dermaceutical Daily Moisturiser is an intensive daily moisturiser developed by our team of scientists to rehydrate skin prone to dryness, redness, itching, cracking and flaking skin.<\/p>",
+          "featured_product2": "the-extra-clean-pack-koena-dermaceutical-gentle-cleanser-2-pack",
+          "text2": "<p>Koéna Dermaceutical Gentle Cleanser with Resta-Plex is a gentle gel cleanser that removes makeup, impurities, oils and dirt, while also cleansing the skin. With active ingredients in our Resta-Plex formula, it is a gentle alternative that can help combat your skincare concerns.<\/p>",
+          "featured_product3": "",
+          "text3": "<p>Text for unit 3<\/p>",
+          "swap_places": false,
+          "show_variant_labels": true,
+          "show_vendor": false,
+          "enable_payment_button": false,
+          "show_share_buttons": false,
+          "enable_video_looping": false
+        }
+      },
+      "1622558329c09d422d": {
+        "type": "featured-product-1",
+        "settings": {
+          "featured_product": "daily-moisturiser",
+          "text": "<p>Koéna Dermaceutical Gentle Cleanser with Resta-Plex is a gentle gel cleanser that removes makeup, impuriti es, oils and dirt, while also cleansing the skin.<\/p>",
+          "featured_product2": "double-the-hydration",
+          "text2": "<p>Koéna's Dermaceutical Daily Moisturiser is an intensive daily moisturiser developed by our team of scientists to rehydrate skin prone to dryness, redness, itching, cracking and flaking skin. This long-lasting moisturiser can also help reduce the appearance of wrinkles and prevent breakouts.<\/p>",
+          "featured_product3": "the-stockpile",
+          "text3": "<p>Koéna Dermaceutical Gentle Cleanser with Resta-Plex is a gentle gel cleanser that removes makeup, impuriti es, oils and dirt, while also cleansing the skin.<\/p>",
+          "swap_places": true,
+          "show_variant_labels": true,
+          "show_vendor": false,
+          "enable_payment_button": false,
+          "show_share_buttons": false,
+          "enable_video_looping": false
+        }
+      },
+      "password-header": {
+        "type": "password-header",
+        "settings": {
+          "logo_max_width": "200"
+        }
+      },
+      "password-content": {
+        "type": "password-content",
+        "settings": {
+          "title": "Opening Soon",
+          "newsletter_enable": true,
+          "newsletter_form_heading": "Be the first to know when we launch.",
+          "newsletter_form_subheading": "<p>Promotions, new products and sales. Directly to your inbox.<\/p>",
+          "newsletter_placeholder": "Email address",
+          "newsletter_button_text": "Submit",
+          "show_share_buttons": true,
+          "social_message": "Spread the word"
+        }
+      },
+      "16225630309c9843cc": {
+        "type": "featured-row",
+        "settings": {
+          "image": "shopify:\/\/shop_images\/Rectangle_7_4.png",
+          "layout": "left",
+          "title": "Absolutely Loving  this Product!",
+          "subtitle": "Raechelle, Australia",
+          "text": "<p>First cream I have found in a long time that actually works and makes my skin feel amazing. Thank you!<\/p>",
+          "background": "#4d4d4d",
+          "button_label": "",
+          "button_link": ""
+        }
+      },
+      "1622568747e18f48f7": {
+        "type": "featured-blog",
+        "settings": {
+          "title": "Koena Blog",
+          "blog": "resources",
+          "post_limit": 3,
+          "blog_show_date": true,
+          "blog_show_author": false,
+          "blog_show_image": true,
+          "blog_show_excerpt": true,
+          "subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+          "show_view_all": true
+        }
+      },
+      "162270506624ca0517": {
+        "type": "featured-offer",
+        "settings": {
+          "home_page_full_width": true,
+          "date": "<p>Dec 31, 2024<\/p>",
+          "url": "shopify:\/\/collections\/all",
+          "text1": "<p>Learn More<\/p>",
+          "text": "<p>Very advantageous offer from koenery advantageous offer from Koena. <a href=\"\/collections\/all\" title=\"All products\">Learn More<\/a><\/p>",
+          "text_size": "medium"
+        }
+      },
+      "product-template": {
+        "type": "product-template",
+        "settings": {
+          "product_vendor_enable": false,
+          "social_sharing_products": false,
+          "quantity_enabled": true,
+          "product_selector": "radio",
+          "enable_payment_button": true,
+          "add_to_cart_button_size": "small",
+          "media_layout": "thumbnails",
+          "enable_image_zoom": true,
+          "enable_video_looping": false,
+          "pack-1": "",
+          "pack-2": ""
+        }
+      },
+      "product-recommendations": {
+        "type": "product-recommendations",
+        "settings": {
+          "show_product_recommendations": false,
+          "heading": "You may also like"
+        }
+      },
+      "1623014001f08aaf2e": {
+        "type": "featured-content",
+        "settings": {
+          "home_page_full_width": true,
+          "section_title": "Giving back",
+          "text": "<p>Imagine a skincare line that not only works wonders on your skin but also changes the lives of people less fortunate… Enter, Koéna.<br\/><br\/>At Koéna, we’re passionate about eliminating inflammatory skin disease and improving your quality of life. We’re also passionate about making a difference, which is why 100% of our profits go directly to our incredible not-for-profit partner, Empower.<br\/><br\/>Giving back to the community is an incredible feeling and we know you’ll get that same blissful feeling every time you purchase a Koéna product.<\/p>",
+          "buttonurl": "shopify:\/\/pages\/giveback",
+          "buttontext": "SEE OUR PARTNERS",
+          "text_size": "medium"
+        }
+      },
+      "162305680164b9ef8f": {
+        "type": "featured-why-koena",
+        "settings": {
+          "home_page_full_width": true,
+          "section_title": "Why Koena?",
+          "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.<\/p>",
+          "icon1": "shopify:\/\/shop_images\/Union_1.png",
+          "icon1-text": "Australia  Owned & Made",
+          "icon2": "shopify:\/\/shop_images\/Union.png",
+          "icon2-text": "pH Balanced",
+          "icon3": "shopify:\/\/shop_images\/Union_2.png",
+          "icon3-text": "Gentle & Friendly Ingredients",
+          "icon4": "shopify:\/\/shop_images\/Union_3.png",
+          "icon4-text": "Suitable For all Skin types",
+          "section_subtitle1": "Koéna's inspiring story",
+          "text1": "<p>Koéna was developed with a strong vision in mind; to reduce the burden associated with inflammatory diseases and to improve the quality of the lives of those affected...<\/p>",
+          "url1": "shopify:\/\/pages\/koena-who-we-are",
+          "url1-text": "THE KOÉNA STORY",
+          "img-1": "shopify:\/\/shop_images\/Rectangle_7.png",
+          "section_subtitle2": "Resta-Plex, our patented formulation",
+          "text2": "<p>Resta-Plex® is a unique combination of four key ingredients contained in Koéna Skincare. Resta-Plex® was formulated after years of research and...<\/p>",
+          "url2": "shopify:\/\/pages\/resta-plex",
+          "url2-text": "ABOUT RESTA-PLEX",
+          "img-2": "shopify:\/\/shop_images\/Rectangle_7_1.png",
+          "text_size": "medium"
+        }
+      },
+      "collection-template": {
+        "type": "collection-template",
+        "settings": {
+          "show_collection_image": false,
+          "collection_sort_enable": false,
+          "collection_tags_enable": false,
+          "collection_products_grid": "grid",
+          "product_vendor_enable": false
+        }
+      },
+      "1623952215c9c6a760": {
+        "type": "featured-our-brands",
+        "settings": {
+          "home_page_full_width": true,
+          "text": "<p>Our Brands. If you like our products you also can like our partners products<\/p>",
+          "url1": "",
+          "url2": "",
+          "text_size": "large"
+        }
+      },
+      "giveback-home": {
+        "type": "giveback-home",
+        "blocks": {
+          "d4d1f6d1-f2c7-4e69-8fef-7746eeaf1688": {
+            "type": "tile",
+            "settings": {
+              "giveback__img": "shopify:\/\/shop_images\/Section-4-Story-3-Nargis-Empower-Overseas-Aid.jpg",
+              "giveback__h": "Empower Overseas Aid",
+              "giveback__text": "Empower Overseas Aid works in areas of South Asia where hundreds of millions still do not have access to clean water, safe sanitation, healthy hygiene practices, quality education or sustainable livelihoods – yet!",
+              "giveback__url": "shopify:\/\/pages\/partner-empower"
+            }
+          }
+        },
+        "block_order": [
+          "d4d1f6d1-f2c7-4e69-8fef-7746eeaf1688"
+        ],
+        "settings": {
+          "giveback__title": "Koéna was established as a social enterprise with a strong vision in mind; to reduce the burden associated with inflammatory diseases and to improve the quality of the lives of those affected. Restoring balance to individuals suffering from inflammatory diseases and giving balance back to communities in need underpins Koéna’s social enterprise initiatives. Koéna proudly allocates 100% of profit from the sale of Koéna products to support the community-impacting initiatives of our not-for-profit partner, Empower Overseas Aid. Learn more about the positive impact your purchase is having on the lives of those in need through our not-for-profit partner Koéna passionately supports."
+        }
+      },
+      "partner-tiles-1": {
+        "type": "partner-tiles-1",
+        "blocks": {
+          "ec003b82-417c-4003-a47a-a56dae277fb6": {
+            "type": "blocksection",
+            "settings": {
+              "block__h": "What Empower do",
+              "block__image": "shopify:\/\/shop_images\/Section-2-Image-3-Empower-Overseas-Aid.jpg",
+              "block__text": "Empower Overseas Aid train and equip men and women to be leaders in their communities, sending them out to break the poverty cycle and bring hope and grace. They identify the specific needs of their communities and then work together to build a sustainable future. Severe lack of safe, clean drinking water is an ongoing issue in South Asia. Drought and heavy monsoonal rain result in lack of water or contaminated water storage. Empower is addressing this lack by drilling deep core bore wells in strategic locations.",
+              "block__flipped": false
+            }
+          },
+          "b35131b4-fddd-4e67-ac97-a37507eb1b25": {
+            "type": "blocksection",
+            "settings": {
+              "block__h": "Where Empower work",
+              "block__image": "shopify:\/\/shop_images\/AU_Unsplash_Kids_3.jpg",
+              "block__text": "Empower work in areas of South Asia where hundreds of millions still do not have access to clean water, safe sanitation, healthy hygiene practices, quality education or sustainable livelihoods – yet!",
+              "block__flipped": true
+            }
+          },
+          "af3a42c1-2942-4e7c-88de-9da2021aa1d5": {
+            "type": "blocksection",
+            "settings": {
+              "block__h": "Restoring health through clean water",
+              "block__image": "shopify:\/\/shop_images\/Section-4-Story-3-Nargis-Empower-Overseas-Aid.jpg",
+              "block__text": "Protecting and promoting health isn’t just providing medical care to the sick. In order to build healthier communities long-term, it’s important to go ‘further up the stream’ to address the external factors contributing to poor health. Two of Empower’s major projects, focus on digging wells and constructing toilets in communities where they work.",
+              "block__flipped": false
+            }
+          },
+          "1f2ba8e3-d7c0-4320-a18c-8656d6098f55": {
+            "type": "blocksection",
+            "settings": {
+              "block__h": "Empower Statistics",
+              "block__image": "shopify:\/\/shop_images\/Section-3-Wells-Stats-Empower-Overseas-Aid_1eab80a0-a051-4e69-9705-dd5a61fb050e.jpg",
+              "block__text": "Empower are doing some impressive work overseas. They’ve drilled 300 wells which has impacted 552 villages and 50,507 people. To learn more about Empower and the impact they are making, head to their website.",
+              "block__flipped": true
+            }
+          }
+        },
+        "block_order": [
+          "ec003b82-417c-4003-a47a-a56dae277fb6",
+          "b35131b4-fddd-4e67-ac97-a37507eb1b25",
+          "af3a42c1-2942-4e7c-88de-9da2021aa1d5",
+          "1f2ba8e3-d7c0-4320-a18c-8656d6098f55"
+        ],
+        "settings": {
+          "partner__h": "Empower Overseas Aid",
+          "partner__image": "shopify:\/\/shop_images\/Section-1-Header-Image-Empower-Overseas-Aid.jpg",
+          "partner__text": "Empower Overseas Aid exist to equip, educate & empower through sustainable community transformation."
+        }
+      },
+      "partner-slider-1": {
+        "type": "partner-slider-1",
+        "blocks": {
+          "af994070-b902-47c4-85af-7ccd2a23790d": {
+            "type": "slide",
+            "settings": {
+              "slide__h": "Real people, real stories",
+              "slide__image": "shopify:\/\/shop_images\/Section_2_Image_1.JPG",
+              "slide__text": "“High caste people in our village did not like my family pumping water from a nearby bore well. One day when my son was fetching water a man hit him on the head with a stick. He started bleeding and had to be hospitalised. We were banned from that well and had to collect water from another well two kilometres away from our house. Now with this new well from Empower, our family and those like us who struggle with the same fate can collect water without restriction. Now I know my son is safe and stays close to home when he collects water. He has time to study now – not like when we had to walk so far several times each day. Thank you for giving us this safe water!” - Meera"
+            }
+          },
+          "cc77120c-3a4a-4cdb-956e-910e25dcb698": {
+            "type": "slide",
+            "settings": {
+              "slide__h": "Real people, real stories",
+              "slide__image": "shopify:\/\/shop_images\/Section-2-Image-3-Empower-Overseas-Aid.jpg",
+              "slide__text": "\"To get water from the nearest hand pump we had to cross a busy railway system. Failing signals led to many deaths but we had no alternative. We had to walk long distances carrying heavy water-laden pots on our heads. I was always afraid to cross the railway lines and then often faced discrimination gathering water. Now our struggle for water is over. This new well is in a safe area - it’s such a relief. We are so grateful to you!” - Pav"
+            }
+          },
+          "d41b6d92-81c2-4822-ba3e-800c9226bdad": {
+            "type": "slide",
+            "settings": {
+              "slide__h": "Real people, real stories",
+              "slide__image": "shopify:\/\/shop_images\/Empower_B_VILLAGE_-_Children.JPG",
+              "slide__text": "“I was so scared we would not have any water. When they started drilling the new well I was concerned there was no water there at all. However, I prayed earnestly until the water began to gush out of the ground! People began jumping and cheering for joy. Now we don’t have to walk for miles for water or fall ill because of drinking contaminated water. Thank you for this noble act!” - Nargis"
+            }
+          },
+          "5e99448e-3a7a-470d-b7ee-61e541b073ba": {
+            "type": "slide",
+            "settings": {
+              "slide__h": "Real People, Real Stories",
+              "slide__image": "shopify:\/\/shop_images\/Section-1-Header-Image-Empower-Overseas-Aid.jpg",
+              "slide__text": "Agi is an elderly woman living in a remote village with her husband. Her bones are starting to ache, she isn’t as strong as she once was, and every day is a little more challenging for her and her aging husband. The long distance to the nearest water source became too much for them, making it a struggle just to survive. Sickness from impure water was a constant threat to their lives.."
+            }
+          }
+        },
+        "block_order": [
+          "af994070-b902-47c4-85af-7ccd2a23790d",
+          "cc77120c-3a4a-4cdb-956e-910e25dcb698",
+          "d41b6d92-81c2-4822-ba3e-800c9226bdad",
+          "5e99448e-3a7a-470d-b7ee-61e541b073ba"
+        ],
+        "settings": {
+          "button__checkbox": false
+        }
+      },
+      "partner-cta-1": {
+        "type": "partner-cta-1",
+        "settings": {
+          "button__checkbox": false,
+          "button__h": "Click 'learn more' to read more about how your Koéna purchase is providing much needed help to those in need",
+          "button__link": "https:\/\/empower-aid.org.au\/"
+        }
+      },
+      "results-tiles": {
+        "type": "results-tiles",
+        "blocks": {
+          "d5bd9c8b-37c4-40d7-87e0-7ed46de43797": {
+            "type": "tile",
+            "settings": {
+              "tile__image-1": "shopify:\/\/shop_images\/Koena_MEL_Before.png",
+              "tile__image-2": "shopify:\/\/shop_images\/Koena_MEL_After.png",
+              "tile__review": "Woohoo! It’s going so well. I’m running out of it because it’s part of my morning and night skincare routine and I can’t imagine not using it. I take it on flights with me and put a thick layer on before I board. It’s just such an essential part of my life now…All thumbs up here xoxox",
+              "tile__name": "Maddie"
+            }
+          },
+          "ad6a8f4c-9a3e-4a2c-93bc-b2966fd23d83": {
+            "type": "tile",
+            "settings": {
+              "tile__image-1": "shopify:\/\/shop_images\/Koena_AC_Before_6e078811-e60e-4aec-be94-3790e65e8002.png",
+              "tile__image-2": "shopify:\/\/shop_images\/Koena_AC_After.png",
+              "tile__review": "I was battling red, flakey, inflammed skin for months. I'd been down a number of roads with no results, until I was handed Koéna. Within a matter of days, my skin had calmed & I couldn't believe the results.",
+              "tile__name": "Annie"
+            }
+          },
+          "064fa0ef-c576-49c1-9e7f-0766bb0206df": {
+            "type": "tile",
+            "settings": {
+              "tile__image-1": "shopify:\/\/shop_images\/Koena_Foot_Before.png",
+              "tile__image-2": "shopify:\/\/shop_images\/Koena_Foot_After.png",
+              "tile__review": "I have psoriasis and I found this cream to be quickly absorbed into my skin.  It has worked well for me and I would recommend this cream to other psoriasis sufferers.",
+              "tile__name": "Sonya"
+            }
+          },
+          "b6f8037c-45d7-4ea1-9e77-a0005a64ac7e": {
+            "type": "tile",
+            "settings": {
+              "tile__image-1": "shopify:\/\/shop_images\/Koena_Fore_Before.png",
+              "tile__image-2": "shopify:\/\/shop_images\/Koena_Fore_After.png",
+              "tile__review": "I was recently working in the garden and disturbed a wasp nest. I was stung on the face and the arm. The pain was pretty bad. My wife applied Koéna cream and within 30 second the pain subsided and I did not have any swelling. I did have to apply it again in around 4 hours but after that it was fine. A neighbour had been stung on the face a few days before by a wasp and was still swollen and sore.",
+              "tile__name": "Paul"
+            }
+          },
+          "386e8764-3877-4659-8eeb-d83881d6dae3": {
+            "type": "tile",
+            "settings": {
+              "tile__image-1": "shopify:\/\/shop_images\/Koena_FF_After.png",
+              "tile__image-2": "shopify:\/\/shop_images\/Koena_FF_Before.png",
+              "tile__review": "Best soothing and softening cream I have used so far and I have tried many. I had no cracking or bleeding while using it and was able to walk pain free for the first time in ages. The psoriasis patch on the sole of my foot has significantly reduced in size. Great product that I will be recommending it to others.",
+              "tile__name": "Teresa"
+            }
+          },
+          "ff63cd6d-bedc-4922-846e-94d7d7ed5cfb": {
+            "type": "tile",
+            "settings": {
+              "tile__image-1": "shopify:\/\/shop_images\/Koena_Arm_Before.png",
+              "tile__image-2": "shopify:\/\/shop_images\/Koena_Arm_After.png",
+              "tile__review": "Before this cream, my skin was as dry as an arid dessert. Nothing would help it, because of this and the eczema, it was severely itchy. After using Koéna, my skin is starting to look like normal skin and the itch is not as bad.",
+              "tile__name": "Kylie"
+            }
+          },
+          "9e0e78bb-4749-4329-a5c0-88a262627615": {
+            "type": "tile",
+            "settings": {
+              "tile__image-1": "shopify:\/\/shop_images\/Koena_Calf_Before.png",
+              "tile__image-2": "shopify:\/\/shop_images\/Koena_Calf_After.png",
+              "tile__review": "I highly recommend Koéna Dermaceutical Skincare Cream as it provided me with much needed relief from my very dry, itchy skin. I love how it is fragrance free & didn't irritate my skin. Being steroid-free & easily absorbable meant I felt comfortable applying liberally.",
+              "tile__name": "Ursula"
+            }
+          },
+          "00181506-783d-438d-b36d-338d383065d8": {
+            "type": "tile",
+            "settings": {
+              "tile__image-1": "shopify:\/\/shop_images\/Koena_Legs_Before.png",
+              "tile__image-2": "shopify:\/\/shop_images\/Koena_Legs_After.png",
+              "tile__review": "",
+              "tile__name": ""
+            }
+          },
+          "fe0a6d76-c502-484a-aab0-351abb0a7a7f": {
+            "type": "tile",
+            "settings": {
+              "tile__image-1": "shopify:\/\/shop_images\/Koena_ST_Before.png",
+              "tile__image-2": "shopify:\/\/shop_images\/Koena_ST_After.png",
+              "tile__review": "",
+              "tile__name": ""
+            }
+          },
+          "49a97313-4fc4-4292-95ec-d45f5da322d2": {
+            "type": "tile",
+            "settings": {
+              "tile__image-1": "shopify:\/\/shop_images\/Koena_MES_Before.png",
+              "tile__image-2": "shopify:\/\/shop_images\/Koena_MES_After.png",
+              "tile__review": "",
+              "tile__name": ""
+            }
+          }
+        },
+        "block_order": [
+          "d5bd9c8b-37c4-40d7-87e0-7ed46de43797",
+          "ad6a8f4c-9a3e-4a2c-93bc-b2966fd23d83",
+          "064fa0ef-c576-49c1-9e7f-0766bb0206df",
+          "b6f8037c-45d7-4ea1-9e77-a0005a64ac7e",
+          "386e8764-3877-4659-8eeb-d83881d6dae3",
+          "ff63cd6d-bedc-4922-846e-94d7d7ed5cfb",
+          "9e0e78bb-4749-4329-a5c0-88a262627615",
+          "00181506-783d-438d-b36d-338d383065d8",
+          "fe0a6d76-c502-484a-aab0-351abb0a7a7f",
+          "49a97313-4fc4-4292-95ec-d45f5da322d2"
+        ],
         "settings": {}
+      },
+      "results-videos": {
+        "type": "results-videos",
+        "blocks": {
+          "44c7a9de-15ee-4d72-b25b-d391d24ab48e": {
+            "type": "video",
+            "settings": {
+              "video__url": "89Kad3Q1qvk",
+              "video__description": "We sat down with Serina to learn about her positive experience using Koéna Skincare Cream. Serina also shares what she loves most about Koéna."
+            }
+          },
+          "c73ded15-66d3-4c68-8adf-6b9c27cec155": {
+            "type": "video",
+            "settings": {
+              "video__url": "z-UzPdhOGFg",
+              "video__description": "We sat down with Stephen to learn about his positive experience using Koéna Skincare Cream. Stephen also shares what he loves most about Koéna."
+            }
+          },
+          "717a2592-4771-4cc9-960e-c20a8beafaaa": {
+            "type": "video",
+            "settings": {
+              "video__url": "QJ_FnL_EfIs",
+              "video__description": "The team talk about why they love working for Koéna, while Serina and Stephen share their experience using Koéna Skincare Cream."
+            }
+          }
+        },
+        "block_order": [
+          "44c7a9de-15ee-4d72-b25b-d391d24ab48e",
+          "c73ded15-66d3-4c68-8adf-6b9c27cec155",
+          "717a2592-4771-4cc9-960e-c20a8beafaaa"
+        ],
+        "settings": {}
+      },
+      "results-testimonials-2": {
+        "type": "results-testimonials-2",
+        "blocks": {
+          "399e5914-2cfc-4a28-bb8c-1ded139d265b": {
+            "type": "tile",
+            "settings": {
+              "tile__image": "shopify:\/\/shop_images\/Koena_Testimonials_Blue-68_copy.jpg"
+            }
+          },
+          "a2b8b892-1335-41b3-b400-42948add890b": {
+            "type": "tile",
+            "settings": {
+              "tile__image": "shopify:\/\/shop_images\/Koena_Testimonials_Black_Kylie.jpg"
+            }
+          },
+          "76d72688-e41d-4345-9077-a037193cb16a": {
+            "type": "tile",
+            "settings": {
+              "tile__image": "shopify:\/\/shop_images\/Koena_Testimonials_Blue-76_Tanya.jpg"
+            }
+          },
+          "ebc1549e-cff7-43af-a535-36a2a3ceff2d": {
+            "type": "tile",
+            "settings": {
+              "tile__image": "shopify:\/\/shop_images\/Koena_Testimonials_Paul_Black_40.jpg"
+            }
+          },
+          "676a1dea-d0d9-40ee-abd5-a89edf6fbb92": {
+            "type": "tile",
+            "settings": {
+              "tile__image": "shopify:\/\/shop_images\/Koena_Testimonials_Paul_Blue_40.jpg"
+            }
+          },
+          "6f06572c-62b2-4d59-997c-924cf2b5cc59": {
+            "type": "tile",
+            "settings": {
+              "tile__image": "shopify:\/\/shop_images\/Koena_Testimonials_Paul_Black_40.jpg"
+            }
+          },
+          "8796e97e-4d4d-4e46-b657-c36169f03584": {
+            "type": "tile",
+            "settings": {
+              "tile__image": "shopify:\/\/shop_images\/Koena_Testimonials_Roger_Blue_35.jpg"
+            }
+          },
+          "e0a22b5c-f6be-427a-890c-bac946691a01": {
+            "type": "tile",
+            "settings": {
+              "tile__image": "shopify:\/\/shop_images\/Koena_Testimonials_John_Black_32.jpg"
+            }
+          },
+          "431c439e-209c-4495-ae48-2560af9c8e51": {
+            "type": "tile",
+            "settings": {
+              "tile__image": "shopify:\/\/shop_images\/Koena_Testimonials_George_Blue_39.jpg"
+            }
+          },
+          "259743ba-3267-4e01-a246-09662d247857": {
+            "type": "tile",
+            "settings": {
+              "tile__image": "shopify:\/\/shop_images\/Koena_Testimonials_Ann_Black_34.jpg"
+            }
+          },
+          "b21ff9dd-3d26-466f-b44f-68d08e946d22": {
+            "type": "tile",
+            "settings": {
+              "tile__image": "shopify:\/\/shop_images\/Koena_Testimonials_Greg_Blue_36.jpg"
+            }
+          },
+          "b65d2046-ae9f-4400-8428-6e3636b5fd4c": {
+            "type": "tile",
+            "settings": {
+              "tile__image": "shopify:\/\/shop_images\/Koena_Testimonials_Roger_Black_36.jpg"
+            }
+          },
+          "c4c03d66-45a5-4dcf-95cc-c4cc16a526bf": {
+            "type": "tile",
+            "settings": {
+              "tile__image": "shopify:\/\/shop_images\/Koena_Testimonials_Sarah_Blue_30.jpg"
+            }
+          },
+          "b63894bb-d5b1-4eb4-9055-e19038a24c53": {
+            "type": "tile",
+            "settings": {
+              "tile__image": "shopify:\/\/shop_images\/Koena_Testimonials_Barry_Black_45.jpg"
+            }
+          },
+          "d3c02291-9945-4afa-9e12-cc34b6e4ae1b": {
+            "type": "tile",
+            "settings": {
+              "tile__image": "shopify:\/\/shop_images\/Koena_Testimonials_Barry_Blue_45.jpg"
+            }
+          }
+        },
+        "block_order": [
+          "399e5914-2cfc-4a28-bb8c-1ded139d265b",
+          "a2b8b892-1335-41b3-b400-42948add890b",
+          "76d72688-e41d-4345-9077-a037193cb16a",
+          "ebc1549e-cff7-43af-a535-36a2a3ceff2d",
+          "676a1dea-d0d9-40ee-abd5-a89edf6fbb92",
+          "6f06572c-62b2-4d59-997c-924cf2b5cc59",
+          "8796e97e-4d4d-4e46-b657-c36169f03584",
+          "e0a22b5c-f6be-427a-890c-bac946691a01",
+          "431c439e-209c-4495-ae48-2560af9c8e51",
+          "259743ba-3267-4e01-a246-09662d247857",
+          "b21ff9dd-3d26-466f-b44f-68d08e946d22",
+          "b65d2046-ae9f-4400-8428-6e3636b5fd4c",
+          "c4c03d66-45a5-4dcf-95cc-c4cc16a526bf",
+          "b63894bb-d5b1-4eb4-9055-e19038a24c53",
+          "d3c02291-9945-4afa-9e12-cc34b6e4ae1b"
+        ],
+        "settings": {}
+      },
+      "restaplex": {
+        "type": "restaplex",
+        "blocks": {
+          "46ca52e1-fd12-4d5d-b016-65d9362efac3": {
+            "type": "tile",
+            "settings": {
+              "tile__heading": "GLUCOSAMINE",
+              "tile__description": "The Resta-Plex patented formula has two types of glucosamine, which are recognised as a natural anti-inflammatory. They assist in the production of collagen and rebalancing skin inflammation.",
+              "tile__sub": "Glucosamine is known to help with:",
+              "tile__list": "Anti-aging<br>\nSkin repairing<br>\nSoothing skin conditions \nsuch as eczema, psoriasis \nand dermatitis",
+              "tile__list-two": ""
+            }
+          },
+          "525c11b5-c8e1-4ffd-ad93-0d986087c55c": {
+            "type": "tile",
+            "settings": {
+              "tile__heading": "L-GLYCINE",
+              "tile__description": "L-Glycine acts on inflammatory cells, like free radicals, to suppress their role in damaging the cells in your body. It’s also used as an antioxidant and can suppress the inflammatory cytokines when overproduced.",
+              "tile__sub": "L-Glycine is known to help with:",
+              "tile__list": "Wrinkles<br>\nUV-B induced skin damage <br>\nand photoaging",
+              "tile__list-two": ""
+            }
+          },
+          "e2afc9a7-8dc4-4fc9-a5f7-6ee03ffd5353": {
+            "type": "tile",
+            "settings": {
+              "tile__heading": "METHYLSULFONYLMETHANE",
+              "tile__description": "MSM is a naturally produced chemical compound in the body with anti-inflammatory properties that help increase the production of collagen. It is shown to have a role as an anti-aging molecule.",
+              "tile__sub": "MSM is known to help with:",
+              "tile__list": "Acne repair<br>\nSkin smoothing<br>\nRosacea<br>\nStretch marks",
+              "tile__list-two": "Wrinkles<br>\nSun burn<br>\nWounds"
+            }
+          }
+        },
+        "block_order": [
+          "46ca52e1-fd12-4d5d-b016-65d9362efac3",
+          "525c11b5-c8e1-4ffd-ad93-0d986087c55c",
+          "e2afc9a7-8dc4-4fc9-a5f7-6ee03ffd5353"
+        ],
+        "settings": {}
+      },
+      "16254881450ccd822f": {
+        "type": "explore-more",
+        "settings": {
+          "button__checkbox": false,
+          "button__h": "",
+          "button__link": "shopify:\/\/collections\/all"
+        }
+      },
+      "product-template-1": {
+        "type": "product-template-1",
+        "settings": {
+          "product_vendor_enable": false,
+          "social_sharing_products": false,
+          "quantity_enabled": false,
+          "product_selector": "radio",
+          "enable_payment_button": true,
+          "add_to_cart_button_size": "small",
+          "media_layout": "thumbnails",
+          "enable_image_zoom": true,
+          "enable_video_looping": false,
+          "pack-1": "",
+          "pack-2": ""
+        }
       }
     },
     "content_for_index": [
       "slideshow",
+      "162270506624ca0517",
+      "1623952215c9c6a760",
       "featured-content",
+      "1622558329c09d422d",
+      "1622556379febda043",
+      "16254881450ccd822f",
+      "162305680164b9ef8f",
+      "16225630309c9843cc",
+      "1622568747e18f48f7",
+      "1623014001f08aaf2e",
+      "newsletter",
       "featured-collections",
       "featured-products",
-      "featured-product",
-      "newsletter"
+      "featured-product"
     ]
   },
   "presets": {

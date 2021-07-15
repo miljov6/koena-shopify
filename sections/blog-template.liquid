@@ -1,0 +1,333 @@
+{%- assign limit = section.settings.articles | times: section.settings.rows -%}
+
+
+<div class="blog-template" data-section-id="{{ section.id }}" data-section-type="blog-template">
+  {% paginate blog.articles by limit %}
+
+    <div class="page-width">
+      <header class="section-header section-header--small text-center">
+        <h1 class="section-header__title h2">{{ page_title }}</h1>
+      </header>
+  </div>
+  
+    <div class="blog__nav">
+    <a href="/blogs/resources/tagged/Advice" class="blog__nav-item w-inline-block">
+      <h4 class="blog__nav-h">Knowledge &amp; Advice</h4>
+    </a>
+    <a href="/blogs/resources/tagged/Scientific" class="blog__nav-item w-inline-block">
+      <h4 class="blog__nav-h">Scientific Literature</h4>
+    </a>
+  </div>
+  
+  
+  <div class="page-width">
+      
+      <div class="masonry-wrapper">
+        <div class="masonry">
+          {% for article in blog.articles %}
+            {% include 'article-card', article: article, grid_style: section.settings.grid_style %}
+          {% endfor %}
+        </div>
+      </div>
+
+      {% if blog.articles.size == 0 %}
+        <p class="text-center">{{ 'blogs.article.no_matches' | t }}</p>
+      {% endif %}
+
+      {% if paginate.pages > 1 %}
+        <div class="card-list__sub-actions">
+          {% include 'pagination' %}
+        </div>
+      {% endif %}
+    </div>
+
+
+  {% endpaginate %}
+</div>
+
+{% schema %}
+{
+  "name": {
+    "de": "Blog",
+    "en": "Blog",
+    "es": "Blog",
+    "fr": "Blog",
+    "it": "Blog",
+    "ja": "ブログ",
+    "pt-BR": "Blog"
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "grid_style",
+      "label": {
+        "de": "Rasterstil",
+        "en": "Grid style",
+        "es": "Estilo de cuadrícula",
+        "fr": "Style de grille",
+        "it": "Stile griglia",
+        "ja": "グリッドスタイル",
+        "pt-BR": "Estilo da grade"
+      },
+      "default": "collage",
+      "options": [
+        {
+          "value": "collage",
+          "label": {
+            "de": "Collage",
+            "en": "Collage",
+            "es": "Collage",
+            "fr": "Collage",
+            "it": "Collage",
+            "ja": "コラージュ",
+            "pt-BR": "Colagem"
+          }
+        },
+        {
+          "value": "grid",
+          "label": {
+            "de": "Raster",
+            "en": "Grid",
+            "es": "Cuadrícula",
+            "fr": "Grille",
+            "it": "Griglia",
+            "ja": "グリッド",
+            "pt-BR": "Grade"
+          }
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "articles",
+      "label": {
+        "de": "Artikel pro Zeile",
+        "en": "Articles per row",
+        "es": "Artículos por fila",
+        "fr": "Articles par rangée",
+        "it": "Articoli per riga",
+        "ja": "行あたりの記事数",
+        "pt-BR": "Artigos por linha"
+      },
+      "default": "2",
+      "options": [
+        {
+          "value": "2",
+          "label": {
+            "de": "2",
+            "en": "2",
+            "es": "2",
+            "fr": "2",
+            "it": "2",
+            "ja": "2",
+            "pt-BR": "2"
+          }
+        },
+        {
+          "value": "3",
+          "label": {
+            "de": "3",
+            "en": "3",
+            "es": "3",
+            "fr": "3",
+            "it": "3",
+            "ja": "3",
+            "pt-BR": "3"
+          }
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "rows",
+      "label": {
+        "de": "Zeilen pro Seite",
+        "en": "Rows per page",
+        "es": "Filas por página",
+        "fr": "Rangées par page",
+        "it": "Righe per pagina",
+        "ja": "ページあたりの行数",
+        "pt-BR": "Linhas por página"
+      },
+      "default": "4",
+      "options": [
+        {
+          "value": "2",
+          "label": {
+            "de": "2",
+            "en": "2",
+            "es": "2",
+            "fr": "2",
+            "it": "2",
+            "ja": "2",
+            "pt-BR": "2"
+          }
+        },
+        {
+          "value": "3",
+          "label": {
+            "de": "3",
+            "en": "3",
+            "es": "3",
+            "fr": "3",
+            "it": "3",
+            "ja": "3",
+            "pt-BR": "3"
+          }
+        },
+        {
+          "value": "4",
+          "label": {
+            "de": "4",
+            "en": "4",
+            "es": "4",
+            "fr": "4",
+            "it": "4",
+            "ja": "4",
+            "pt-BR": "4"
+          }
+        },
+        {
+          "value": "5",
+          "label": {
+            "de": "5",
+            "en": "5",
+            "es": "5",
+            "fr": "5",
+            "it": "5",
+            "ja": "5",
+            "pt-BR": "5"
+          }
+        },
+        {
+          "value": "6",
+          "label": {
+            "de": "6",
+            "en": "6",
+            "es": "6",
+            "fr": "6",
+            "it": "6",
+            "ja": "6",
+            "pt-BR": "6"
+          }
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "blog_show_date",
+      "label": {
+        "de": "Datum anzeigen",
+        "en": "Show date",
+        "es": "Mostrar fecha",
+        "fr": "Afficher la date",
+        "it": "Mostra data",
+        "ja": "日付を表示する",
+        "pt-BR": "Exibir data"
+      },
+      "default": true
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  .blog__nav {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-style: solid none;
+  border-width: 1px;
+  border-color: #e7e7e7;
+  margin-bottom: 40px;
+}
+
+.blog__nav-item {
+  margin-right: -1px;
+  padding: 20px 40px;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 300px;
+  -ms-flex: 0 300px;
+  flex: 0 300px;
+  border-style: none solid;
+  border-width: 1px;
+  border-color: #e7e7e7;
+  -webkit-transition: all 150ms ease;
+  transition: all 150ms ease;
+  color: #0f72ea;
+  text-decoration: none;
+}
+  
+.blog__nav-item.w-inline-block:active {
+  background-color: #f8f8f8;
+}  
+  
+.blog__nav-item:hover, .blog__nav-item.active {
+  background-color: #f8f8f8;
+}
+
+.blog__nav-h {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  color: #0f72ea;
+  font-size: 16px;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+}
+
+@media screen and (max-width: 991px) {
+  .blog__nav-item {
+    -webkit-flex-basis: 250px;
+    -ms-flex-preferred-size: 250px;
+    flex-basis: 250px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .blog__nav-item {
+    -webkit-flex-shrink: 1;
+    -ms-flex-negative: 1;
+    flex-shrink: 1;
+    -webkit-flex-basis: 250px;
+    -ms-flex-preferred-size: 250px;
+    flex-basis: 250px;
+  }
+  .blog__nav-h {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .blog__nav-item {
+    padding: 20px;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+  }
+  .blog__nav-h {
+    font-size: 14px;
+  }
+}
+</style>
+
+<script>
+  $(document).ready(function() {
+    $("[href]").each(function() {
+        if (this.href == window.location.href) {
+            $(this).addClass("active");
+        }
+    });
+});
+</script>

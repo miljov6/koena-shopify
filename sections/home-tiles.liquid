@@ -1,0 +1,178 @@
+<style>
+.dzx-koena-splitA{
+margin-bottom: 5vh;
+  padding:0 20px;
+}
+.dzx-koena-splitB{
+padding:0 20px;
+}
+.dzx-koena-splitImg{
+
+}
+.dzx-koena-splitStyle{
+  display:flex;
+  flex-wrap:wrap;
+}
+.dzx-koena-splitStyle:nth-child(even){
+  flex-direction:row-reverse;
+}
+.dzx-koena-splitStyle div{
+  display:flex;
+  flex:1 0 50%;
+  flex-direction:column;
+  justify-content:center;
+}
+@media only screen and (min-width: 320px) and (max-width: 1024px) and (orientation:portrait) {
+  .dzx-koena-splitStyle div{
+	flex:1 0 100%;
+	align-items:center;
+  }
+  .dzx-koena-splitStyle div span{
+	text-align:center;
+  }	
+  .dzx-koena-splitStyle div:first-child{
+	margin:20px auto;
+  }	
+  .dzx-koena-splitStyle .feature-row__heading {
+    text-align: center;
+  }
+}
+  
+
+</style>
+
+
+{% assign top_url =  section.settings.top_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.'  %}
+{% assign bottom_url =  section.settings.bottom_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.'  %}
+
+<div class="custom-content-wrapper custom-content-wrapper--1566947255272   one-whole">
+<div class="page-width">
+<div class="custom-content">
+<div class="custom__item custom__item--1566947298953 small--one-whole one-whole align--center">
+  <div class="custom__item-inner custom__item-inner--html">
+    
+<div class="dzx-koena-splitStyle">
+  <div class="dzx-koena-splitA">
+	<div class="dzx-koena-splitImg">
+<img alt="Koéna | Australia's newest, innovative skincare cream" class="dzx-kssImg lazyload"
+             
+                  src="{{ section.settings.top_image | img_url: '200x' }}"
+                  data-src="{{ top_url }}"
+                  data-widths="[540, 720, 900, 1080, 1296, 1512, 1728, 1944, 2048]"
+                  data-sizes="auto"
+                  data-parent-fit="cover" > 
+    
+    </div>
+  </div>
+  <div class="dzx-koena-splitB">
+	<h2 class="feature-row__heading h3 separator has-animated">{{ section.settings.top_h }}</h2>
+	<span style="margin-bottom: 1.5rem">{{ section.settings.top_text }}</span>
+	<a href="{{ section.settings.top_link }}" class="btn btn--secondary feature-row__btn">{{ section.settings.top_link-h }}</a>
+  </div>
+</div>
+<div class="dzx-koena-splitStyle" style="margin-bottom: 10vh">
+  <div class="dzx-koena-splitA">
+	<div class="dzx-koena-splitImg">
+<img alt="Koéna | Australia's newest, innovative skincare cream" class="dzx-kssImg lazyload"
+             
+                  src="{{ section.settings.bottom_image | img_url: '200x' }}"
+                  data-src="{{ bottom_url }}"
+                  data-widths="[540, 720, 900, 1080, 1296, 1512, 1728, 1944, 2048]"
+                  data-sizes="auto"
+                  data-parent-fit="cover" > 
+    </div>
+  </div>
+  <div class="dzx-koena-splitB">
+	<h2 class="feature-row__heading h3 separator has-animated" style="line-height: 1.33em">{{ section.settings.bottom_h }}</h2>
+	<span style="margin-bottom: 1.5rem">{{ section.settings.bottom_text }}</span>
+	<a href="{{ section.settings.bottom_link }}" class="btn btn--secondary feature-row__btn">{{ section.settings.bottom_link-h }}</a>
+  </div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+{% schema %}
+  {
+  	"name": "Home Tiles",
+  	"class": "home-tiles",
+  	"settings": [
+	{
+		"type": "text",
+		"id": "top_h",
+		"label": "Top Heading"
+
+  	},
+	{
+		"type": "image_picker",
+		"id": "top_image",
+		"label": "Top Image"
+
+  	},
+	{
+		"type": "url",
+		"id": "top_link",
+		"label": "Top Button Link"
+
+  	},
+	{
+		"type": "text",
+		"id": "top_link-h",
+		"label": "Top Button Text"
+
+  	},
+	{
+		"type": "textarea",
+		"id": "top_text",
+		"label": "Top Text"
+
+  	},
+	{
+		"type": "text",
+		"id": "bottom_h",
+		"label": "Bottom Heading"
+
+  	},
+	{
+		"type": "image_picker",
+		"id": "bottom_image",
+		"label": "bottom Image"
+
+  	},
+	{
+		"type": "url",
+		"id": "bottom_link",
+		"label": "bottom Button Link"
+
+  	},
+	{
+		"type": "text",
+		"id": "bottom_link-h",
+		"label": "bottom Button Text"
+
+  	},
+	{
+		"type": "textarea",
+		"id": "bottom_text",
+		"label": "bottom Text"
+
+  	}
+],
+  "presets": [
+    {
+      "name": "Home Tiles",
+      "category": "Tiles"
+    }
+  ]
+  }
+
+{% endschema %}
+
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

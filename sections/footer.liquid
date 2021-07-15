@@ -18,12 +18,12 @@
         {% assign num_footer_columns = num_footer_columns | plus: 1 %}
         {% assign extra_footer_linklist_column = false %}
         {% assign footer_linklist_count = linklists[section.settings.footer_link_list].links.size %}
-        {% if footer_linklist_count > 5 %}
+        {% if footer_linklist_count > 2 %}
           {% assign extra_footer_linklist_column = true %}
           {% comment %}
             We split the links so we'll need another column
           {% endcomment %}
-          {% assign num_footer_columns = num_footer_columns | plus: 1 %}
+          {% assign num_footer_columns = num_footer_columns | plus: 3 %}
         {% endif %}
         {% comment %}
           If we have an odd amount of links, we need to show 1 more link in 1st column
@@ -32,7 +32,7 @@
         {% comment %}
           We start with a 2nd column after first column is filled up.
         {% endcomment %}
-        {% assign footer_linklist_split = footer_linklist_count | divided_by: 2 | plus: extra_link | plus: 1 %}
+        {% assign footer_linklist_split = footer_linklist_count | divided_by: 4 | plus: extra_link | plus: 1 %}
       {% endif %}
 
       {% comment %}
@@ -51,7 +51,7 @@
         or settings.social_fancy_link != blank
         or settings.social_snapchat_link != blank
       %}
-        {% assign footer_social_enable = true %}
+        {% assign footer_social_enable = false %}
       {% endif %}
 
       {% comment %}
@@ -85,29 +85,11 @@
           {% assign footer_column_width = 'one-third small--one-whole' %}
         {% when 4 %}
           {% assign footer_column_width = 'large--one-quarter medium--one-half' %}
+        {% when 5 %}
+          {% assign footer_column_width = 'large--one-fifth medium--one-half one-quarter' %}
+        {% when 6 %}
+          {% assign footer_column_width = 'large--one-sixth medium--one-half' %}  
       {% endcase %}
-
-      {% if linklists[section.settings.footer_link_list].links.size > 0 %}
-        <div class="grid__item {{ footer_column_width }}">
-          <ul class="no-bullets site-footer__linklist">
-            {% for link in linklists[section.settings.footer_link_list].links %}
-
-      {% comment %}
-        Create a second column
-      {% endcomment %}
-      {% if extra_footer_linklist_column and forloop.index == footer_linklist_split %}
-          </ul>
-        </div>
-        <div class="grid__item {{ footer_column_width }}">
-          <ul class="no-bullets site-footer__linklist">
-      {% endif %}
-
-              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
-
-            {% endfor %}
-          </ul>
-        </div>
-      {% endif %}
 
       {% if footer_social_enable %}
         <div class="grid__item {{ footer_column_width }}">
@@ -204,85 +186,167 @@
         endif
       -%}
 
-      <div class="grid__item {{ footer_column_width }} {% if num_footer_columns == 1 %}text-center{% else %}large--text-right{% endif %}">
-        {%- form 'localization', class: selectors_form_class -%}
-          {%- if locale_selector -%}
-            <div class="selectors-form__item">
-              <h2 class="visually-hidden" id="lang-heading">
-                {{ 'general.language.dropdown_label' | t }}
-              </h2>
-
-              <div class="disclosure" data-disclosure-locale>
-                <button type="button" class="disclosure__toggle" aria-expanded="false" aria-controls="lang-list" aria-describedby="lang-heading" data-disclosure-toggle>
-                  {{ localization.language.endonym_name }}
-                </button>
-                <ul id="lang-list" class="disclosure-list" data-disclosure-list>
-                  {%- for language in localization.available_languages -%}
-                    <li class="disclosure-list__item {% if language.iso_code == localization.language.iso_code %}disclosure-list__item--current{% endif %}">
-                      <a class="disclosure-list__option" href="#" lang="{{ language.iso_code }}" {% if language.iso_code == localization.language.iso_code %}aria-current="true"{% endif %} data-value="{{ language.iso_code }}" data-disclosure-option>
-                        {{ language.endonym_name }}
-                      </a>
-                    </li>
-                  {%- endfor -%}
-                </ul>
-                <input type="hidden" name="locale_code" id="LocaleSelector" value="{{ localization.language.iso_code }}" data-disclosure-input/>
-              </div>
-            </div>
-          {%- endif -%}
-
-          {%- if country_selector -%}
-            <div class="selectors-form__item">
-              <h2 class="visually-hidden" id="country-heading">
-                {{ 'general.country.dropdown_label' | t }}
-              </h2>
-              {%- assign current_currency_symbol = localization.country.currency.symbol -%}
-              {%- assign current_currency_iso_code = localization.country.currency.iso_code -%}
-              <div class="disclosure" data-disclosure-country>
-                <button type="button" class="disclosure__toggle" aria-expanded="false" aria-controls="country-list" aria-describedby="country-heading" data-disclosure-toggle>
-                  {%- if current_currency_symbol -%}
-                    {{ localization.country.name }} ({{ current_currency_iso_code }} {{ current_currency_symbol }})
-                  {%- else -%}
-                    {{ localization.country.name }} ({{ current_currency_iso_code }})
-                  {%- endif -%}
-                </button>
-                <ul id="country-list" class="disclosure-list" data-disclosure-list>
-                  {% for country in localization.available_countries %}
-                    {%- assign currency_symbol = country.currency.symbol -%}
-                    {%- assign currency_iso_code = country.currency.iso_code -%}
-                    <li class="disclosure-list__item {% if country.iso_code == localization.country.iso_code %}disclosure-list__item--current{% endif %}">
-                      <a class="disclosure-list__option" href="#" {% if country.iso_code == localization.country.iso_code %}aria-current="true"{% endif %} data-value="{{ country.iso_code }}" data-disclosure-option>
-                        {%- if currency_symbol -%}
-                          {{ country.name }} ({{ currency_iso_code }} {{ currency_symbol }})
-                        {%- else -%}
-                          {{ country.name }} ({{ currency_iso_code }})
-                        {%- endif -%}
-                      </a>
-                    </li>
-                  {%- endfor -%}
-                </ul>
-                <input type="hidden" name="country_code" id="CountrySelector" value="{{ localization.country.iso_code }}" data-disclosure-input/>
-              </div>
-            </div>
-          {%- endif -%}
-        {%- endform -%}
-
-        <p class="site-footer__copyright-content">&copy; {{ 'now' | date: '%Y' }}, {{ shop.name | link_to: routes.root_url }}<br>{{ powered_by_link }}</p>
-
-        {%- if section.settings.show_payment_icons -%}
-          {%- unless shop.enabled_payment_types == empty -%}
-            <span class="visually-hidden">{{ 'general.payment.method' | t }}</span>
-            <ul class="inline-list payment-icons site-footer__payment-icons">
-              {%- for type in shop.enabled_payment_types -%}
-                <li>
-                  {{ type | payment_type_svg_tag: class: 'icon' }}
-                </li>
-              {%- endfor -%}
-            </ul>
-          {%- endunless -%}
-        {%- endif -%}
-      </div>
     </div>
 
+  </div>
+  <div class="wrapper">
+    <div class="grid-uniform">
+         <div class="grid__item small--one-whole medium--one-whole large--one-fifth" style="padding-bottom: 20px;">
+          
+    
+          <a href="/" itemprop="url" class="site-header__logo-link foot-log">
+            
+              <img class="site-footer__logo-image" src="//cdn.shopify.com/s/files/1/0269/1923/9703/files/logo-footer_small.png?v=1622979226" srcset="//cdn.shopify.com/s/files/1/0269/1923/9703/files/logo-footer_small.png?v=1622979226 1x, //cdn.shopify.com/s/files/1/0269/1923/9703/files/logo-footer.png?v=1622979226 2x" alt="mili-test" itemprop="logo">
+            
+          </a>
+          {% if section.settings.text != blank %}
+          <p class="rte rich-text__text">
+            {{ section.settings.text }}
+          </p>
+        {% endif %}
+              <div>
+                <div class="social-icons">
+                  
+                  <a href="https://www.facebook.com/wearekoena/" title="Facebook">
+                    <span class="icon icon-facebook" aria-hidden="true"></span>
+                  </a>
+                  
+                  
+                  <a href="https://www.instagram.com/wearekoena/" title="Instagram">
+                    <span class="icon icon-instagram" aria-hidden="true"></span>
+                  </a>
+                  
+                  
+              </div>  
+            </div>  
+            
+         </div>
+          <div class="grid__item small--one-whole medium--one-whole large--four-fifths">{% case num_footer_columns %}
+            {% when 0 %}
+            {% when 1 %}
+              {% assign footer_column_width = '' %}
+            {% when 2 %}
+              {% assign footer_column_width = 'one-half small--one-whole' %}
+            {% when 3 %}
+              {% assign footer_column_width = 'one-third small--one-whole' %}
+            {% when 4 %}
+              {% assign footer_column_width = 'large--one-quarter medium--one-half' %}
+          {% endcase %}
+    
+          {% if linklists[section.settings.footer_link_list].links.size > 0 %}
+        <div class="grid__item {{ footer_column_width }}">
+          <ul class="no-bullets site-footer__linklist">
+            {% for link in linklists[section.settings.footer_link_list].links %}
+
+      {% comment %}
+        Create a second column
+      {% endcomment %}
+      {% if forloop.index == 3 %}
+          </ul>
+        </div>
+        <div class="grid__item {{ footer_column_width }}">
+          <ul class="no-bullets site-footer__linklist">
+      {% elsif forloop.index == 5 %}
+    </ul>
+  </div>
+  <div class="grid__item {{ footer_column_width }}">
+    <ul class="no-bullets site-footer__linklist"> 
+      {% elsif forloop.index == 7 %}
+    </ul>
+  </div>
+  <div class="grid__item {{ footer_column_width }}">
+    <ul class="no-bullets site-footer__linklist">                
+      {% endif %}
+            <li class = "footer-menu-li"><a href="{{ link.url }}">{{ link.title }}</a></li>
+
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}  </div>
+    </div>
+    <br>
+    <div class="grid-uniform">
+    <div class="grid__item large--one-fifth medium--one-half {% if num_footer_columns == 1 %}text-center{% else %}large--text-left{% endif %}">
+      {%- form 'localization', class: selectors_form_class -%}
+        {%- if locale_selector -%}
+          <div class="selectors-form__item">
+            <h2 class="visually-hidden" id="lang-heading">
+              {{ 'general.language.dropdown_label' | t }}
+            </h2>
+
+            <div class="disclosure" data-disclosure-locale>
+              <button type="button" class="disclosure__toggle" aria-expanded="false" aria-controls="lang-list" aria-describedby="lang-heading" data-disclosure-toggle>
+                {{ localization.language.endonym_name }}
+              </button>
+              <ul id="lang-list" class="disclosure-list" data-disclosure-list>
+                {%- for language in localization.available_languages -%}
+                  <li class="disclosure-list__item {% if language.iso_code == localization.language.iso_code %}disclosure-list__item--current{% endif %}">
+                    <a class="disclosure-list__option" href="#" lang="{{ language.iso_code }}" {% if language.iso_code == localization.language.iso_code %}aria-current="true"{% endif %} data-value="{{ language.iso_code }}" data-disclosure-option>
+                      {{ language.endonym_name }}
+                    </a>
+                  </li>
+                {%- endfor -%}
+              </ul>
+              <input type="hidden" name="locale_code" id="LocaleSelector" value="{{ localization.language.iso_code }}" data-disclosure-input/>
+            </div>
+          </div>
+        {%- endif -%}
+
+        {%- if country_selector -%}
+          <div class="selectors-form__item">
+            <h2 class="visually-hidden" id="country-heading">
+              {{ 'general.country.dropdown_label' | t }}
+            </h2>
+            {%- assign current_currency_symbol = localization.country.currency.symbol -%}
+            {%- assign current_currency_iso_code = localization.country.currency.iso_code -%}
+            <div class="disclosure" data-disclosure-country>
+              <button type="button" class="disclosure__toggle" aria-expanded="false" aria-controls="country-list" aria-describedby="country-heading" data-disclosure-toggle>
+                {%- if current_currency_symbol -%}
+                  {{ localization.country.name }} ({{ current_currency_iso_code }} {{ current_currency_symbol }})
+                {%- else -%}
+                  {{ localization.country.name }} ({{ current_currency_iso_code }})
+                {%- endif -%}
+              </button>
+              <ul id="country-list" class="disclosure-list" data-disclosure-list>
+                {% for country in localization.available_countries %}
+                  {%- assign currency_symbol = country.currency.symbol -%}
+                  {%- assign currency_iso_code = country.currency.iso_code -%}
+                  <li class="disclosure-list__item {% if country.iso_code == localization.country.iso_code %}disclosure-list__item--current{% endif %}">
+                    <a class="disclosure-list__option" href="#" {% if country.iso_code == localization.country.iso_code %}aria-current="true"{% endif %} data-value="{{ country.iso_code }}" data-disclosure-option>
+                      {%- if currency_symbol -%}
+                        {{ country.name }} ({{ currency_iso_code }} {{ currency_symbol }})
+                      {%- else -%}
+                        {{ country.name }} ({{ currency_iso_code }})
+                      {%- endif -%}
+                    </a>
+                  </li>
+                {%- endfor -%}
+              </ul>
+              <input type="hidden" name="country_code" id="CountrySelector" value="{{ localization.country.iso_code }}" data-disclosure-input/>
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endform -%}
+
+      <p class="site-footer__copyright-content">&copy; {{ 'now' | date: '%Y' }}, {{ shop.name | link_to: routes.root_url }}</p>
+
+      {%- if section.settings.show_payment_icons -%}
+        {%- unless shop.enabled_payment_types == empty -%}
+          <span class="visually-hidden">{{ 'general.payment.method' | t }}</span>
+          <ul class="inline-list payment-icons site-footer__payment-icons">
+            {%- for type in shop.enabled_payment_types -%}
+              <li>
+                {{ type | payment_type_svg_tag: class: 'icon' }}
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endunless -%}
+      {%- endif -%}
+    </div>
+    <div class="grid__item large--four-fifths medium--one-half large--text-right">
+      <a href="{{ section.settings.privacy_policy}}" class = "footer-links">Privacy Policy</a>
+      <a href="{{ section.settings.tos}}" class = "footer-links">Terms of Use</a>
+    </div></div>
   </div>
 </footer>
 
@@ -523,6 +587,93 @@
       "default": true
     },
     {
+      "type": "image_picker",
+      "id": "logo",
+      "label": {
+        "cs": "Logo",
+        "da": "Logo",
+        "de": "Logo",
+        "en": "Logo",
+        "es": "Logo",
+        "fi": "Logo",
+        "fr": "Logo",
+        "it": "Logo",
+        "ja": "ロゴ",
+        "ko": "로고",
+        "nb": "Logo",
+        "nl": "Logo",
+        "pl": "Logo",
+        "pt-BR": "Logo",
+        "pt-PT": "Logótipo",
+        "sv": "Logotyp",
+        "th": "โลโก้",
+        "tr": "Logo",
+        "vi": "Logo",
+        "zh-CN": "logo",
+        "zh-TW": "商標"
+      }
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": {
+        "cs": "Text",
+        "da": "Tekst",
+        "de": "Text",
+        "en": "Text",
+        "es": "texto",
+        "fi": "Teksti",
+        "fr": "Texte",
+        "it": "Testo",
+        "ja": "テキスト",
+        "ko": "텍스트",
+        "nb": "Tekst",
+        "nl": "Tekst",
+        "pl": "Tekst",
+        "pt-BR": "Texto",
+        "pt-PT": "Texto",
+        "sv": "Text",
+        "th": "ข้อความ",
+        "tr": "Metin",
+        "vi": "Văn bản",
+        "zh-CN": "文本",
+        "zh-TW": "文字"
+      },
+      "default": "<p>Footer text</p>"
+    },
+    {
+      "type": "range",
+      "id": "logo_max_width",
+      "label": {
+        "cs": "Šířka vlastního loga",
+        "da": "Tilpasset logobredde",
+        "de": "Logobreite",
+        "en": "Custom logo width",
+        "es": "Ancho del logo personalizado",
+        "fi": "Mukautetun logon leveys",
+        "fr": "Largeur personnalisée du logo",
+        "it": "Larghezza logo personalizzato",
+        "ja": "ロゴの幅をカスタマイズする",
+        "ko": "사용자 지정 로고 폭",
+        "nb": "Tilpasset logobredde",
+        "nl": "Aangepaste logo-breedte",
+        "pl": "Niestandardowa szerokość logo",
+        "pt-BR": "Largura do logo personalizado",
+        "pt-PT": "Largura de logótipo personalizada",
+        "sv": "Anpassad logotypsbredd",
+        "th": "ความกว้างของโลโก้ที่กำหนดเอง",
+        "tr": "Özel logo genişliği",
+        "vi": "Chiều rộng logo tùy chỉnh",
+        "zh-CN": "自定义 logo 宽度",
+        "zh-TW": "自訂商標寬度"
+      },
+      "min": 50,
+      "max": 260,
+      "step": 5,
+      "unit": "px",
+      "default": 180
+    },
+    {
       "type": "header",
       "content": {
         "cs": "Nabídka",
@@ -547,6 +698,16 @@
         "zh-CN": "菜单",
         "zh-TW": "選單"
       }
+    },
+    {
+      "id": "privacy_policy",
+      "type": "url",
+      "label": "Privacy Policy Page Url"
+    },
+    {
+      "id": "tos",
+      "type": "url",
+      "label": "Terms Of Use Page Url"
     },
     {
       "type": "link_list",

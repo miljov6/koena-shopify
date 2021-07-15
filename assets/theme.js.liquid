@@ -2764,7 +2764,7 @@ theme.Product = (function() {
     this.initBreakpoints();
     this.stringOverrides();
     this.initProductVariant();
-    this.initStickyProductMeta();
+    //this.initStickyProductMeta();
     this.productThumbnailSwitch();
     this.initProductVideo();
     this._initModelViewerLibraries();
@@ -4207,7 +4207,7 @@ theme.FooterSection = (function() {
 
 theme.variables = {
   productPageLoad     : false,
-  productPageSticky   : true,
+  productPageSticky   : false,
 
   // Breakpoints from src/stylesheets/global/variables.scss.liquid
   mediaQuerySmall     : 'screen and (max-width: 590px)',
@@ -4324,11 +4324,11 @@ theme.fitNav = function() {
     theme.cache.$siteNav.find('> li').each(function() {
       var $el = $(this);
       // Round up to be safe
-      navItemWidth += Math.ceil($(this).width());
+      navItemWidth += 1.1*Math.ceil($(this).width());
     });
-
-    if (navItemWidth > navWidth) {
-      theme.cache.$siteNav.addClass('site-nav--compress');
+//MJ Comment added .hide() on line 4331!!! Also, changed from navWidth to navWidth/1.5
+    if (navItemWidth > navWidth/1.304) {
+      theme.cache.$siteNav.addClass('site-nav--compress').hide();
       theme.cache.$siteNav.parent().removeClass('large--two-thirds').addClass('large--one-sixth');
       theme.cache.$siteNavOpen.addClass('site-nav--open__display');
       theme.cache.$siteNavOpen.parent().removeClass('large--hide');
@@ -4574,3 +4574,371 @@ var afterResize = (function () {
     t[uniqueId] = setTimeout(callback, ms);
   };
 })();
+
+$('.qtybox .btnqty').on('click', function(){
+  var qty = parseInt($(this).parent('.qtybox').find('.quantity-input').val());
+  if($(this).hasClass('qtyplus')) {
+    qty++;
+  }else {
+    if(qty > 1) {
+      qty--;
+    }
+  }
+  qty = (isNaN(qty))?1:qty;
+  $(this).parent('.qtybox').find('.quantity-input').val(qty);
+}); 
+
+$('.cart__product-qty').on("input", function() {
+    $( ".update-cart" ).trigger( "click" );
+});
+
+$(window).scroll(function(){
+  if ($(this).scrollTop() > 50) {
+  $('.site-header').addClass('sticky');
+  $('.site-header__logo-image').css('display', 'block');
+  $('.site-header__logo-image--transparent').css('display', 'none');
+  $('.btn-login').css('color', '#1272ea');
+  $('.btn-login').addClass('btnhover');
+  $('.btn--login').css('border', '1px solid #1272ea');
+  $('.burger-icon').css('background', '#000');
+  }
+  else {
+$('.site-header').removeClass('sticky');
+  }
+});
+
+var classes$6 = {
+  cardListSubLoaded: 'card-list__sub-actions--loaded',
+  cardReveal: 'card--reveal',
+  searchTemplate: 'template-search'
+};
+
+var selectors$6 = {
+  cardList: '.card-list',
+  cardListColumn: '.card-list__column',
+  cardListSub: '.card-list__sub-actions',
+  card: '.card',
+  cardWrapper: '.card__wrapper',
+  cardInfo: '.card__info'
+};
+
+var cardManager = {
+  init: function() {
+    this.$cardList = $(selectors$6.cardList, this.$container);
+    this.$emptyColumn = $(selectors$6.cardListColumn, this.$container)
+      .clone()
+      .empty();
+    this.$cards = $(selectors$6.card, this.$container);
+
+    this.desktopColumnCount = this.$cardList.data('desktop-columns') || 2;
+    this.mobileColumnCount = this.$cardList.data('mobile-columns') || 1;
+    this.columnCount = utils.isMobile()
+      ? this.mobileColumnCount
+      : this.desktopColumnCount;
+    this.gridStyle = this.$cardList.data('grid-style') || 'collage';
+    this.windowWidth = $(window).outerWidth();
+    this.cardLoadPromises = [];
+
+    this.window().on('resize', this._onResize.bind(this));
+
+    this.on('keydown', selectors$6.cardWrapper, this._onCardTabDown.bind(this));
+    this.on('keyup', this._onCardTabUp.bind(this));
+
+    utils.promiseStylesheet().then(
+      function() {
+        this.cardsLoaded = this._loadCards();
+
+        $('html').removeClass('site-footer--hidden');
+
+        $(selectors$6.cardListSub, this.$container)
+          .prepareTransition()
+          .addClass(classes$6.cardListSubLoaded);
+      }.bind(this)
+    );
+  },
+
+  _onResize: function() {
+    var columnCount = utils.isMobile()
+      ? this.mobileColumnCount
+      : this.desktopColumnCount;
+
+    // Only replace columns if the number of columns changes.
+    if (this.columnCount !== columnCount) {
+      this.columnCount = columnCount;
+      this.$columns = this._replaceColumns();
+    }
+
+    $.each(
+      this.$cards,
+      function(index) {
+        if (utils.isMobile()) {
+          this.$columns.find(selectors$6.cardWrapper).removeAttr('style');
+        } else if (this._isAlignedRow(index + 1)) {
+          var rowNumber =
+            (index - index % this.desktopColumnCount) /
+              this.desktopColumnCount +
+            1;
+          this._matchRowHeights(this.$columns, rowNumber);
+        }
+      }.bind(this)
+    );
+  },
+
+  _onCardTabDown: function(evt) {
+    if (evt.keyCode !== 9) return; // Only continue if tab key is pressed
+
+    var index = $(evt.target).data('tabindex');
+
+    this.tabFromList = true;
+
+    if (evt.shiftKey) {
+      if (index > 1) {
+        evt.preventDefault();
+        $('[data-tabindex=' + (index - 1) + ']').focus();
+      }
+    } else {
+      if (index === this.$cards.length) {
+        $(selectors$6.cardWrapper, this.$container)
+          .last()
+          .focus();
+      } else {
+        evt.preventDefault();
+        $('[data-tabindex=' + (index + 1) + ']').focus();
+      }
+    }
+  },
+
+  _onCardTabUp: function(evt) {
+    if (evt.keyCode !== 9) return;
+
+    var tabFromList = this.tabFromList || false;
+    this.tabFromList = false;
+
+    if (!evt.shiftKey || tabFromList) return;
+
+    if (
+      $(selectors$6.cardWrapper, this.$container)
+        .last()
+        .is(evt.target)
+    ) {
+      $('[data-tabindex=' + this.$cards.length + ']').focus();
+    }
+  },
+
+  _loadCards: function() {
+    this.trigger('cards_load_start');
+
+    this.$columns = this._addColumns();
+
+    return this._promiseAllCardsReveal().always(
+      function() {
+        this.trigger('cards_load_done');
+      }.bind(this)
+    );
+  },
+
+  _addColumns: function() {
+    var $columns;
+    for (var i = 1; i < this.columnCount; i++) {
+      this.$cardList.append(this.$emptyColumn.clone());
+    }
+
+    $columns = $(selectors$6.cardListColumn, this.$container);
+    $columns.heights = fill(Array(this.columnCount), 0);
+    $columns.lengths = fill(Array(this.columnCount), 0);
+
+    return $columns;
+  },
+
+  _replaceColumns: function() {
+    var $columns = this.$emptyColumn.clone();
+
+    $columns.heights = fill(Array(this.columnCount), 0);
+    $columns.lengths = fill(Array(this.columnCount), 0);
+
+    for (var i = 1; i < this.columnCount; i++) {
+      $columns.push(this.$emptyColumn.clone()[0]);
+    }
+
+    $.each(
+      this.$cards,
+      function(index, card) {
+        this._positionCard($(card), index, $columns);
+      }.bind(this)
+    );
+
+    this.$cardList.html($columns);
+
+    return $columns;
+  },
+
+  _promiseAllCardsReveal: function() {
+    var series = $.Deferred().resolve();
+
+    this.$cards.each(
+      function(index, card) {
+        // Position the card in one of the available columns
+        this._positionCard($(card), index, this.$columns);
+
+        // Check that we have an aligned row and isMobile is false
+        if (!utils.isMobile() && this._isAlignedRow(index + 1)) {
+          var rowNumber = this.$columns.lengths[0];
+          this._matchRowHeights(this.$columns, rowNumber);
+        }
+
+        // We want to check immediately if the card should be revealed, not after
+        // a previous `.then()` in our series has been fulfilled.
+        var promiseRevealReady = this._promiseRevealReady(card);
+
+        // Add the following steps to our series of promises for each card:
+        // 1. Promise the card is ready to be revealed
+        // 2. Reveal the card
+        // 3. Delay 80ms
+        series = series
+          .then(function() {
+            return promiseRevealReady;
+          })
+          .then(this._revealCard.bind(this, card))
+          .then(function() {
+            return $.Deferred(function(defer) {
+              setTimeout(defer.resolve, 80);
+            });
+          });
+      }.bind(this)
+    );
+    return series;
+  },
+
+  _revealCard: function(card) {
+    var $card = $(card);
+
+    this.trigger('card_loaded', [$card[0]]);
+
+    requestAnimationFrame($card.addClass.bind($card, classes$6.cardReveal));
+  },
+
+  // A promise that will be fulfilled when a card is ready to be revealed
+  _promiseRevealReady: function(card) {
+    return $.Deferred(function(defer) {
+      var $card = $(card);
+
+      if (!($('html').hasClass('is-ios') && Shopify.designMode)) {
+        // If we already triggered the animation, then resolve the promise to show
+        // the card. Wrap the position check in requestAnimationFrame to make sure
+        // that the browser is done positioning the element before it reads its
+        // position.
+        requestAnimationFrame(function() {
+          if (utils.isInOrAboveViewport(card)) {
+            return defer.resolve();
+          }
+        });
+
+        // If we haven't triggered the animation, then wait for the animation
+        // event for this card and then resolve the promise to show the card.
+        $card.on('animate_element', onAnimate);
+
+        function onAnimate(evt, element) {
+          if (element !== card) return;
+
+          $card.off('animate_element', onAnimate);
+          defer.resolve();
+        }
+      } else {
+        $(card).addClass(classes$6.cardReveal);
+        defer.resolve();
+      }
+    });
+  },
+
+  _positionCard: function($card, index, $columns) {
+    var columnIndex = 0;
+    var cardHeight = $card.outerHeight(true);
+
+    if (this.gridStyle === 'collage') {
+      columnIndex = $columns.heights.indexOf(
+        Math.min.apply(Math, $columns.heights)
+      ); // Default to shortest column
+      var threshold = 150;
+      for (var i = 0; i < $columns.heights.length; i++) {
+        if ($columns.heights[columnIndex] > $columns.heights[i] - threshold) {
+          columnIndex = i;
+          break;
+        }
+      }
+    } else {
+      columnIndex = $columns.lengths.indexOf(
+        Math.min.apply(Math, $columns.lengths)
+      );
+    }
+
+    $columns.eq(columnIndex).append($card);
+
+    // Restore the height if it is 0 (needed for matching heights in the
+    // 'aligned' grid)
+    if ($card.outerHeight() === 0 && !utils.isMobile()) {
+      $card.find(selectors$6.cardWrapper).outerHeight(cardHeight);
+    }
+
+    if (this.gridStyle === 'collage') {
+      $columns.heights[columnIndex] += cardHeight;
+    }
+    $columns.lengths[columnIndex]++;
+
+    $card.find('a').attr('data-tabindex', index + 1);
+  },
+
+  _matchRowHeights: function($columns, rowNumber) {
+    var maxHeight = 0;
+    var currentCardHeight = 0;
+    var rowSelector = '';
+    var isArticle = false;
+
+    // Construct the selector for the cards in the current row
+    for (var i = 0; i < $columns.length; i++) {
+      rowSelector +=
+        "[data-tabindex='" + ((rowNumber - 1) * $columns.length + i + 1) + "']";
+      if (i < $columns.length - 1) {
+        rowSelector += ', ';
+      }
+    }
+    var $row = $columns.find(rowSelector).parent();
+
+    for (var j = 0; j < $row.length; j++) {
+      isArticle = $($row[j])
+        .find(selectors$6.cardWrapper)
+        .is('.card--article');
+
+      currentCardHeight = $($row[j])
+        .find(selectors$6.cardWrapper)
+        .outerWidth();
+      if ($(document.body).hasClass(classes$6.searchTemplate) && isArticle) {
+        currentCardHeight = $($row[j])
+          .find(selectors$6.cardWrapper)
+          .outerHeight();
+      } else {
+        currentCardHeight =
+          $($row[j])
+            .find(selectors$6.cardWrapper)
+            .outerWidth() +
+          $($row[j])
+            .find(selectors$6.cardInfo)
+            .outerHeight();
+      }
+
+      if (currentCardHeight > maxHeight) {
+        maxHeight = currentCardHeight;
+      }
+    }
+
+    $row.find(selectors$6.cardWrapper).outerHeight(maxHeight);
+  },
+
+  _isAlignedRow: function(index) {
+    // Check if the gridStyle is 'grid', and if we are at the end of a row or
+    // at the last card
+    return (
+      this.gridStyle === 'grid' &&
+      (index % this.desktopColumnCount === 0 || index === this.$cards.length)
+    );
+  }
+};

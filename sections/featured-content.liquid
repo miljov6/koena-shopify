@@ -12,6 +12,11 @@
             {{ section.settings.text }}
           </div>
         {% endif %}
+        {% if section.settings.buttonurl != blank %}
+          <div class="partners">
+            <a href="{{section.settings.buttonurl}}" class="btn see-our-partners">{{section.settings.buttontext}}</a>
+          </div>
+        {% endif %}
       </div>
     </div>
   </div>
@@ -172,6 +177,17 @@
         "zh-CN": "<p>使用此文本与您的客户分享有关您品牌的信息。描述产品、分享公告或欢迎客户访问您的商店。</p>",
         "zh-TW": "<p>您可以用這段文字和顧客分享品牌資訊、描述產品、分享公告，或歡迎顧客光臨您的商店。</p>"
       }
+    },
+    {
+      "id": "buttonurl",
+      "type": "url",
+      "label": "Terms Of Use Page Url"
+    },
+    {
+      "type": "text",
+      "id": "buttontext",
+      "label": "Button text",
+      "placeholder": "text"
     },
     {
       "type": "select",

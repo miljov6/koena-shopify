@@ -24,6 +24,14 @@
           }
         {%- endif -%}
       </style>
+      <form action="/cart/add" method="post">
+        {% if product.variants.size == 1 %}
+        <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+        {% else %}
+        <select name="id">{% for variant in product.variants %}<option value="{{ variant.id }}">{{ variant.title }}</option>{% endfor %}</select>
+        {% endif %}
+        <div><button type="submit" name="add">Add to cart</button></div>  
+        </form>
     {%- endif -%}
     <div class="collection-hero__image-wrapper">
       <img class="collection-hero__image lazyload"

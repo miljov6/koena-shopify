@@ -49,7 +49,7 @@
       "no_results_html": "Your search for \"{{ terms }}\" did not yield any results.",
       "results_for_html": "Your search for \"{{ terms }}\" revealed the following:",
       "title": "Search",
-      "placeholder": "Search our store",
+      "placeholder": "Search...",
       "submit": "Search"
     },
     "drawers": {
@@ -71,7 +71,7 @@
   "blogs": {
     "article": {
       "tags": "Tags",
-      "read_more": "Continue reading",
+      "read_more": "Read more",
       "view_all": "View all",
       "back_to_blog": "Back to {{ title }}"
     },
@@ -92,7 +92,7 @@
   },
   "cart": {
     "general": {
-      "title": "Your cart",
+      "title": "Shopping Cart",
       "remove": "Remove",
       "note": "Special instructions for seller",
       "subtotal": "Subtotal",
@@ -284,8 +284,8 @@
       "collection_return": "Back to {{ collection }}",
       "sale_price": "Sale price",
       "regular_price": "Regular price",
-      "include_taxes": "Tax included.",
-      "shipping_policy_html": "<a href=\"{{ link }}\">Shipping<\/a> calculated at checkout.",
+      "include_taxes": "",
+      "shipping_policy_html": "Free Shipping on orders over $60",
       "unit_price": "Unit price"
     },
     "product": {

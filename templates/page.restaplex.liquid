@@ -1,0 +1,233 @@
+<div class="page-width">
+  <header class="section-header text-center" style="z-index: 999; position: relative;">
+    <h1 class="section-header__title h2 page-h1">{{ page.title }}</h1>
+    <h4 class="resta__title-sub"> If you’re curious about what makes the unique combination of Resta-Plex ingredients so ineffable, here they are: </h4>
+  </header>
+  <div style="z-index: 999; position: relative;">
+          {% section 'restaplex' %}
+        </div>
+  <div class="resta__bottom" style="z-index: 999; position: relative;">
+    <div class="resta__body">Resta-Plex isn’t a fancy name we came up with to sound clever. It’s our patented combination of 4 active ingredients proudly developed right here in Australia.</div>
+  
+      <div class="resta__body" style="font-weight: 700">Backed by years of dedicated scientific research, Koéna Skincare is truly an unmatched, exclusive formulation that will leave your other skincare products wanting.</div>
+
+    <div class="resta__body">Got questions? Send us a message via the <a href="/pages/contact">contact us</a> form.</div>
+</div>
+  <img class="resta__img" src="{{ 'Restaplex-zig.jpg' | asset_url }}">
+</div>
+
+
+<style>
+
+.resta__img {
+    position: absolute;
+    left: 0%;
+    top: -20vw;
+    right: 0%;
+    bottom: auto;
+    z-index: 0;
+    width: 100%;
+}
+
+  
+.resta {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.resta-tile {
+  height: 100%;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 33.33333%;
+  -ms-flex: 0 0 33.33333%;
+  flex: 0 0 33.33333%;
+  background-color: #fff;
+  box-shadow: 1px 1px 25px 15px rgba(0, 0, 0, 0.08);
+}
+  
+  .resta__title-sub {
+    margin-top: 20px;
+    text-align: center;
+    max-width: 34em;
+    margin-left:auto;
+    margin-right: auto;
+    font-size: 1.5rem!important;
+    text-transform: none!important;
+    line-height: 1.5;
+    color: #0f72ea!important;
+  }
+
+.resta-tile__heading {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 20px 30px;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: #0f72ea;
+  color: #fff;
+}
+
+.resta-tile__info {
+  padding: 30px;
+  text-align: center;
+}
+
+.resta__h {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  color: #fff !important;
+  font-size: 1.3rem!important;
+}
+
+.resta__sub {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  background-color: transparent;
+  color: #0f72ea;
+  font-size: 1rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.resta__body {
+  margin-bottom: 30px;
+  font-size: 1rem;
+}
+  
+  .resta__bottom .resta__body {
+  font-size: 1.1rem;
+}
+  
+  .resta__list {
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+
+.resta-tile__wrapper {
+  padding: 10px;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  -ms-grid-row-align: stretch;
+  align-self: stretch;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 33.33333%;
+  -ms-flex: 0 0 33.33333%;
+  flex: 0 0 33.33333%;
+}
+
+.resta__bottom {
+  max-width: 600px;
+  margin-top: 6rem;
+  margin-right: auto;
+  margin-left: auto;
+  text-align: center;
+  font-size: 1.6rem;
+}
+  
+    
+    .resta__list.double {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  }
+  
+  
+  .resta__list-two {
+      -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  -ms-grid-row-align: stretch;
+  align-self: stretch;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 50%;
+  -ms-flex: 0 0 50%;
+  flex: 0 0 50%;
+  }
+
+  .page-width {
+    padding: 10px 50px;
+  }
+  
+@media screen and (max-width: 991px) {
+  .resta {
+    margin-right: 0px;
+    margin-left: 0px;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-align-content: flex-start;
+    -ms-flex-line-pack: start;
+    align-content: flex-start;
+  }
+
+  .page-width {
+    padding: 10px 5px;
+  }
+
+  .resta-tile__wrapper {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 400px;
+    -ms-flex: 0 400px;
+    flex: 0 400px;
+  }
+    .resta__img {
+    position: absolute;
+    left: 0%;
+    top: -20vw;
+    right: 0%;
+    bottom: auto;
+    z-index: -1;
+    width: 150%;
+  }
+}
+  </style>
