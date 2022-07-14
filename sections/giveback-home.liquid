@@ -1,7 +1,7 @@
 <div class="page-width">
 
     <div class="gb__header">
-    <h2 class="gb__h1">Koéna Gives Back</h2>
+    <h1 class="gb__h1">Koéna Gives Back</h1>
     <div class="gb__line"></div>
     <h5 class="gb__sub-h">{{ section.settings.giveback__title }}</h5>
   </div>
@@ -10,7 +10,7 @@
     {% for block in section.blocks %}
     {% assign giveback__img =  block.settings.giveback__img | img_url:"master" %}
     <div class="gb__tile">
-      <div class="gb__image"><img src="{{ giveback__img }}" alt="" class="gb__img"></div>
+      <div class="gb__image"><img src="{{ giveback__img }}" alt="Koéna Gives Back" class="gb__img"></div>
       <div class="gb__text">
         <h4 class="gb__tile-h">{{ block.settings.giveback__h }}</h4>
         <p class="gb__p">{{ block.settings.giveback__text }}</p><a href="{{ block.settings.giveback__url }}" class="gb__button w-button">LEARN MORE</a></div>

@@ -327,7 +327,7 @@ $viewportIncrement: 1px;
 $siteWidth: 1440px;
 $small: 590px;
 $medium: 768px;
-$large: 1223px;
+$large: 1234px;
 $xlarge: $siteWidth + $viewportIncrement;
 
 $postSmall: $small + $viewportIncrement;
@@ -1566,6 +1566,7 @@ a {
 .rte a,
 .text-link {
   color: $colorLink;
+  overflow-wrap: anywhere;
 
   &:hover {
     /*color: $colorLinkHover;*/
@@ -3405,6 +3406,7 @@ button.mfp-arrow {
   position: relative;
   display: block;
   padding: 13px 0;
+  color: #4D4D4D;
 }
 
 .grid-product__price-wrap {
@@ -5104,7 +5106,7 @@ div#shopify-section-newsletter {
 }
 
 .save {
-  background: #F78D2B;
+  background: #1272EA;
   border-radius: 16px;
   width: 65px;
   height: 32px;
@@ -5129,7 +5131,7 @@ div#shopify-section-newsletter {
 }
 
 .main-content {
-  border-top: 1px solid #EBF1FC;
+  //border-top: 1px solid #EBF1FC;
 }
 
 .last-section {
@@ -5555,7 +5557,7 @@ div#shopify-section-16225630309c9843cc {
 }
 
 .save-1 {
-  background: #F78D2B;
+  background: #1272EA;
   border-radius: 16px;
   width: 65px;
   height: 32px;
@@ -5661,11 +5663,12 @@ div#shopify-section-1623952215c9c6a760 {
   font-weight: bold;
   font-size: 16px;
   line-height: 28px;
-  color: #f78d2b;
+  color: #1272EA;
 }
 
 .grd {
   padding-top: 55px;
+  padding-bottom: 55px;
 }
 
 .blog-title {
@@ -5802,14 +5805,14 @@ div#shopify-section-1623952215c9c6a760 {
 
 .page-title {
   color: #0f72ea!important;
-  font-family: "News Gothic No 2",sans-serif!important;
+  font-family: "News Gothic No 2",sans-serif;
   font-size: 2.5rem!important;
 }
 
 .page-h1 {
   font-size: 2.5rem!important;
   color: #0f72ea!important;
-  font-family: "News Gothic No 2",sans-serif!important;
+  font-family: "News Gothic No 2",sans-serif;
   font-style: normal;
   font-weight: 400;
 }
@@ -6437,4 +6440,8 @@ $card-transition: all 500ms ease-out;
 
 .site-nav__dropdown-link {
   font-weight: 500;
+}
+
+.article__heading-link:hover{
+  color: #0054cc!important;
 }

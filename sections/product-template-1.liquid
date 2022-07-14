@@ -29,7 +29,7 @@
     {% if section.settings.media_layout == "stacked" %}{% assign stacked = true %}{% endif %}
     {%- assign first_media = true -%}
     <div class="grid product-single">
-      <div class="grid__item large--two-twelfths medium--two-twelfths text-center stckypr">{% unless stacked %}
+      <div class="grid__item large--two-twelfths medium--two-twelfths two-twelfths small--one-whole text-center stckypr">{% unless stacked %}
         <ul class="product-single__thumbnails small--hide grid-uniform" style="display: grid; padding-top: 100px;" data-product-thumbnails>
           {% for media in product.media %}
             {% if product.media.size > 1 %}
@@ -57,7 +57,7 @@
           {% endfor %}
         </ul>
       {% endunless %}</div>
-      <div class="grid__item large--five-twelfths medium--five-twelfths text-center stckypr">
+      <div class="grid__item large--five-twelfths medium--five-twelfths small--one-whole five-twelfths text-center stckypr">
         {%- if product.compare_at_price > product.price -%}
           <div class="save">
             <p>Save</p>
@@ -135,7 +135,7 @@
         </div>
       </div>
 
-      <div class="grid__item product-single__meta--wrapper medium--five-twelfths large--five-twelfths last-section">
+      <div class="grid__item product-single__meta--wrapper medium--five-twelfths large--five-twelfths small--one-whole five-twelfths last-section">
         <div class="product-single__meta">
           {% if section.settings.product_vendor_enable %}
             <h2 class="product-single__vendor" itemprop="brand">{{ product.vendor }}</h2>
@@ -188,11 +188,11 @@
               <div id="section---{{section.id}}"style="padding: 20px 0;">	
               {% if product2.title contains '3 Pack' %}
                 <button id="unit1" class="btn-unit"><p class="btn-title-selected">UNIT PACK</p>{{ product2.price | money }}<span style="text-decoration: line-through; font-size: 11px;"> {{ product3.compare_at_price | money }}</span></button>
-                <button id="unit2" class="btn-unit"><p class="btn-title">Pack</p>{{ product2.price | money  }} <span style="text-decoration: line-through; font-size: 11px;"> {{ product.compare_at_price | money }}</span></button>
+                <button id="unit2" class="btn-unit"><p class="btn-title">2 Pack</p>{{ product2.price | money  }} <span style="text-decoration: line-through; font-size: 11px;"> {{ product.compare_at_price | money }}</span></button>
                <button id="unit3" class="btn-unit-1"><p class="btn-title">3 Pack</p>{{ product3.price | money  }}<span style="text-decoration: line-through; font-size: 11px;"> {{ product2.compare_at_price | money }}</span></button>
               {% else %}
                 <button id="unit1" class="btn-unit"><p class="btn-title-selected">UNIT PACK</p>{{ product2.price | money }}<span style="text-decoration: line-through; font-size: 11px;"> {{ product2.compare_at_price | money }}</span></button>
-                <button id="unit2" class="btn-unit"><p class="btn-title">Pack</p>{{ product.price | money  }} <span style="text-decoration: line-through; font-size: 11px;"> {{ product.compare_at_price | money }}</span></button>
+                <button id="unit2" class="btn-unit"><p class="btn-title">2 Pack</p>{{ product.price | money  }} <span style="text-decoration: line-through; font-size: 11px;"> {{ product.compare_at_price | money }}</span></button>
                 <button id="unit3" class="btn-unit-1"><p class="btn-title">3 Pack</p>{{ product3.price | money  }}<span style="text-decoration: line-through; font-size: 11px;"> {{ product3.compare_at_price | money }}</span></button>
               {% endif %}
               </div>
@@ -200,11 +200,11 @@
               <div id="section---{{section.id}}"style="padding: 20px 0;">	
               {% if product2.title contains '2 Pack' %}
                 <button id="unit1" class="btn-unit"><p class="btn-title-selected">UNIT PACK</p>{{ product3.price | money }}<span style="text-decoration: line-through; font-size: 11px;"> {{ product3.compare_at_price | money }}</span></button>
-                <button id="unit2" class="btn-unit"><p class="btn-title">Pack</p>{{ product2.price | money  }} <span style="text-decoration: line-through; font-size: 11px;"> {{ product2.compare_at_price | money }}</span></button>
+                <button id="unit2" class="btn-unit"><p class="btn-title">2 Pack</p>{{ product2.price | money  }} <span style="text-decoration: line-through; font-size: 11px;"> {{ product2.compare_at_price | money }}</span></button>
                 <button id="unit3" class="btn-unit-1"><p class="btn-title">3 Pack</p>{{ product.price | money  }}<span style="text-decoration: line-through; font-size: 11px;"> {{ product.compare_at_price | money }}</span></button>
               {% else %}
                 <button id="unit1" class="btn-unit"><p class="btn-title-selected">UNIT PACK</p>{{ product2.price | money }}<span style="text-decoration: line-through; font-size: 11px;"> {{ product2.compare_at_price | money }}</span></button>
-                <button id="unit2" class="btn-unit"><p class="btn-title">Pack</p>{{ product3.price | money  }} <span style="text-decoration: line-through; font-size: 11px;"> {{ product3.compare_at_price | money }}</span></button>
+                <button id="unit2" class="btn-unit"><p class="btn-title">2 Pack</p>{{ product3.price | money  }} <span style="text-decoration: line-through; font-size: 11px;"> {{ product3.compare_at_price | money }}</span></button>
                 <button id="unit3" class="btn-unit-1"><p class="btn-title">3 Pack</p>{{ product.price | money  }}<span style="text-decoration: line-through; font-size: 11px;"> {{ product.compare_at_price | money }}</span></button>
               {% endif %}
               </div>
@@ -527,41 +527,57 @@
             {% include 'resta-plex' %}
           </div>
         </div>
-		<div class="card">
-		<div class="card-header" id="headingThree">
-          <div role = "button" data-toggle="collapse" data-target="#collapseThree"><i class="more-less fa fa-plus"></i><strong>INGREDIENTS</strong></div>
-			</div>
-		 <div id="collapseThree" class="content product-single__description rte collapse" aria-labelledby="headingThree" itemprop="description" data-parent="#accordion">
-            {% include 'ingredients' %}
-          </div>
-		  
-        </div>
-          <div class="card">
-		  <div class="card-header" id="headingFour">
-          <div role = "button" data-toggle="collapse" data-target="#collapseFour"><i class="more-less fa fa-plus"></i><strong>STORAGE</strong></div>
-          </div>
-		  <div id="collapseFour" class="content product-single__description rte collapse" aria-labelledby="headingFour" itemprop="description" data-parent="#accordion">
-            {% include 'storage' %}
-          </div>
-       
-		</div>
         <div class="card">
-		<div class="card-header" id="headingFive">
-          <div role = "button" data-toggle="collapse" data-target="#collapseFive"><i class="more-less fa fa-plus"></i><strong>ALLERGEN-FREE</strong></div>
+          <div class="card-header" id="headingThree">
+                <div role = "button" data-toggle="collapse" data-target="#collapseThree"><i class="more-less fa fa-plus"></i><strong>INGREDIENTS</strong></div>
+            </div>
+           <div id="collapseThree" class="content product-single__description rte collapse" aria-labelledby="headingThree" itemprop="description" data-parent="#accordion">
+            {% if product.metafields.tabs.ingredients != blank %}
+              {{ product.metafields.tabs.ingredients }}      
+            {% else %}     
+              {% include 'ingredients' %}
+            {% endif %}
+                </div>
+            
+              </div>
+                <div class="card">
+            <div class="card-header" id="headingFour">
+                <div role = "button" data-toggle="collapse" data-target="#collapseFour"><i class="more-less fa fa-plus"></i><strong>STORAGE</strong></div>
+                </div>
+            <div id="collapseFour" class="content product-single__description rte collapse" aria-labelledby="headingFour" itemprop="description" data-parent="#accordion">
+              {% if product.metafields.tabs.storage != blank %}
+                {{ product.metafields.tabs.storage }}   
+              {% else %}  
+                {% include 'storage' %}
+              {% endif %}  
+                </div>
+             
           </div>
-		  <div id="collapseFive" class="content product-single__description rte collapse" aria-labelledby="headingFive" itemprop="description" data-parent="#accordion">
-            {% include 'allergen-free' %}
+              <div class="card">
+          <div class="card-header" id="headingFive">
+                <div role = "button" data-toggle="collapse" data-target="#collapseFive"><i class="more-less fa fa-plus"></i><strong>ALLERGEN-FREE</strong></div>
+                </div>
+            <div id="collapseFive" class="content product-single__description rte collapse" aria-labelledby="headingFive" itemprop="description" data-parent="#accordion">
+              {% if product.metafields.tabs.allergens != blank %}
+                {{ product.metafields.tabs.allergens }}
+              {% else %}  
+                {% include 'allergen-free' %}
+              {% endif %}    
+                </div>
+              
           </div>
-        
-		</div>
-        <div class="card">
-		<div class="card-header" id="headingSix">
-          <div role = "button" data-toggle="collapse" data-target="#collapseSix" ><i class="more-less fa fa-plus"></i><strong>USAGE</strong></div>
-          </div>
-		  <div id="collapseSix" class="content product-single__description rte collapse" aria-labelledby="headingSix" itemprop="description" data-parent="#accordion">
-            {% include 'usage' %}
-          </div>
-        </div>
+              <div class="card">
+          <div class="card-header" id="headingSix">
+                <div role = "button" data-toggle="collapse" data-target="#collapseSix" ><i class="more-less fa fa-plus"></i><strong>USAGE</strong></div>
+                </div>
+            <div id="collapseSix" class="content product-single__description rte collapse" aria-labelledby="headingSix" itemprop="description" data-parent="#accordion">
+              {% if product.metafields.tabs.usage != blank %}
+                {{ product.metafields.tabs.usage }}  
+              {% else %}
+                {% include 'usage' %}
+              {% endif %}   
+                </div>
+              </div>
 
           {% if section.settings.social_sharing_products %}
             {% include 'social-sharing', share_title: product.title, share_permalink: product.url, share_image: product.featured_media %}
@@ -616,6 +632,27 @@
         });
       });
       </script>    
+      <script>
+        $('#accordion')
+          .on('show.bs.collapse', function(e) {   
+            $(e.target).prev('.card-header').find('i').addClass('fa fa-minus');    
+          })
+          .on('hide.bs.collapse', function(e) {
+           $(e.target).prev('.card-header').find('i').removeClass('fa fa-minus').fadeOut();
+           $(e.target).prev('.card-header').find('i').addClass('fa fa-plus').fadeIn();   
+          });
+        
+    </script>
+    <script>
+      $('#accordion')
+          .on('show.bs.collapse', function(e) {   
+            $(e.target).fadeIn(500);
+            //$(e.target).prev('.content').fadeOut(500);    
+          })
+          .on('hide.bs.collapse', function(e) {
+            $(e.target).fadeOut(500);
+          });  
+    </script>
 </div>
 {% unless product == empty %}
   <script type="application/json" id="ProductJson-{{ section.id }}">

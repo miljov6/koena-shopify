@@ -1,6 +1,7 @@
 <!doctype html>
 <html class="no-js" lang="{{ request.locale.iso_code }}">
 <head>
+  <meta name="facebook-domain-verification" content="54mh8viife8yktsmiypa0hcx16xw4m" />
 
   <!-- Basic page needs ================================================== -->
   <meta charset="utf-8">
@@ -9,8 +10,7 @@
   {% if settings.favicon %}
     <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png" />
   {% endif %}
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+  
   <!-- Title and description ================================================== -->
   <title>
   {{ page_title }}{% if current_tags %}{% assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags }}{% endif %}{% if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
@@ -54,7 +54,7 @@
     };
   </script>
 
-  {{ 'jquery-2.2.3.min.js' | asset_url | script_tag }}
+  <script src={{ 'jquery-2.2.3.min.js' | asset_url }}defer="defer"></script>
   {{ 'flexslider.css' | asset_url | stylesheet_tag }}
   <script src="{{ 'jquery.flexslider-min.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'jquery.flexslider.js' | asset_url }}" defer="defer"></script>
@@ -67,23 +67,16 @@
 		});
 	</script>
 
-  <script src="{{ 'lazysizes.min.js' | asset_url }}" async="async"></script>
-
   <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
 
   
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" defer></script>
   {{ '//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' | stylesheet_tag }}
-  <!--Slick Slider-->
-  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-  <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-  {{ 'tabs.js' | asset_url | script_tag }}		
 
   <!-- Header hook for plugins ================================================== -->
   {{ content_for_header }}
 
-  {{ 'modernizr.min.js' | asset_url | script_tag }}
+  <script src="{{ 'modernizr.min.js' | asset_url}}" defer="defer"></script>
 
   {% comment %}
     If you store has customer accounts disabled, you can remove the following JS file
@@ -160,6 +153,8 @@ gtag('event', 'conversion', {
    'transaction_id': ''
 });
 </script>
+<script src="{{ 'lazysizes.min.js' | asset_url }}" async="async"></script>
+<style>.lazyload,.lazyloading{opacity:0}.lazyloaded{opacity:1;transition:opacity.9s}</style>
 
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -168,6 +163,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-NT2MD99');</script>
 <!-- End Google Tag Manager -->  
+<meta name="msvalidate.01" content="E16A06C3D3CD252E170282356070401C" />
 
 </head>
 
@@ -205,7 +201,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       {% unless request.page_type == "index" %}
       {% if request.page_type == "article" %}
         {% if article.image %}
-          <div style="height: 390px; overflow: hidden; background-image: url({{ article.image | img_url: '1500x1500' }}); background-attachment: fixed; background-size: cover; background-position: center;"></div>
+          <div style="height: 390px; overflow: hidden; background-image: url({{ article.image | img_url: '1500x1500' }}); background-size: cover; background-position: center;"></div>
           <div class="wrapper artc">
         {% endif %}
         {% else %}
@@ -369,5 +365,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <li id="a11y-selection-message">{{ 'general.accessibility.selection_help' | t }}</li>
     <li id="a11y-slideshow-info">{{ 'home_page.slideshow.navigation_instructions' | t }}</li>
   </ul>
+{% include 'adroll' %}
+<script>
+  $("document").ready(function(){
+    if($(window).width()<1200) {
+      $("#nav-men").hide();
+    }
+  });
+  $(window).on("resize", function(){
+    if($(window).width()<1200) {
+      $("#nav-men").hide();
+    }
+  });
+</script>
 </body>
 </html>

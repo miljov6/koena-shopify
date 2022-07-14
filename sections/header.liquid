@@ -166,7 +166,7 @@
                 </div>
               {% endif %}
             </div>
-            <nav class="grid__item medium-down--hide large--three-fifths large--text-left" role="navigation">
+            <nav class="grid__item medium-down--hide large--three-fifths large--text-left" id="nav-men" role="navigation">
               {% comment %}
                 List out your main-menu linklist (default)
 
@@ -336,7 +336,59 @@
               </div>
             </div>
           </div>
-
+<script>
+$(document).ready(function() {
+	if ($('.burger-icon--top').is(":visible") == true) {
+		$('ul.site-nav').css('display', 'none');
+	}
+});
+$(document).resize(function() {
+  if ($('.burger-icon--top').is(":visible") == true) {
+		$('ul.site-nav').css('display', 'none');
+	}
+  else {
+    $('ul.site-nav').css('display', 'block');
+  }
+});
+</script>
+{% if request.page_type == 'index' %}
+<script>
+$(window).scroll(function(){
+  if ($(this).scrollTop() > 50) {
+    $('.site-header').addClass('sticky');
+    $('.site-header__logo-image').css('display', 'block');
+    $('.site-header__logo-image--transparent').css('display', 'none');
+    $('.btn-login').css('color', '#1272ea');
+    $('.btn-login').addClass('btnhover');
+    $('.btn--login').css('border', '1px solid #1272ea');
+    $('.burger-icon').css('background', '#000');
+  }
+  else {
+    $('.site-header').removeClass('sticky');
+    $('.site-header__logo-image').css('display', 'none');
+    $('.site-header__logo-image--transparent').css('display', 'block');
+  }
+});
+</script>
+{% else %}
+<script>
+$(window).scroll(function(){
+  if ($(this).scrollTop() > 50) {
+    $('.site-header').addClass('sticky');
+    $('.site-header__logo-image').css('display', 'block');
+    $('.site-header__logo-image--transparent').css('display', 'none');
+    $('.btn-login').css('color', '#1272ea');
+    $('.btn-login').addClass('btnhover');
+    $('.btn--login').css('border', '1px solid #1272ea');
+    $('.burger-icon').css('background', '#000');
+  }
+  else {
+    $('.site-header').removeClass('sticky');
+  }
+});
+</script>
+{% endif %}
+  
         </div>
       </header>
     </div>

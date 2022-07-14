@@ -42,7 +42,7 @@
 {%- assign featured_image = product.featured_media.preview_image %}
 {%- assign img_url = featured_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
 
-<div class="grid__item grid-product {{ grid_item_width }}{% if sold_out %} is-sold-out{% endif %} grd">
+<div class="grid__item grid-product {{ grid_item_width }}{% if sold_out %} is-sold-out{% endif %} small--one-whole one-third grd">
   <div class="grid-product__wrapper coll-2">
     <div class="grid-product__image-wrapper">
       <a class="grid-product__image-link{% unless featured_image.src == blank %} grid-product__image-link--loading{% endunless %}" href="{{ product.url }}" data-image-link>

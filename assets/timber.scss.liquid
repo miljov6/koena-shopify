@@ -297,7 +297,7 @@ $viewportIncrement: 1px;
 $siteWidth: 1440px;
 $small: 590px;
 $medium: 768px;
-$large: 1223px;
+$large: 1234px;
 $xlarge: $siteWidth + $viewportIncrement;
 
 $postSmall: $small + $viewportIncrement;
@@ -3009,6 +3009,18 @@ $socialIconFontStack: 'icons';
   display: inline-flex;
   flex-flow: row wrap;
   align-items: flex-start;
+  width: 100%;
+
+  &.default-product {
+    margin-top: 20px;
+  }
+}
+
+.product-single__add-to-cart-1 {
+  margin: 0 0 10px 0;
+  display: inline-flex;
+  flex-flow: row wrap;
+  align-items: flex-start;
 
   &.default-product {
     margin-top: 20px;
@@ -3024,12 +3036,13 @@ $socialIconFontStack: 'icons';
 }
 
 .btn--add-to-cart {
-  margin: 10px 10px 0 0;
+  //margin: 10px 10px 0 0;
+  margin: 10px 2px 0 0;
   min-width: 250px;
   flex: auto;
 
   &.btn {
-    padding: 12px 30px;
+    padding: 12px 30px 13px 30px;
   }
 
   .product-single__add-to-cart--full-width & {
@@ -3435,7 +3448,8 @@ shopify-payment-terms {
 }
 
 .shopify-payment-button {
-  margin: 10px 10px 0 0;
+  //margin: 10px 10px 0 0;
+  margin: 10px 2px 0 0;
   min-width: 155px;
   flex: auto;
 
@@ -3506,3 +3520,4 @@ div#shopify-section-16225630309c9843cc {
   display: block;
   margin: 0;
 }
+

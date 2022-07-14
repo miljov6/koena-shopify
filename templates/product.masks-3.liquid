@@ -4,7 +4,7 @@
 {% endcomment %}
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" defer></script>
-{% section 'product-template' %}
+{% section 'masks-3' %}
 {% section 'product-recommendations' %}
 
 {% if collection %}
@@ -27,11 +27,6 @@ data-currency=“{{ shop.currency }}” data-description=“{{ product.descripti
   {%- else %}
     {%- assign yotpo_main_widget_obsolete = true %}
   {%- endif %}
-  <style>
-    .yotpo a{
-    color: #000 !important;
-  }
-  </style>
   {%- if yotpo_offload_content == 'yes' and yotpo_main_widget_obsolete != true -%}
     {%- for field in product.metafields.yotpo_reviews -%}
       {{ field | last }}

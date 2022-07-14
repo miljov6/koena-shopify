@@ -1,0 +1,747 @@
+<style>
+    input{
+      position:absolute;
+      opacity:0;
+      z-index:-1;
+    }
+
+    label {
+      color: #0f72ea;
+      font-style: normal;
+      font-size: 0.9rem;
+    }
+
+    .dzx-accordion{
+      width:80%;
+      margin:0 auto;
+    }
+    .dzx-accordion h1{
+      text-align:left;
+    }
+    .dzx-postTitle{
+      font-size:1em;
+      text-align: left;
+    }
+    .row{
+      display:flex;
+    }
+    .row .col{
+      flex:1;
+    }
+    /* Accordion styles */
+    .tabs{
+      border-radius:8px;
+      overflow:hidden;
+      margin-top: 3rem;
+    }
+    .tab{
+      width:100%;
+      color:white;
+      overflow:hidden;
+    }
+    .tab-label{
+      display:flex;
+      padding:1em;
+      cursor:pointer;
+      margin-bottom:0;
+      font-weight:bold;
+      background:#ffffff;
+      justify-content:space-between;
+      /* Icon */
+    }
+    .tab-label:hover {
+      background:#0f72ea;
+      color: #ffffff;
+    }
+    .tab-label::after {
+      content:"\276F";
+      width:1em;
+      height:1em;
+      text-align:center;
+      transition:all 0.35s;
+      font-size: 1.6rem;
+    }
+    .tab-content {
+      max-height:0;
+      padding:0 1em;
+      color:#2c3e50;
+      background:white;
+      transition:all 0.35s;
+        text-align: left;
+    }
+    .tab-close {
+      display:none;
+      cursor:pointer;
+      padding:1em;
+      font-size:0.75em;
+      background:#ffffff;
+      justify-content:flex-end;
+    }
+    .tab-close:hover {
+      background:#0f72ea;
+      color: #ffffff;
+    }
+    
+    input:checked + .tab-label {
+      background:#0f72ea;
+      color: #ffffff;
+    }
+    input:checked + .tab-label::after {
+      -webkit-transform:rotate(90deg);
+              transform:rotate(90deg);
+    }
+    input:checked ~ .tab-content {
+      max-height:100vh;
+      padding:1em;
+    }	
+      
+    .text-left {
+      text-align: left;
+    }
+      
+    </style>
+    <div class="page-width">
+    <div class="grid text-left">
+    <div class="grid__item medium-up--four-fifths medium-up--push-one-tenth">
+    <div class="section-header text-center">  
+    <h1 class="section-header__title h2 page-h1">{{ section.settings.page-title }}</h1>
+      </div>
+      <span class="dzx-postTitle">{{ section.settings.page-text }}</span>
+    <div class="row">
+      <div class="col">
+        <div class="tabs">
+            {% if section.settings.faq-title-1 != blank %}
+            <div class="tab">
+                <input type="radio" id="rd1" name="rd">
+                <label class="tab-label" for="rd1">{{ section.settings.faq-title-1 }}</label>
+                <div class="tab-content">
+                    {{ section.settings.faq-text-1 }}
+                </div>
+                 </div>
+                 {% endif %}
+                 {% if section.settings.faq-title-2 != blank %}
+<div class="tab">
+                <input type="radio" id="rd2" name="rd">
+                <label class="tab-label" for="rd2">{{ section.settings.faq-title-2 }}</label>
+                <div class="tab-content">
+                    {{ section.settings.faq-text-2 }}
+                </div>
+                 </div>
+{% endif %}				 
+{% if section.settings.faq-title-3 != blank %}				 
+<div class="tab">
+                <input type="radio" id="rd3" name="rd">
+                <label class="tab-label" for="rd3">{{ section.settings.faq-title-3 }}</label>
+                <div class="tab-content">
+                    {{ section.settings.faq-text-3 }}
+                </div>
+                 </div>
+{% endif %}				 
+{% if section.settings.faq-title-4 != blank %}						 
+<div class="tab">
+                <input type="radio" id="rd4" name="rd">
+                <label class="tab-label" for="rd4">{{ section.settings.faq-title-4 }}</label>
+                <div class="tab-content">
+                    {{ section.settings.faq-text-4 }}
+                </div>
+                 </div>			
+{% endif %}				 
+{% if section.settings.faq-title-5 != blank %}						 
+<div class="tab">
+                <input type="radio" id="rd5" name="rd">
+                <label class="tab-label" for="rd5">{{ section.settings.faq-title-5 }}</label>
+                <div class="tab-content">
+                    {{ section.settings.faq-text-5 }}
+                </div>
+                 </div>				 
+{% endif %}				 
+{% if section.settings.faq-title-6 != blank %}						 
+<div class="tab">
+                <input type="radio" id="rd6" name="rd">
+                <label class="tab-label" for="rd6">{{ section.settings.faq-title-6 }}</label>
+                <div class="tab-content">
+                    {{ section.settings.faq-text-6 }}
+                </div>
+                 </div>				 
+{% endif %}			
+{% if section.settings.faq-title-7 != blank %}
+                
+            <div class="tab">
+                <input type="radio" id="rd7" name="rd">
+                <label class="tab-label" for="rd7">{{ section.settings.faq-title-7 }}</label>
+                <div class="tab-content">
+                    {{ section.settings.faq-text-7 }}
+                </div>
+                 </div>
+                 {% endif %}
+{% if section.settings.faq-title-8 != blank %}
+                
+            <div class="tab">
+                <input type="radio" id="rd8" name="rd">
+                <label class="tab-label" for="rd8">{{ section.settings.faq-title-8 }}</label>
+                <div class="tab-content">
+                    {{ section.settings.faq-text-8 }}
+                </div>
+                 </div>
+                 {% endif %}
+{% if section.settings.faq-title-9 != blank %}
+                
+            <div class="tab">
+                <input type="radio" id="rd9" name="rd">
+                <label class="tab-label" for="rd9">{{ section.settings.faq-title-9 }}</label>
+                <div class="tab-content">
+                    {{ section.settings.faq-text-9 }}
+                </div>
+                 </div>
+                 {% endif %}				
+{% if section.settings.faq-title-10 != blank %}
+                
+            <div class="tab">
+                <input type="radio" id="rd10" name="rd">
+                <label class="tab-label" for="rd10">{{ section.settings.faq-title-10 }}</label>
+                <div class="tab-content">
+                    {{ section.settings.faq-text-10 }}
+                </div>
+                 </div>
+                 {% endif %}	
+                 {% if section.settings.faq-title-11 != blank %}
+                
+            <div class="tab">
+                <input type="radio" id="rd11" name="rd">
+                <label class="tab-label" for="rd11">{{ section.settings.faq-title-11 }}</label>
+                <div class="tab-content">
+                    {{ section.settings.faq-text-11 }}
+                </div>
+                 </div>
+                 {% endif %}				 
+{% if section.settings.faq-title-12 != blank %}
+                
+            <div class="tab">
+                <input type="radio" id="rd12" name="rd">
+                <label class="tab-label" for="rd12">{{ section.settings.faq-title-12 }}</label>
+                <div class="tab-content">
+                    {{ section.settings.faq-text-12 }}
+                </div>
+                 </div>
+                 {% endif %}				 				 
+{% if section.settings.faq-title-13 != blank %}
+                
+            <div class="tab">
+                <input type="radio" id="rd13" name="rd">
+                <label class="tab-label" for="rd13">{{ section.settings.faq-title-13 }}</label>
+                <div class="tab-content">
+                    {{ section.settings.faq-text-13 }}
+                </div>
+                 </div>
+                 {% endif %}				 				 
+{% if section.settings.faq-title-14 != blank %}
+                
+            <div class="tab">
+                <input type="radio" id="rd14" name="rd">
+                <label class="tab-label" for="rd14">{{ section.settings.faq-title-14 }}</label>
+                <div class="tab-content">
+                    {{ section.settings.faq-text-14 }}
+                </div>
+                 </div>
+                 {% endif %}				 	
+{% if section.settings.faq-title-15 != blank %}
+                
+            <div class="tab">
+                <input type="radio" id="rd15" name="rd">
+                <label class="tab-label" for="rd15">{{ section.settings.faq-title-15 }}</label>
+                <div class="tab-content">
+                    {{ section.settings.faq-text-15 }}
+                </div>
+                 </div>
+                 {% endif %}			
+{% if section.settings.faq-title-16 != blank %}
+                
+            <div class="tab">
+                <input type="radio" id="rd16" name="rd">
+                <label class="tab-label" for="rd16">{{ section.settings.faq-title-16 }}</label>
+                <div class="tab-content">
+                    {{ section.settings.faq-text-16 }}
+                </div>
+                 </div>
+                 {% endif %}				
+{% if section.settings.faq-title-17 != blank %}
+                
+            <div class="tab">
+                <input type="radio" id="rd17" name="rd">
+                <label class="tab-label" for="rd17">{{ section.settings.faq-title-17 }}</label>
+                <div class="tab-content">
+                    {{ section.settings.faq-text-17 }}
+                </div>
+                 </div>
+                 {% endif %}				   		
+{% if section.settings.faq-title-18 != blank %}
+                
+            <div class="tab">
+                <input type="radio" id="rd18" name="rd">
+                <label class="tab-label" for="rd18">{{ section.settings.faq-title-18 }}</label>
+                <div class="tab-content">
+                    {{ section.settings.faq-text-18 }}
+                </div>
+                 </div>
+                 {% endif %}				 
+{% if section.settings.faq-title-19 != blank %}
+                
+            <div class="tab">
+                <input type="radio" id="rd19" name="rd">
+                <label class="tab-label" for="rd19">{{ section.settings.faq-title-19 }}</label>
+                <div class="tab-content">
+                    {{ section.settings.faq-text-19 }}
+                </div>
+                 </div>
+                 {% endif %}				 
+{% if section.settings.faq-title-20 != blank %}
+                
+            <div class="tab">
+                <input type="radio" id="rd20" name="rd">
+                <label class="tab-label" for="rd20">{{ section.settings.faq-title-20 }}</label>
+                <div class="tab-content">
+                    {{ section.settings.faq-text-20 }}
+                </div>
+                 </div>
+                 {% endif %}				 
+{% if section.settings.faq-title-21 != blank %}
+                
+            <div class="tab">
+                <input type="radio" id="rd21" name="rd">
+                <label class="tab-label" for="rd21">{{ section.settings.faq-title-21 }}</label>
+                <div class="tab-content">
+                    {{ section.settings.faq-text-21 }}
+                </div>
+                 </div>
+                 {% endif %}				 
+{% if section.settings.faq-title-22 != blank %}
+                
+            <div class="tab">
+                <input type="radio" id="rd22" name="rd">
+                <label class="tab-label" for="rd22">{{ section.settings.faq-title-22 }}</label>
+                <div class="tab-content">
+                    {{ section.settings.faq-text-22 }}
+                </div>
+                 </div>
+                 {% endif %}		
+{% if section.settings.faq-title-23 != blank %}
+                
+            <div class="tab">
+                <input type="radio" id="rd23" name="rd">
+                <label class="tab-label" for="rd23">{{ section.settings.faq-title-23 }}</label>
+                <div class="tab-content">
+                    {{ section.settings.faq-text-23 }}
+                </div>
+                 </div>
+                 {% endif %}				
+{% if section.settings.faq-title-24 != blank %}
+                
+            <div class="tab">
+                <input type="radio" id="rd24" name="rd">
+                <label class="tab-label" for="rd24">{{ section.settings.faq-title-24 }}</label>
+                <div class="tab-content">
+                    {{ section.settings.faq-text-24 }}
+                </div>
+                 </div>
+                 {% endif %}				 
+{% if section.settings.faq-title-25 != blank %}
+                
+            <div class="tab">
+                <input type="radio" id="rd25" name="rd">
+                <label class="tab-label" for="rd25">{{ section.settings.faq-title-25 }}</label>
+                <div class="tab-content">
+                    {{ section.settings.faq-text-25 }}
+                </div>
+                 </div>
+                 {% endif %}				  				 			 
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+      </div>
+    </div>
+
+{% schema %}
+{
+    "name": {
+        "en": "FAQ Text"
+    },
+    "class": "index-section rich-text-section",
+    "settings": [
+        {
+        "type": "richtext",
+        "id": "page-title",
+        "label": {
+          "en": "Page Title"
+        }
+      },
+      {
+        "type": "richtext",
+        "id": "page-text",
+        "label": {
+          "en": "Page text"
+        }
+      },
+        {
+          "type": "text",
+          "id": "faq-title-1",
+          "label": {
+            "en": "FAQ Question 1"
+          }
+        },
+        {
+          "type": "richtext",
+          "id": "faq-text-1",
+          "label": {
+            "en": "FAQ Answer"
+          }
+        },
+        {
+            "type": "text",
+            "id": "faq-title-2",
+            "label": {
+              "en": "FAQ Question 2"
+            }
+          },
+          {
+            "type": "richtext",
+            "id": "faq-text-2",
+            "label": {
+              "en": "FAQ Answer"
+            }
+          },
+          {
+            "type": "text",
+            "id": "faq-title-3",
+            "label": {
+              "en": "FAQ Question 3"
+            }
+          },
+          {
+            "type": "richtext",
+            "id": "faq-text-3",
+            "label": {
+              "en": "FAQ Answer 3"
+            }
+          },
+  {
+            "type": "text",
+            "id": "faq-title-4",
+            "label": {
+              "en": "FAQ Question 4"
+            }
+          },
+          {
+            "type": "richtext",
+            "id": "faq-text-4",
+            "label": {
+              "en": "FAQ Answer 4"
+            }
+          },		
+  {
+            "type": "text",
+            "id": "faq-title-5",
+            "label": {
+              "en": "FAQ Question 5"
+            }
+          },
+          {
+            "type": "richtext",
+            "id": "faq-text-5",
+            "label": {
+              "en": "FAQ Answer 5"
+            }
+          },		
+  {
+            "type": "text",
+            "id": "faq-title-6",
+            "label": {
+              "en": "FAQ Question 6"
+            }
+          },
+          {
+            "type": "richtext",
+            "id": "faq-text-6",
+            "label": {
+              "en": "FAQ Answer 6"
+            }
+          },		
+  {
+            "type": "text",
+            "id": "faq-title-7",
+            "label": {
+              "en": "FAQ Question 7"
+            }
+          },
+          {
+            "type": "richtext",
+            "id": "faq-text-7",
+            "label": {
+              "en": "FAQ Answer 7"
+            }
+          },		
+          {
+            "type": "text",
+            "id": "faq-title-8",
+            "label": {
+              "en": "FAQ Question 8"
+            }
+          },
+          {
+            "type": "richtext",
+            "id": "faq-text-8",
+            "label": {
+              "en": "FAQ Answer 8"
+            }
+          },{
+            "type": "text",
+            "id": "faq-title-9",
+            "label": {
+              "en": "FAQ Question 9"
+            }
+          },
+          {
+            "type": "richtext",
+            "id": "faq-text-9",
+            "label": {
+              "en": "FAQ Answer 9"
+            }
+          },		
+  {
+            "type": "text",
+            "id": "faq-title-10",
+            "label": {
+              "en": "FAQ Question 10"
+            }
+          },
+          {
+            "type": "richtext",
+            "id": "faq-text-10",
+            "label": {
+              "en": "FAQ Answer 10"
+            }
+          },				
+      {
+            "type": "text",
+            "id": "faq-title-11",
+            "label": {
+              "en": "FAQ Question 11"
+            }
+          },
+          {
+            "type": "richtext",
+            "id": "faq-text-11",
+            "label": {
+              "en": "FAQ Answer 11"
+            }
+          },
+          {
+            "type": "text",
+            "id": "faq-title-12",
+            "label": {
+              "en": "FAQ Question 12"
+            }
+          },
+          {
+            "type": "html",
+            "id": "faq-text-12",
+            "label": {
+              "en": "FAQ Answer 12"
+            }
+          },	
+      {	
+            "type": "text",
+            "id": "faq-title-13",
+            "label": {
+              "en": "FAQ Question 13"
+            }
+          },
+          {
+            "type": "richtext",
+            "id": "faq-text-13",
+            "label": {
+              "en": "FAQ Answer 13"
+            }
+          },	
+  {	
+            "type": "text",
+            "id": "faq-title-14",
+            "label": {
+              "en": "FAQ Question 14"
+            }
+          },
+          {
+            "type": "richtext",
+            "id": "faq-text-14",
+            "label": {
+              "en": "FAQ Answer 14"
+            }
+          },			
+  {	
+            "type": "text",
+            "id": "faq-title-15",
+            "label": {
+              "en": "FAQ Question 15"
+            }
+          },
+          {
+            "type": "richtext",
+            "id": "faq-text-15",
+            "label": {
+              "en": "FAQ Answer 15"
+            }
+          },								
+  {	
+            "type": "text",
+            "id": "faq-title-16",
+            "label": {
+              "en": "FAQ Question 16"
+            }
+          },
+          {
+            "type": "richtext",
+            "id": "faq-text-16",
+            "label": {
+              "en": "FAQ Answer 16"
+            }
+          },
+  {	
+            "type": "text",
+            "id": "faq-title-17",
+            "label": {
+              "en": "FAQ Question 17"
+            }
+          },
+          {
+            "type": "richtext",
+            "id": "faq-text-17",
+            "label": {
+              "en": "FAQ Answer 17"
+            }
+          },	
+  {	
+            "type": "text",
+            "id": "faq-title-18",
+            "label": {
+              "en": "FAQ Question 18"
+            }
+          },
+          {
+            "type": "richtext",
+            "id": "faq-text-18",
+            "label": {
+              "en": "FAQ Answer 18"
+            }
+          },		
+  {	
+            "type": "text",
+            "id": "faq-title-19",
+            "label": {
+              "en": "FAQ Question 19"
+            }
+          },
+          {
+            "type": "richtext",
+            "id": "faq-text-19",
+            "label": {
+              "en": "FAQ Answer 19"
+            }
+          },				
+  {	
+            "type": "text",
+            "id": "faq-title-20",
+            "label": {
+              "en": "FAQ Question 20"
+            }
+          },
+          {
+            "type": "richtext",
+            "id": "faq-text-20",
+            "label": {
+              "en": "FAQ Answer 20"
+            }
+          },		
+  {	
+            "type": "text",
+            "id": "faq-title-21",
+            "label": {
+              "en": "FAQ Question 21"
+            }
+          },
+          {
+            "type": "richtext",
+            "id": "faq-text-21",
+            "label": {
+              "en": "FAQ Answer 21"
+            }
+          },			
+  {	
+            "type": "text",
+            "id": "faq-title-22",
+            "label": {
+              "en": "FAQ Question 22"
+            }
+          },
+          {
+            "type": "richtext",
+            "id": "faq-text-22",
+            "label": {
+              "en": "FAQ Answer 22"
+            }
+          },			
+  {	
+            "type": "text",
+            "id": "faq-title-23",
+            "label": {
+              "en": "FAQ Question 23"
+            }
+          },
+          {
+            "type": "richtext",
+            "id": "faq-text-23",
+            "label": {
+              "en": "FAQ Answer 23"
+            }
+          },				
+  {	
+            "type": "text",
+            "id": "faq-title-24",
+            "label": {
+              "en": "FAQ Question 24"
+            }
+          },
+          {
+            "type": "richtext",
+            "id": "faq-text-24",
+            "label": {
+              "en": "FAQ Answer 24"
+            }
+          },						
+  {	
+            "type": "text",
+            "id": "faq-title-25",
+            "label": {
+              "en": "FAQ Question 25"
+            }
+          },
+          {
+            "type": "richtext",
+            "id": "faq-text-25",
+            "label": {
+              "en": "FAQ Answer 25"
+            }
+          }											
+      ],
+      "presets": [
+        {
+          "name": {
+            "en": "FAQ"
+          },
+          "category": {
+            "en": "Text"
+          }
+        }
+      ]
+    }
+    {% endschema %}    

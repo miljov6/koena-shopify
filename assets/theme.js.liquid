@@ -4324,10 +4324,10 @@ theme.fitNav = function() {
     theme.cache.$siteNav.find('> li').each(function() {
       var $el = $(this);
       // Round up to be safe
-      navItemWidth += 1.1*Math.ceil($(this).width());
+      navItemWidth += Math.ceil($(this).width());
     });
 //MJ Comment added .hide() on line 4331!!! Also, changed from navWidth to navWidth/1.5
-    if (navItemWidth > navWidth/1.304) {
+    if (navItemWidth > navWidth*0.76) {
       theme.cache.$siteNav.addClass('site-nav--compress').hide();
       theme.cache.$siteNav.parent().removeClass('large--two-thirds').addClass('large--one-sixth');
       theme.cache.$siteNavOpen.addClass('site-nav--open__display');
@@ -4336,7 +4336,7 @@ theme.fitNav = function() {
       theme.cache.$logoWrapper.removeClass('large--left').addClass('text-center');
       theme.cache.$searchBox.hide();
     } else {
-      theme.cache.$siteNav.removeClass('site-nav--compress');
+      theme.cache.$siteNav.removeClass('site-nav--init');
       theme.cache.$siteNavOpen.removeClass('site-nav--open__display');
       theme.cache.$siteNavOpen.parent().addClass('large--hide');
       theme.cache.$searchBox.show();
@@ -4346,6 +4346,8 @@ theme.fitNav = function() {
     theme.cache.$siteNavOpen.addClass('site-nav--init');
   }
 };
+
+
 
 theme.resizeLogo = function() {
   // Using .each() as there can be a reversed logo too
@@ -4591,22 +4593,6 @@ $('.qtybox .btnqty').on('click', function(){
 $('.cart__product-qty').on("input", function() {
     $( ".update-cart" ).trigger( "click" );
 });
-
-$(window).scroll(function(){
-  if ($(this).scrollTop() > 50) {
-  $('.site-header').addClass('sticky');
-  $('.site-header__logo-image').css('display', 'block');
-  $('.site-header__logo-image--transparent').css('display', 'none');
-  $('.btn-login').css('color', '#1272ea');
-  $('.btn-login').addClass('btnhover');
-  $('.btn--login').css('border', '1px solid #1272ea');
-  $('.burger-icon').css('background', '#000');
-  }
-  else {
-$('.site-header').removeClass('sticky');
-  }
-});
-
 var classes$6 = {
   cardListSubLoaded: 'card-list__sub-actions--loaded',
   cardReveal: 'card--reveal',

@@ -86,7 +86,7 @@
         {% when 4 %}
           {% assign footer_column_width = 'large--one-quarter medium--one-half' %}
         {% when 5 %}
-          {% assign footer_column_width = 'large--one-fifth medium--one-half one-quarter' %}
+          {% assign footer_column_width = 'large--one-quarter medium--one-half one-quarter' %}
         {% when 6 %}
           {% assign footer_column_width = 'large--one-sixth medium--one-half' %}  
       {% endcase %}
@@ -344,8 +344,7 @@
       {%- endif -%}
     </div>
     <div class="grid__item large--four-fifths medium--one-half large--text-right">
-      <a href="{{ section.settings.privacy_policy}}" class = "footer-links">Privacy Policy</a>
-      <a href="{{ section.settings.tos}}" class = "footer-links">Terms of Use</a>
+     
     </div></div>
   </div>
 </footer>
@@ -698,16 +697,6 @@
         "zh-CN": "菜单",
         "zh-TW": "選單"
       }
-    },
-    {
-      "id": "privacy_policy",
-      "type": "url",
-      "label": "Privacy Policy Page Url"
-    },
-    {
-      "id": "tos",
-      "type": "url",
-      "label": "Terms Of Use Page Url"
     },
     {
       "type": "link_list",
